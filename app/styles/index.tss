@@ -1,0 +1,9 @@
+'#searchMenu': {
+
+	// Use an standard Android drawable
+	icon: Ti.Android.R.drawable.ic_menu_search,
+
+	// Always show the menu item in the ActionBar
+	// The ActionView can (and will be by default) collapsed (hidden) until you tap the icon
+	showAsAction: Ti.Android.SHOW_AS_ACTION_ALWAYS | Ti.Android.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW
+}

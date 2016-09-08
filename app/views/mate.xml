@@ -1,0 +1,26 @@
+<Alloy>
+	<Model src="mates" instance="true" id="mMate" />
+
+	<Window id="window" title="L('mate_add_mate')">
+
+		<RightNavButtons platform="ios">
+			<Button title="L('app_done')" onClick="onDone" />
+		</RightNavButtons>
+
+		<Menu platform="android">
+			<MenuItem title="L('app_done')" onClick="onDone" showAsAction="Ti.Android.SHOW_AS_ACTION_ALWAYS" />
+		</Menu>
+
+		<View id="mate_container" class="appCanvas appHalfWidth">
+			<Label class="mateIntro" text="L('mate_tell_us_about_your_mate')" />
+			<View class="appVSpacer" />
+			<TextField class="mateName" value="{$.mMate.name}" hintText="L('shout_wiz_mates_name')" returnKeyType="Titanium.UI.RETURNKEY_NEXT" onChange="onChangeName" />
+			<TextField class="matePoison" value="{$.mMate.poison}" hintText="L('shout_wiz_mates_poison')" returnKeyType="Titanium.UI.RETURNKEY_NEXT" onChange="onChangePoison" />
+			<TextField class="matePrice" value="{$.mMate.price}" hintText="L('shout_wiz_mates_price')" returnKeyType="Titanium.UI.RETURNKEY_DONE" onChange="onChangePrice" onReturn="onDone" />
+			<View class="appCompositeView">
+				<Button id="deleteButton" visible="false" class="appDestructiveButton bottomButton" onClick="onDeleteButtonClick" title="L('mate_remove_mate')" />
+			</View>
+		</View>
+
+	</Window>
+</Alloy>

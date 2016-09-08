@@ -1,0 +1,43 @@
+'#mate_container': {
+		/*borderColor: 'pink',*/
+}
+
+'.mateIntro': {
+	top: 40,
+	font: {
+		fontSize: 14,
+    	fontFamily: 'OpenSans-Light'
+	}
+}
+
+'.mateName': {
+	width: Titanium.UI.FILL,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: 16,
+    	fontFamily: 'OpenSans-Bold',
+	},
+}
+
+'.matePoison': {
+	width: Titanium.UI.FILL,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: 10,
+    	fontFamily: 'OpenSans-Light',
+	},
+}
+
+'.matePrice': {
+	width: Titanium.UI.FILL,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: 16,
+    	fontFamily: 'OpenSans-BoldItalic',
+	},
+  keyboardType: Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD,
+}
+
+'.bottomButton': {
+	bottom: 40,
+}

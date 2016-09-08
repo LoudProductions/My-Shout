@@ -1,0 +1,98 @@
+'Label[platform=android]': {
+	color: Alloy.CFG.colors.textColor, // All platforms except Android default to black, correcting that here
+}
+
+'Window': {
+	backgroundColor: Alloy.CFG.colors.backgroundColor, // White background instead of default transparent
+}
+
+// On iOS7+ the window starts behind the statusBar, allowing us to set the backgroundColor here
+'Window[platform=ios]': {
+	tintColor: Alloy.CFG.colors.tintColor,
+}
+
+'PickerRow': {
+	color: Alloy.CFG.colors.tintColor,
+}
+
+'TextField': {
+	color: Alloy.CFG.colors.tintColor,
+	hintTextColor: Alloy.CFG.colors.brandHintColor,
+}
+
+'.appCanvas': {
+	layout: 'vertical',
+}
+
+'.appCanvas[platform=ios]': {
+	// On iOS7+ we'll set this global to 20 in alloy.js to move the actual content under the statusBar
+	top: Alloy.Globals.canvasTop,
+
+	// Make our canvas white, leaving only the statusBar red
+	backgroundColor: Alloy.CFG.colors.backgroundColor,
+}
+
+'.appTransparent': {
+	opacity: 0,
+}
+
+'.appListItemRightIcon1': {
+	right: 5,
+}
+
+'.appListItemRightIcon2': {
+	right: 50,
+}
+
+'.appListItemRightIcon3': {
+	right: 95,
+}
+
+'.appCompositeView': {
+	layout: 'composite',
+	width: Ti.UI.FILL,
+	height: Ti.UI.FILL,
+}
+
+'.appHalfWidth': {
+	width: '50%'
+}
+
+'.appHalfHeight': {
+	height: '50%'
+}
+
+'.appTitle': {
+	top: 40,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'OpenSans-Bold'
+	}
+}
+
+'.appSubtitle': {
+	font: {
+		fontSize: 14,
+    	fontFamily: 'OpenSans-Light'
+	}
+}
+
+'.appVSpacer': {
+	height: 40
+}
+
+'.appHSpacer': {
+	width: 40
+}
+
+'.appWideButton': {
+	width: 200,
+	color: Alloy.CFG.colors.backgroundColor,
+	backgroundColor: Alloy.CFG.colors.tintColor,
+}
+
+'.appDestructiveButton': {
+	width: 200,
+	color: Alloy.CFG.colors.backgroundColor,
+	backgroundColor: Alloy.CFG.colors.negativeColor,
+}

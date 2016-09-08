@@ -1,0 +1,112 @@
+'.wizWelcome': {
+	layout: 'vertical'
+}
+
+'.wizTitle': {
+	top: 40,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'OpenSans-Bold'
+	}
+}
+
+'.wizSubtitle': {
+	font: {
+		fontSize: 14,
+    	fontFamily: 'OpenSans-Light'
+	}
+}
+
+'.wizInput': {
+	top: 40
+}
+
+'.wizInput2': {
+	top: 10
+}
+
+'.priceInput': {
+	keyboardType: Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD,
+	maxLength: 4
+}
+
+'.wizButton': {
+	top: 20
+}
+
+'.matesList': {
+	top: 40
+}
+
+'.matesListItem': {
+	height: 40,
+	// left: 10,
+	// right: 10,
+	layout: 'horizontal',
+	horizontalWrap: false
+}
+
+'.matesListItemLeft': {
+	// borderColor: 'red',
+	// borderWidth: 1,
+	width: '50%',
+	layout: 'vertical',
+}
+
+'.matesListItemLeft[platform=ios]': {
+	left: 0
+}
+
+'.matesListItemSpacer': {
+	// borderColor: 'blue',
+	// borderWidth: 1,
+	width: 40
+}
+
+'.matesListItemRight': {
+	// borderColor: 'green',
+	// borderWidth: 1,
+	width: '50%',
+	layout: 'vertical'
+}
+
+'.matesListItemRight[platform=ios]': {
+	right: 0
+}
+
+'.listItemTitle': {
+	width: Titanium.UI.FILL,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 16,
+    	fontFamily: 'OpenSans-Bold'
+	}
+}
+
+'.listItemSubtitle': {
+	width: Titanium.UI.FILL,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 10,
+    	fontFamily: 'OpenSans-Light'
+	}
+}
+
+'.listItemPrice': {
+	width: Titanium.UI.FILL,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'OpenSans-BoldItalic'
+	}
+}
+
+'.listItemHasShout': {
+	width: Titanium.UI.FILL,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'FontAwesome'
+	},
+	color: Alloy.CFG.colors.tintColor
+}

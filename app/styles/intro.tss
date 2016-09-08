@@ -1,0 +1,35 @@
+'.myShoutCirc1': {
+	top: '15%',
+	width: 250,
+	height: 250,
+	borderRadius: 125,
+	backgroundColor: Alloy.CFG.colors.tintColor,
+	borderWidth: 0
+}
+
+'.myShoutCirc2': {
+	width: 240,
+	height: 240,
+	borderRadius: 120,
+	backgroundColor: Alloy.CFG.colors.tintColor,
+	borderColor: Alloy.CFG.colors.backgroundColor,
+	borderWidth: 5
+}
+
+'.myShoutIcon': {
+	font: {
+		fontSize: 100,
+    	fontFamily: 'FontAwesome'
+	},
+	color: Alloy.CFG.colors.backgroundColor,
+	text: Alloy.Globals.fa_icons.bullhorn
+}
+
+'.myShoutWho': {
+	top: 160,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'OpenSans-Bold'
+	},
+	color: Alloy.CFG.colors.backgroundColor
+}

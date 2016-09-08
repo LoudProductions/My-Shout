@@ -1,0 +1,27 @@
+{
+	"global": {
+		"logging": {
+			"mustShowCallingContext": true,
+			"mustShowDate": true
+		},
+		"colors": {
+			"textColor": "#000",
+			"backgroundColor": "#fff",
+			"tintColor": "#cd1625",
+			"brandHintColor": "#80cd1625",
+			"inactiveColor": "#b3b3b3",
+			"inactiveBackgroundColor": "#80b3b3b3",
+			"negativeColor": "#ff0000"
+		},
+		"minVersion": "1.8.5"
+	},
+	"env:development": {},
+	"env:test": {},
+	"env:production": {},
+	"os:android": {},
+	"os:ios": {},
+	"os:mobileweb": {},
+	"os:windows": {},
+	"dependencies": {},
+    "backbone": "1.1.2"
+}

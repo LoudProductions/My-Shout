@@ -1,0 +1,214 @@
+'Window[platform=android]': {
+	// must use SOFT_INPUT_ADJUST_PAN to support TextField inside ListView
+	windowSoftInputMode: Ti.UI.Android.SOFT_INPUT_ADJUST_PAN,
+}
+
+'.favShoutCirc1': {
+	top: '15%',
+	width: 250,
+	height: 250,
+	borderRadius: 125,
+	backgroundColor: Alloy.CFG.colors.tintColor,
+	borderWidth: 0,
+}
+
+'.favShoutCirc2': {
+	width: 240,
+	height: 240,
+	borderRadius: 120,
+	backgroundColor: Alloy.CFG.colors.tintColor,
+	borderColor: Alloy.CFG.colors.backgroundColor,
+	borderWidth: 5,
+}
+
+'.favShoutIcon': {
+	font: {
+		fontSize: 100,
+    	fontFamily: 'FontAwesome',
+	},
+	color: Alloy.CFG.colors.backgroundColor,
+	text: Alloy.Globals.fa_icons.bullhorn,
+}
+
+'.favShoutWho': {
+	top: 160,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'OpenSans-Bold',
+	},
+	color: Alloy.CFG.colors.backgroundColor,
+}
+
+'.favShoutWhere': {
+	top: 185,
+	font: {
+		fontSize: 10,
+    	fontFamily: 'OpenSans-Light',
+	},
+	color: Alloy.CFG.colors.backgroundColor,
+}
+
+'.shoutsList': {
+	/*top: '20%',*/
+}
+
+'.favShoutsListItem': {
+	height: 350,
+	layout: 'vertical',
+}
+
+'.otherShoutsListItem': {
+	height: 40,
+	left: 5,
+	layout: 'vertical',
+}
+
+'.matesListItem': {
+	height: 50,
+	layout: 'horizontal',
+	horizontalWrap: false,
+}
+
+'.matesListItemLeft': {
+	/*borderColor: 'red',*/
+	left: 5,
+	width: '50%',
+	layout: 'vertical',
+}
+
+'.matesListItemSpacer': {
+	/*borderColor: 'blue',*/
+	width: 40,
+}
+
+'.matesListItemRight': {
+	/*borderColor: 'green',*/
+	right: 5,
+	width: '50%',
+	layout: 'vertical',
+}
+
+'.matesPoisonCirc': {
+	width: 66,
+	height: 66,
+	borderRadius: 33,
+	borderColor: Alloy.CFG.colors.textColor,
+	borderWidth: 3,
+}
+
+'.listItemTitle': {
+	width: Titanium.UI.FILL,
+	height: Titanium.UI.FILL,
+	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	font: {
+		fontSize: 16,
+    	fontFamily: 'OpenSans-Bold',
+	},
+}
+
+'.listItemSubtitle': {
+	width: Titanium.UI.FILL,
+	height: Titanium.UI.FILL,
+	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_TOP,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	font: {
+		fontSize: 10,
+    	fontFamily: 'OpenSans-Light',
+	},
+}
+
+'.listItemPrice': {
+	top: 15,
+	width: Titanium.UI.FILL,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: 16,
+    	fontFamily: 'OpenSans-BoldItalic',
+	},
+}
+
+'.listItemPoison': {
+	bottom: 15,
+	width: Titanium.UI.FILL,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: 10,
+    	fontFamily: 'OpenSans-Light',
+	},
+}
+
+'.listItemPriceEdit': {
+	top: 5,
+	height: 30,
+	width: Titanium.UI.FILL,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: 16,
+    	fontFamily: 'OpenSans-BoldItalic',
+	},
+}
+
+'.listItemPoisonEdit': {
+	top: 40,
+	height: 30,
+	width: Titanium.UI.FILL,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: 10,
+    	fontFamily: 'OpenSans-Light',
+	},
+}
+
+'.listItemSwitch': {
+}
+
+'.listItemDisclosureIcon': {
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'FontAwesome',
+	},
+	color: Alloy.CFG.colors.inactive,
+	text: Alloy.Globals.fa_icons.angle_right,
+}
+
+'.listItemEllipsisIcon': {
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'FontAwesome',
+	},
+	/*color will be dynamically bound...*/
+	text: Alloy.Globals.fa_icons.ellipsis_h,
+}
+
+'.listItemEditIcon': {
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'FontAwesome',
+	},
+	/*color will be dynamically bound...*/
+	text: Alloy.Globals.fa_icons.pencil,
+}
+
+'.listItemShoutIcon': {
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'FontAwesome',
+	},
+	/*color will be dynamically bound...*/
+	text: Alloy.Globals.fa_icons.bullhorn,
+}
+
+'.listItemSaveIcon': {
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'FontAwesome',
+	},
+	/*color will be dynamically bound...*/
+	text: Alloy.Globals.fa_icons.save,
+}

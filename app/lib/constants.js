@@ -1,0 +1,7 @@
+// PUBLIC INTERFACE
+
+exports.MENU = {
+    SHOUT_WIZ_NEXT : 0,
+    SHOUT_WIZ_DONE : 1,
+    SHOUT_WIZ_ADD_MATE : 2,
+};

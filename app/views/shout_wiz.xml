@@ -1,0 +1,71 @@
+<Alloy>
+	<Model src="shouts" instance="true" id="mShout" />
+	<Window id="window" title="L('app_my_shout')">
+		<RightNavButtons platform="ios">
+			<Button title="L('shout_wiz_next')" onClick="wizNext" />
+			<Button title="L('shout_wiz_done')" onClick="wizDone" />
+		</RightNavButtons>
+
+		<ScrollableView id="wiz_pages" class="appCanvas appTransparent" onScrollend="onWizPageChange">
+			<View class="wizWelcome">
+				<Label class="wizTitle" text="L('shout_wiz_welcome')" />
+				<Label class="wizSubtitle" text="L('shout_wiz_lets_get_you_started')" />
+			</View>
+			<ScrollView class="appCanvas">
+				<Label class="wizTitle" text="L('shout_wiz_choose_shout')" />
+				<Label class="wizSubtitle" text="L('shout_wiz_what_will_you_be_shouting')" />
+				<Picker class="wizInput" selectionIndicator="true" onChange="onShoutPickerChange">
+					<PickerRow title="L('shout_wiz_coffee')" />
+					<PickerRow title="L('shout_wiz_beer')" />
+				</Picker>
+				<Label class="wizTitle" text="L('shout_wiz_choose_place')" />
+				<Label class="wizSubtitle" text="L('shout_wiz_where_will_you_be_shouting')" />
+				<TextField class="wizInput" hintText="L('shout_wiz_place_optional')" value="{$.mShout.place}" />
+			</ScrollView>
+			<ScrollView class="appCanvas">
+				<Label class="wizTitle" text="L('shout_wiz_choose_mates')" />
+				<Label class="wizSubtitle" text="L('shout_wiz_who_will_you_be_shouting')" />
+				<!-- <TextField class="wizInput" hintText="L('shout_wiz_mates_name')" id="mates_name_input" returnKeyType="Titanium.UI.RETURNKEY_NEXT" /> -->
+				<!-- <TextField class="wizInput2" hintText="L('shout_wiz_mates_poison')" id="mates_poison_input" returnKeyType="Titanium.UI.RETURNKEY_NEXT" /> -->
+				<!-- <TextField class="wizInput2 priceInput" hintText="L('shout_wiz_mates_price')" id="mates_price_input" returnKeyType="Titanium.UI.RETURNKEY_DONE" onReturn="addShoutMate" /> -->
+				<View class="appVSpacer" />
+				<Button class="appWideButton" title="L('shout_wiz_add_mate')" onClick="goAddMate" />
+				<ListView class="matesList" onItemclick="onMatesListClick" editing="true" onDelete="onMatesListDelete">
+					<Templates>
+						<ItemTemplate name="mates_template" class="matesListItem">
+							<View class="matesListItemLeft">
+								<Label class="listItemTitle" bindId="mate_name" />
+								<Label class="listItemSubtitle" bindId="mate_poison" />
+							</View>
+							<View class="matesListItemSpacer" />
+							<View class="matesListItemRight">
+								<Label class="listItemPrice" bindId="mate_price" />
+							</View>
+						</ItemTemplate>
+					</Templates>
+					<ListSection id="mates_listsection" />
+				</ListView>
+			</ScrollView>
+			<View class="appCanvas">
+				<Label class="wizTitle" text="L('shout_wiz_first_shout')" />
+				<Label class="wizSubtitle" text="L('shout_wiz_comfirm_first_shout')" />
+				<ListView class="matesList" onItemclick="onFirstShoutListClick">
+					<Templates>
+						<ItemTemplate name="first_shout_template" class="matesListItem">
+							<View class="matesListItemLeft">
+								<Label class="listItemTitle" bindId="mate_name" />
+								<Label class="listItemSubtitle" bindId="mate_poison" />
+							</View>
+							<View class="matesListItemSpacer" />
+							<View class="matesListItemRight">
+								<Label class="listItemHasShout" bindId="mate_has_shout" />
+							</View>
+						</ItemTemplate>
+					</Templates>
+					<ListSection id="first_shout_listsection" />
+				</ListView>
+			</View>
+		</ScrollableView>
+    	<ActivityIndicator id="activity_indicator" />
+	</Window>
+</Alloy>

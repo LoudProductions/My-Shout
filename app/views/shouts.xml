@@ -1,0 +1,90 @@
+<Alloy>
+	<Model src="shouts" instance="true" id="mShout"/>
+
+	<!-- iOS: The window will start behind the statusBar -->
+	<Window id="window" title="L('app_my_shout')">
+
+		<RightNavButtons platform="ios">
+			<Button title="L('shouts_add_shout')" onClick="goShoutWiz"/>
+		</RightNavButtons>
+
+		<!-- Android: Add MenuItem with ActionView for search -->
+		<Menu platform="android">
+
+			<!-- We give it an id so we can collapse the ActionView in the controller -->
+			<!-- <MenuItem id="searchMenu">
+			<ActionView>
+			<SearchView ns="Ti.UI.Android" hintText="Search..." onSubmit="doSomething" />
+			</ActionView>
+			</MenuItem> -->
+			<MenuItem title="L('shouts_fav_shout')" onClick="doFavShout"/>
+			<MenuItem title="L('shouts_add_shout')" onClick="goShoutWiz"/>
+			<MenuItem title="L('shouts_add_mate')" onClick="goAddMate"/>
+		</Menu>
+
+		<!-- iOS: Thanks to canvasTop in alloy.js and app.tss this starts below the statusBar -->
+		<View id="shouts_container" class="appCanvas appTransparent">
+
+			<!-- <SearchBar platform="ios" hintText="Search..." onReturn="doSomething" /> -->
+
+			<!-- <ListView class="shoutsList" onItemclick="onShoutsListClick" editing="true" onDelete="deleteShout"> -->
+			<ListView class="shoutsList" id="shouts_listview" editing="true" onDelete="deleteShout">
+				<Templates>
+					<ItemTemplate name="fav_shout_template" class="favShoutsListItem">
+						<View onSwipe="onFavShoutSwipe" onClick="onFavShoutClick">
+							<View class="favShoutCirc1" touchEnabled="false" elevation="8">
+								<View class="favShoutCirc2" touchEnabled="false">
+									<Label class="favShoutIcon" touchEnabled="false"/>
+									<Label class="favShoutWho" bindId="shout_who" touchEnabled="false"/>
+									<Label class="favShoutWhere" bindId="shout_where" touchEnabled="false"/>
+								</View>
+							</View>
+						</View>
+					</ItemTemplate>
+					<ItemTemplate name="shout_mates_template" class="matesListItem">
+						<View bindId="mate_bg_view" onSwipe="onMateSwipe" onClick="onMateClick">
+							<View class="matesListItemLeft">
+								<View class="appHalfHeight">
+									<Label class="listItemTitle" bindId="mate_name"/>
+								</View>
+								<View class="appHalfHeight">
+									<Label class="listItemSubtitle" bindId="mate_balance"/>
+								</View>
+							</View>
+							<View>
+								<Label class="listItemEllipsisIcon appListItemRightIcon1" bindId="mate_ellipsis_icon"/>
+							</View>
+						</View>
+					</ItemTemplate>
+					<ItemTemplate name="edit_mate_template" class="matesListItem">
+						<View bindId="mate_bg_view">
+							<View class="matesListItemLeft" onClick="onMateClick">
+								<View class="appHalfHeight">
+									<Label class="listItemTitle" bindId="mate_name"/>
+								</View>
+								<View class="appHalfHeight">
+									<Label class="listItemSubtitle" bindId="mate_balance"/>
+								</View>
+							</View>
+							<View class="appCompositeView">
+								<Switch class="listItemSwitch appListItemRightIcon3" bindId="mate_is_inactive" onChange="onMateInactiveSwitchClick"/>
+								<Label class="listItemEditIcon appListItemRightIcon2" bindId="mate_edit_icon" onClick="onMateEditClick"/>
+								<Label class="listItemShoutIcon appListItemRightIcon1" bindId="mate_shout_icon" onClick="onMateShoutClick"/>
+							</View>
+						</View>
+					</ItemTemplate>
+				</Templates>
+				<ListSection id="fav_shout_listsection"/>
+				<ListSection id="shout_mates_listsection" headerTitle="L('shouts_mates')"/>
+				<ListSection>
+					  <HeaderView>
+							<Button class="appWideButton" title="L('shouts_add_mate')" onClick="goAddMate" />
+						</HeaderView>
+				</ListSection>
+			</ListView>
+		</View>
+
+		<ActivityIndicator id="activity_indicator"/>
+
+	</Window>
+</Alloy>
