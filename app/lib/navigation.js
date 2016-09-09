@@ -1,6 +1,6 @@
 /**
  * Movies
- * 
+ *
  * @copyright
  * Copyright (c) 2015 by Appcelerator, Inc. All Rights Reserved.
  *
@@ -36,8 +36,8 @@ function Navigation(_args) {
      * @type {Object}
      */
     this.parent = _args.parent;
-    
-    this.controllers = [],
+
+    this.controllers = [];
     this.currentController = null;
     this.currentControllerArguments = {};
 
@@ -48,15 +48,16 @@ function Navigation(_args) {
      * @return {Controllers} Returns the new controller
      */
     this.push = function(_controller, _controllerArguments) {
+      var controller;
     	if (typeof _controller == "string") {
-        	var controller = Alloy.createController(_controller, _controllerArguments);
+        	controller = Alloy.createController(_controller, _controllerArguments);
        	} else {
-			var controller = _controller;
+			controller = _controller;
 		}
         that.currentController = controller;
         that.currentControllerArguments = _controllerArguments;
 		that.controllers.push(controller);
-		 
+
         if(OS_IOS) {
             that.parent.openWindow(controller.window);
         } else {
@@ -64,22 +65,22 @@ function Navigation(_args) {
         }
 
         return controller;
-    },
-    
+    };
+
     this.pop = function() {
-    	
+
     	var controller = that.controllers.pop();
     	var window = controller.window;
-    	
+
     	if(OS_IOS) {
             that.parent.closeWindow(window);
        } else {
        		window.close();
        }
-       
+
        controller.destroy();
-    },
-    
+   };
+
     this.openModal = function(_controller, _controllerArguments) {
         var controller = Alloy.createController(_controller, _controllerArguments);
         that.currentController = controller;
@@ -88,20 +89,20 @@ function Navigation(_args) {
         if(OS_IOS) {
             controller.window.open({
                 modal : true,
-                animated: false
+                animated : false,
             });
         } else {
-            controller.window.addEventListener('open', function(e) {
-                that.setActionBarStyle(controller.window);
-            });
+            // controller.window.addEventListener('open', function(e) {
+            //     that.setActionBarStyle(controller.window);
+            // });
             controller.window.open();
         }
 
         return controller;
-    },
-    
+    };
+
     this.closeModal = function(_controller) {
-        
+
         if(OS_IOS) {
             _controller.window.close();
             _controller.window = null;
@@ -113,7 +114,6 @@ function Navigation(_args) {
         _controller.destroy();
         _controller = null;
     };
-
 }
 
 // Calling this module function returns a new navigation instance

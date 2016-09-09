@@ -43,6 +43,8 @@ var _oShoutWizController;
         }));
     };
 
+    $.onShoutWizDone = onShoutWizDone;
+
     /**
      * window open/close
      */
@@ -374,6 +376,34 @@ function getAttributedBalanceText(balance, hasShout) {
     return oAttributedString;
 }
 
+function onShoutWizDone(e) {
+    'use strict';
+
+    log.trace('shout_wiz controller done event received');
+    log.trace(e);
+    
+    _oShoutWizController = null;
+
+    if (e.mShout) {
+        // mark the new fav shout
+        e.mShout.markAsFav();
+        e.mShout.save();
+        // unmark the current fav shout
+        $.mShout.unmarkAsFav();
+        $.mShout.save();
+        // fetch the shout bound to the view again
+        $.mShout.id = e.mShout.id;
+        $.mShout.fetch();
+
+        // reconfigure menus
+        changeMenu();
+
+        // update list
+        updateFavShoutSection();
+        fillShoutMatesSection();
+    }
+}
+
 function goShoutWiz() {
     'use strict';
 
@@ -381,28 +411,7 @@ function goShoutWiz() {
         bCanSkipWelcome: true,
     });
     // register with wizard 'done' event
-    _oShoutWizController.once('done', function(e) {
-        _oShoutWizController = null;
-
-        if (e.mShout) {
-            // mark the new fav shout
-            e.mShout.markAsFav();
-            e.mShout.save();
-            // unmark the current fav shout
-            $.mShout.unmarkAsFav();
-            $.mShout.save();
-            // fetch the shout bound to the view again
-            $.mShout.id = e.mShout.id;
-            $.mShout.fetch();
-
-            // reconfigure menus
-            changeMenu();
-
-            // update list
-            updateFavShoutSection();
-            fillShoutMatesSection();
-        }
-    });
+    _oShoutWizController.once('done', onShoutWizDone);
 }
 
 function saveEditingMateChanges() {
