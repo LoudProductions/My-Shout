@@ -26,7 +26,7 @@
 }
 
 '.shoutType': {
-	width: Titanium.UI.FILL,
+	width: 200,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 16,
@@ -35,7 +35,7 @@
 }
 
 '.shoutPlace': {
-	width: Titanium.UI.FILL,
+	width: 200,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 16,
@@ -127,4 +127,12 @@
     	fontFamily: 'FontAwesome'
 	},
 	color: Alloy.CFG.colors.tintColor
+}
+
+'.wizForm': {
+	layout: 'vertical',
+}
+
+'.wizForm[platform=android]': {
+	width: '50%'
 }

@@ -58,7 +58,8 @@ function onWindowOpen() {
             prepareAndroidMenu(e.menu);
         };
     }
-
+    changeMenu();
+    
     // skip welcome page of wizard if requested
     if (_bCanSkipWelcome) {
         $.wiz_pages.scrollToView(1);
@@ -173,7 +174,22 @@ function changeMenu() {
         $.window.activity.invalidateOptionsMenu();
     }
     if (OS_IOS) {
-
+        // in iOS, nav buttons cannot be manipulated, but have to be set fresh each time
+        if ($.wiz_pages.currentPage === ($.wiz_pages.views.length - 1)) {
+            // if on the last page, provide done button
+            var oDoneButton = Ti.UI.createButton({
+                title : L('shout_wiz_done'),
+            });
+            oDoneButton.addEventListener('click', wizDone);
+            $.window.rightNavButton = oDoneButton;
+        } else {
+            // otherwise show only next
+            var oNextButton = Ti.UI.createButton({
+                title : L('shout_wiz_next'),
+            });
+            oNextButton.addEventListener('click', wizNext);
+            $.window.rightNavButton = oNextButton;
+        }
     }
 }
 

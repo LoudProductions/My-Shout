@@ -1,18 +1,13 @@
 <Alloy>
 	<Model src="shouts" instance="true" id="mShout" />
 	<Window id="window" title="L('shouts_add_shout')">
-		<RightNavButtons platform="ios">
-			<Button title="L('shout_wiz_next')" onClick="wizNext" />
-			<Button title="L('shout_wiz_done')" onClick="wizDone" />
-		</RightNavButtons>
-
 		<ScrollableView id="wiz_pages" class="appCanvas appTransparent" onScrollend="onWizPageChange">
 			<ScrollView class="wizWelcome appVScrollView">
 				<Label class="wizTitle" text="L('shout_wiz_welcome')" />
 				<Label class="wizSubtitle" text="L('shout_wiz_lets_get_you_started')" />
 			</ScrollView>
 			<ScrollView class="appCanvas appVScrollView">
-				<View layout="vertical" class="appHalfWidth">
+				<View class="wizForm">
 					<Label class="wizTitle" text="L('shout_wiz_choose_shout')" />
 					<Label class="wizSubtitle" text="L('shout_wiz_what_will_you_be_shouting')" />
 					<View class="appVSpacer" />

@@ -7,6 +7,7 @@ var _iIsEditingIndex = 0;
 var _oIsEditingMate;
 var _oMateController;
 var _oShoutWizController;
+var _bDidAnimateIn = false;
 
 /**
  * self-executing function to organize otherwise inline constructor code
@@ -41,6 +42,7 @@ var _oShoutWizController;
             opacity: 1,
             duration: 1000
         }));
+        _bDidAnimateIn = true;
     };
 
     $.onShoutWizDone = onShoutWizDone;
@@ -404,6 +406,9 @@ function onShoutWizDone(e) {
         fillShoutMatesSection();
 
         _.defer(function() {
+            if (!_bDidAnimateIn) {
+                $.animateIn();
+            }
             showAddSomeMatesToast();
         });
     }

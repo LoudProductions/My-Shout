@@ -9,7 +9,7 @@
 		</RightNavButtons>
 
 		<!-- Android: Add MenuItem with ActionView for search -->
-		<Menu platform="android">
+		<!-- <Menu platform="android"> -->
 
 			<!-- We give it an id so we can collapse the ActionView in the controller -->
 			<!-- <MenuItem id="searchMenu">
@@ -17,10 +17,10 @@
 			<SearchView ns="Ti.UI.Android" hintText="Search..." onSubmit="doSomething" />
 			</ActionView>
 			</MenuItem> -->
-			<MenuItem title="L('shouts_fav_shout')" onClick="doFavShout"/>
+			<!-- <MenuItem title="L('shouts_fav_shout')" onClick="doFavShout"/>
 			<MenuItem title="L('shouts_add_shout')" onClick="goShoutWiz"/>
-			<MenuItem title="L('shouts_add_mate')" onClick="goAddMate"/>
-		</Menu>
+			<MenuItem title="L('shouts_add_mate')" onClick="goAddMate"/> -->
+		<!-- </Menu> -->
 
 		<!-- iOS: Thanks to canvasTop in alloy.js and app.tss this starts below the statusBar -->
 		<View id="shouts_container" class="appCanvas appTransparent">
