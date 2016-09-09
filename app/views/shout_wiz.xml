@@ -1,6 +1,6 @@
 <Alloy>
 	<Model src="shouts" instance="true" id="mShout" />
-	<Window id="window" title="L('app_my_shout')">
+	<Window id="window" title="L('shouts_add_shout')">
 		<RightNavButtons platform="ios">
 			<Button title="L('shout_wiz_next')" onClick="wizNext" />
 			<Button title="L('shout_wiz_done')" onClick="wizDone" />
@@ -23,10 +23,10 @@
 					<Label class="wizTitle" text="L('shout_wiz_choose_place')" />
 					<Label class="wizSubtitle" text="L('shout_wiz_where_will_you_be_shouting')" />
 					<View class="appVSpacer" />
-					<TextField class="shoutPlace" hintText="L('shout_wiz_place_optional')" value="{$.mShout.place}" onChange="onShoutPlaceChange" />
+					<TextField class="shoutPlace" hintText="L('shout_wiz_place_optional')" value="{$.mShout.place}" onChange="onShoutPlaceChange" onReturn="wizDone" />
 				</View>
 			</ScrollView>
-			<ScrollView class="appCanvas appVScrollView">
+			<!-- <ScrollView class="appCanvas appVScrollView">
 				<Label class="wizTitle" text="L('shout_wiz_choose_mates')" />
 				<Label class="wizSubtitle" text="L('shout_wiz_who_will_you_be_shouting')" />
 				<View class="appVSpacer" />
@@ -65,7 +65,7 @@
 					</Templates>
 					<ListSection id="first_shout_listsection" />
 				</ListView>
-			</ScrollView>
+			</ScrollView> -->
 		</ScrollableView>
   	<ActivityIndicator id="activity_indicator" />
 	</Window>

@@ -78,7 +78,7 @@
 				<ListSection id="shout_mates_listsection" headerTitle="L('shouts_mates')">
 					<HeaderView>
 						<View class="appCompositeView">
-							<Label class="listHeaderAddIcon appListItemRightIcon1" onClick="goAddMate"/>
+							<Label class="listHeaderAddIcon appListItemRightIcon1" id="go_add_mate_icon" onClick="goAddMate"/>
 						</View>
 					</HeaderView>
 				</ListSection>

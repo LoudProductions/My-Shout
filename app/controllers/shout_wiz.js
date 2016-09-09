@@ -109,12 +109,12 @@ function createAndroidMenu(menu) {
         });
         menuItemDone.addEventListener('click', wizDone);
 
-        var menuItemAddMate = menu.add({
-            itemId : CONST.MENU.SHOUT_WIZ_ADD_MATE,
-            title : L('shout_wiz_add_mate'),
-            showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER,
-        });
-        menuItemAddMate.addEventListener('click', goAddMate);
+        // var menuItemAddMate = menu.add({
+        //     itemId : CONST.MENU.SHOUT_WIZ_ADD_MATE,
+        //     title : L('shout_wiz_add_mate'),
+        //     showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER,
+        // });
+        // menuItemAddMate.addEventListener('click', goAddMate);
     }
 }
 
@@ -124,13 +124,13 @@ function prepareAndroidMenu(menu) {
     if (OS_ANDROID) {
         var menuItemNext = menu.findItem(CONST.MENU.SHOUT_WIZ_NEXT);
         var menuItemDone = menu.findItem(CONST.MENU.SHOUT_WIZ_DONE);
-        var menuItemAddMate = menu.findItem(CONST.MENU.SHOUT_WIZ_ADD_MATE);
+        // var menuItemAddMate = menu.findItem(CONST.MENU.SHOUT_WIZ_ADD_MATE);
         // show/hide menuitems depending on the current wizard page
         if ($.wiz_pages.currentPage === ($.wiz_pages.views.length - 2)) {
             // if on the add mates page, show add/next and hide done
-            if (menuItemAddMate) {
-                menuItemAddMate.setVisible(true);
-            }
+            // if (menuItemAddMate) {
+            //     menuItemAddMate.setVisible(true);
+            // }
             if (menuItemNext) {
                 menuItemNext.setVisible(true);
             }
@@ -139,9 +139,9 @@ function prepareAndroidMenu(menu) {
             }
         } else if ($.wiz_pages.currentPage === ($.wiz_pages.views.length - 1)) {
             // if on the last page, hide add/next and show done
-            if (menuItemAddMate) {
-                menuItemAddMate.setVisible(false);
-            }
+            // if (menuItemAddMate) {
+            //     menuItemAddMate.setVisible(false);
+            // }
             if (menuItemNext) {
                 menuItemNext.setVisible(false);
             }
@@ -150,9 +150,9 @@ function prepareAndroidMenu(menu) {
             }
         } else {
             // otherwise show only next
-            if (menuItemAddMate) {
-                menuItemAddMate.setVisible(false);
-            }
+            // if (menuItemAddMate) {
+            //     menuItemAddMate.setVisible(false);
+            // }
             if (menuItemNext) {
                 menuItemNext.setVisible(true);
             }
@@ -180,11 +180,12 @@ function changeMenu() {
 function onWizPageChange(e) {
     'use strict';
 
-    if (checkMatesAddedBeforeLastPage()) {
-        changeMenu();
-    } else {
-        wizPrevious();
-    }
+    changeMenu();
+    // if (checkMatesAddedBeforeLastPage()) {
+    //     changeMenu();
+    // } else {
+    //     wizPrevious();
+    // }
 }
 
 function onShoutPickerChange(e) {
@@ -203,134 +204,133 @@ function onShoutPlaceChange(e){
     });
 }
 
-function onMatesListClick(e) {
-    'use strict';
-
-}
-
-function onMatesListDelete(e) {
-    'use strict';
-
-}
-
-function onFirstShoutListClick(e) {
-    'use strict';
-
-    $.mShout.giveMateTheShout(e.itemId);
-
-    // // run through mates and switch whose got the shout
-    // var oFirstShoutListItem;
-    // for (var i = 0; i < _aMates.length; i++) {
-    //     if (_aMates[i].hasShout) {
-    //         _aMates[i].hasShout = false;
-    //         oFirstShoutListItem = mapMateListItem(_aMates[i], 'first_shout_template');
-    //         $.first_shout_listsection.updateItemAt(i, oFirstShoutListItem, {
-    //             animated : true
-    //         });
-    //     }
-    // }
-    // _aMates[e.itemIndex].hasShout = true;
-    // oFirstShoutListItem = mapMateListItem(_aMates[e.itemIndex], 'first_shout_template');
-    // $.first_shout_listsection.updateItemAt(e.itemIndex, oFirstShoutListItem, {
-    //     animated : true
-    // });
-    // // update shout model
-    // $.mShout.set('mates', _aMates);
-    // $.mShout.set('name', _aMates[e.itemIndex].name);
-}
-
-function mapMateListItem(oMate, template) {
-    'use strict';
-
-    return {
-        template : template || 'mates_template',
-        properties : {
-            accessoryType : Ti.UI.LIST_ACCESSORY_TYPE_NONE,
-            searchableText : oMate.name + oMate.type + oMate.place,
-            itemId : oMate.mateId
-            // if using built-in item templates for iOS, uncomment these
-            // title : oMate.name
-            // subtitle : oMate.type + ' @ ' + oMate.place
-            // image : ...
-        },
-        mate_name : {
-            text : oMate.name
-        },
-        mate_poison : {
-            text : oMate.poison
-        },
-        mate_price : {
-            // text : oMate.price,
-            attributedString : getAttributedPriceText(oMate.price)
-        },
-        mate_has_shout : {
-            text : oMate.hasShout ? Alloy.Globals.fa_icons.bullhorn : null
-        }
-    };
-}
-
-function addShoutMate(oMate) {
-    'use strict';
-
-    // var oMate = {
-    //     name : $.mates_name_input.value,
-    //     poison : $.mates_poison_input.value,
-    //     price : $.mates_price_input.value,
-    //     hasShout : _aMates.length === 0 ? true : false
-    // };
-    //
-    // if (!oMate.name || !oMate.poison || !oMate.price) {
-    //     return toast.show(L('app_please_provide_missing_input'));
-    // }
-
-    $.mShout.addMate(oMate);
-
-    // add mate to list
-    var aMateListItem = [mapMateListItem(oMate)];
-    $.mates_listsection.appendItems(aMateListItem, {
-        animated : true
-    });
-    // add mate to final list indicating first one as having the shout
-    var aFirstShoutListItem = [mapMateListItem(oMate, 'first_shout_template')];
-    $.first_shout_listsection.appendItems(aFirstShoutListItem, {
-        animated : true
-    });
-
-    // // clear input fields and return focus to name for next mate
-    // $.mates_name_input.value = '';
-    // $.mates_poison_input.value = '';
-    // $.mates_price_input.value = '';
-    // $.mates_name_input.focus();
-}
-
-function getAttributedPriceText(price) {
-    'use strict';
-    var oAttrPrice = Ti.UI.createAttributedString({
-        text : '$ ' + String(price),
-    });
-    oAttrPrice.addAttribute({
-        type : Ti.UI.ATTRIBUTE_FONT,
-        value : {
-            fontSize : 14,
-            fontFamily : 'OpenSans-ExtraBold'
-        },
-        range : [0, 2]
-    });
-    return oAttrPrice;
-}
-
-function checkMatesAddedBeforeLastPage(bIsCheckBeforePageChange) {
-    'use strict';
-    // if the next page will be the last but we have no mates yet, warn the user
-    var iPageToCheck = bIsCheckBeforePageChange ? $.wiz_pages.currentPage + 1 : $.wiz_pages.currentPage;
-    if (iPageToCheck === ($.wiz_pages.views.length - 1) && $.mShout.getMates().length === 0) {
-        toast.show(L('shout_wiz_you_did_not_add_any_mates'));
-        return false;
-    } else {
-        return true;
-    }
-
-}
+// function onMatesListClick(e) {
+//     'use strict';
+//
+// }
+//
+// function onMatesListDelete(e) {
+//     'use strict';
+//
+// }
+//
+// function onFirstShoutListClick(e) {
+//     'use strict';
+//
+//     $.mShout.giveMateTheShout(e.itemId);
+//
+//     // // run through mates and switch whose got the shout
+//     // var oFirstShoutListItem;
+//     // for (var i = 0; i < _aMates.length; i++) {
+//     //     if (_aMates[i].hasShout) {
+//     //         _aMates[i].hasShout = false;
+//     //         oFirstShoutListItem = mapMateListItem(_aMates[i], 'first_shout_template');
+//     //         $.first_shout_listsection.updateItemAt(i, oFirstShoutListItem, {
+//     //             animated : true
+//     //         });
+//     //     }
+//     // }
+//     // _aMates[e.itemIndex].hasShout = true;
+//     // oFirstShoutListItem = mapMateListItem(_aMates[e.itemIndex], 'first_shout_template');
+//     // $.first_shout_listsection.updateItemAt(e.itemIndex, oFirstShoutListItem, {
+//     //     animated : true
+//     // });
+//     // // update shout model
+//     // $.mShout.set('mates', _aMates);
+//     // $.mShout.set('name', _aMates[e.itemIndex].name);
+// }
+//
+// function mapMateListItem(oMate, template) {
+//     'use strict';
+//
+//     return {
+//         template : template || 'mates_template',
+//         properties : {
+//             accessoryType : Ti.UI.LIST_ACCESSORY_TYPE_NONE,
+//             searchableText : oMate.name + oMate.type + oMate.place,
+//             itemId : oMate.mateId
+//             // if using built-in item templates for iOS, uncomment these
+//             // title : oMate.name
+//             // subtitle : oMate.type + ' @ ' + oMate.place
+//             // image : ...
+//         },
+//         mate_name : {
+//             text : oMate.name
+//         },
+//         mate_poison : {
+//             text : oMate.poison
+//         },
+//         mate_price : {
+//             // text : oMate.price,
+//             attributedString : getAttributedPriceText(oMate.price)
+//         },
+//         mate_has_shout : {
+//             text : oMate.hasShout ? Alloy.Globals.fa_icons.bullhorn : null
+//         }
+//     };
+// }
+//
+// function addShoutMate(oMate) {
+//     'use strict';
+//
+//     // var oMate = {
+//     //     name : $.mates_name_input.value,
+//     //     poison : $.mates_poison_input.value,
+//     //     price : $.mates_price_input.value,
+//     //     hasShout : _aMates.length === 0 ? true : false
+//     // };
+//     //
+//     // if (!oMate.name || !oMate.poison || !oMate.price) {
+//     //     return toast.show(L('app_please_provide_missing_input'));
+//     // }
+//
+//     $.mShout.addMate(oMate);
+//
+//     // add mate to list
+//     var aMateListItem = [mapMateListItem(oMate)];
+//     $.mates_listsection.appendItems(aMateListItem, {
+//         animated : true
+//     });
+//     // add mate to final list indicating first one as having the shout
+//     var aFirstShoutListItem = [mapMateListItem(oMate, 'first_shout_template')];
+//     $.first_shout_listsection.appendItems(aFirstShoutListItem, {
+//         animated : true
+//     });
+//
+//     // // clear input fields and return focus to name for next mate
+//     // $.mates_name_input.value = '';
+//     // $.mates_poison_input.value = '';
+//     // $.mates_price_input.value = '';
+//     // $.mates_name_input.focus();
+// }
+//
+// function getAttributedPriceText(price) {
+//     'use strict';
+//     var oAttrPrice = Ti.UI.createAttributedString({
+//         text : '$ ' + String(price),
+//     });
+//     oAttrPrice.addAttribute({
+//         type : Ti.UI.ATTRIBUTE_FONT,
+//         value : {
+//             fontSize : 14,
+//             fontFamily : 'OpenSans-ExtraBold'
+//         },
+//         range : [0, 2]
+//     });
+//     return oAttrPrice;
+// }
+//
+// function checkMatesAddedBeforeLastPage(bIsCheckBeforePageChange) {
+//     'use strict';
+//     if the next page will be the last but we have no mates yet, warn the user
+//     var iPageToCheck = bIsCheckBeforePageChange ? $.wiz_pages.currentPage + 1 : $.wiz_pages.currentPage;
+//     if (iPageToCheck === ($.wiz_pages.views.length - 1) && $.mShout.getMates().length === 0) {
+//         toast.show(L('shout_wiz_you_did_not_add_any_mates'));
+//         return false;
+//     } else {
+//         return true;
+//     }
+// }
 
 function wizPrevious(e) {
     'use strict';
@@ -347,22 +347,22 @@ function wizNext(e) {
 function wizDone(e) {
     'use strict';
 
-    if ($.mShout.getMates().length === 0) {
-        // check that we have at least one shout set up, else we can't exit the wizard
-        if (Alloy.Collections.instance('shouts').length === 0) {
-            return toast.show(L('shout_wiz_you_need_at_least_one_shout'));
-        } else {
-            // otherwise we prompt if the user wants to exit without saving
-            dialogs.confirm({
-                message : L('shout_wiz_you_did_not_add_any_mates'),
-                callback : function() {
-                    // exit without saving
-                    $.trigger('done');
-                    Alloy.Globals.Navigator.pop();
-                }
-            });
-        }
-    } else {
+    // if ($.mShout.getMates().length === 0) {
+    //     // check that we have at least one shout set up, else we can't exit the wizard
+    //     if (Alloy.Collections.instance('shouts').length === 0) {
+    //         return toast.show(L('shout_wiz_you_need_at_least_one_shout'));
+    //     } else {
+    //         // otherwise we prompt if the user wants to exit without saving
+    //         dialogs.confirm({
+    //             message : L('shout_wiz_you_did_not_add_any_mates'),
+    //             callback : function() {
+    //                 // exit without saving
+    //                 $.trigger('done');
+    //                 Alloy.Globals.Navigator.pop();
+    //             }
+    //         });
+    //     }
+    // } else {
         // save model and add to shouts collection
         $.mShout.save();
         Alloy.Collections.instance('shouts').add($.mShout, {
@@ -376,21 +376,21 @@ function wizDone(e) {
         });
         // navigate back
         Alloy.Globals.Navigator.pop();
-    }
+    // }
 }
 
-function goAddMate() {
-    'use strict';
-
-    _oMateController = Alloy.Globals.Navigator.push('mate', {
-        mShout: $.mShout
-    });
-    // register for 'done' event on controller
-    _oMateController.once('done', function(e) {
-        _oMateController = null;
-
-        if (e.oMate) {
-            addShoutMate(e.oMate);
-        }
-    });
-}
+// function goAddMate() {
+//     'use strict';
+//
+//     _oMateController = Alloy.Globals.Navigator.push('mate', {
+//         mShout: $.mShout
+//     });
+//     // register for 'done' event on controller
+//     _oMateController.once('done', function(e) {
+//         _oMateController = null;
+//
+//         if (e.oMate) {
+//             addShoutMate(e.oMate);
+//         }
+//     });
+// }

@@ -157,8 +157,7 @@ function updateFavShoutSection() {
     'use strict';
 
     if ($.fav_shout_listsection.items.length) {
-        var aFavListItem = [mapShoutListItem($.mShout, 'fav_shout_template')];
-        $.fav_shout_listsection.replaceItemsAt(0, 1, aFavListItem, {
+        $.fav_shout_listsection.updateItemAt(0, mapShoutListItem($.mShout, 'fav_shout_template'), {
             animated: true
         });
     }
@@ -381,7 +380,7 @@ function onShoutWizDone(e) {
 
     log.trace('shout_wiz controller done event received');
     log.trace(e);
-    
+
     _oShoutWizController = null;
 
     if (e.mShout) {
@@ -391,7 +390,9 @@ function onShoutWizDone(e) {
         // unmark the current fav shout
         $.mShout.unmarkAsFav();
         $.mShout.save();
-        // fetch the shout bound to the view again
+
+        // clear/fetch the shout bound to the view with the new shout's id
+        $.mShout.clear();
         $.mShout.id = e.mShout.id;
         $.mShout.fetch();
 
@@ -401,7 +402,18 @@ function onShoutWizDone(e) {
         // update list
         updateFavShoutSection();
         fillShoutMatesSection();
+
+        _.defer(function() {
+            showAddSomeMatesToast();
+        });
     }
+}
+
+function showAddSomeMatesToast(message) {
+    'use strict';
+
+    toast.show(message || L('shouts_add_some_mates'));
+    animation.shake($.go_add_mate_icon, 2000);
 }
 
 function goShoutWiz() {
@@ -420,7 +432,7 @@ function saveEditingMateChanges() {
     // save changes, if any
     var oMate = $.mShout.getMate(_oIsEditingMate.mateId);
     if (!_.isEqual(oMate, _oIsEditingMate)) {
-        $.mShout.setMate(_oIsEditingMate);
+        $.mShout.updateMate(_oIsEditingMate);
         $.mShout.save();
     }
 }
@@ -612,19 +624,23 @@ function goEditMate(mateId) {
 function doFavShout(e) {
     'use strict';
 
-    dialogs.confirm({
-        message: String.format(L('shouts_total_cost'), Number($.mShout.calcShoutCost(true)).toFixed(2)),
-        callback: function() {
-            // update shouter balance and toast the next shouter!
-            var oNextToShout = $.mShout.updateShouterBalance();
-            $.mShout.save();
-            toast.show(String.format(L('shouts_next_shout_is_on'), oNextToShout.name));
+    if ($.mShout.getMates().length === 0) {
+        showAddSomeMatesToast(L('shouts_you_need_to_add_some_mates_first'));
+    } else {
+        dialogs.confirm({
+            message: String.format(L('shouts_total_cost'), Number($.mShout.calcShoutCost(true)).toFixed(2)),
+            callback: function() {
+                // update shouter balance and toast the next shouter!
+                var oNextToShout = $.mShout.updateShouterBalance();
+                $.mShout.save();
+                toast.show(String.format(L('shouts_next_shout_is_on'), oNextToShout.name));
 
-            // update list
-            updateFavShoutSection();
-            fillShoutMatesSection();
-        }
-    });
+                // update list
+                updateFavShoutSection();
+                fillShoutMatesSection();
+            }
+        });
+    }
 }
 
 /**
@@ -662,12 +678,16 @@ function goAddMate(){
         _oMateController = null;
 
         if (e.oMate) {
-            $.mShout.addMate(e.oMate);
+            var oAddedMate = $.mShout.addMate(e.oMate);
             $.mShout.save();
 
-            $.shout_mates_listsection.appendItems([mapMateListItem(e.oMate)], {
+            $.shout_mates_listsection.appendItems([mapMateListItem(oAddedMate)], {
                 animated : true
             });
+
+            if (oAddedMate.hasShout) {
+                updateFavShoutSection();
+            }
         }
     });
 }
@@ -676,13 +696,13 @@ function createAndroidMenu(menu) {
     'use strict';
 
     if (OS_ANDROID) {
-        var menuItemDoFavShout = menu.add({
-            itemId : CONST.MENU.SHOUTS_DO_FAV_SHOUT,
-            title : L('shouts_fav_shout'),
-            showAsAction : Ti.Android.SHOW_AS_ACTION_IF_ROOM,
-            visible : false,    // hide until shout is loaded
-        });
-        menuItemDoFavShout.addEventListener('click', doFavShout);
+        // var menuItemDoFavShout = menu.add({
+        //     itemId : CONST.MENU.SHOUTS_DO_FAV_SHOUT,
+        //     title : L('shouts_fav_shout'),
+        //     showAsAction : Ti.Android.SHOW_AS_ACTION_IF_ROOM,
+        //     visible : false,    // hide until shout is loaded
+        // });
+        // menuItemDoFavShout.addEventListener('click', doFavShout);
 
         var menuItemAddShout = menu.add({
             itemId : CONST.MENU.SHOUTS_ADD_SHOUT,
@@ -691,13 +711,13 @@ function createAndroidMenu(menu) {
         });
         menuItemAddShout.addEventListener('click', goShoutWiz);
 
-        var menuItemAddMate = menu.add({
-            itemId : CONST.MENU.SHOUTS_ADD_MATE,
-            title : L('shout_wiz_add_mate'),
-            showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER,
-            visible : false,    // hide until shout is loaded
-        });
-        menuItemAddMate.addEventListener('click', goAddMate);
+        // var menuItemAddMate = menu.add({
+        //     itemId : CONST.MENU.SHOUTS_ADD_MATE,
+        //     title : L('shout_wiz_add_mate'),
+        //     showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER,
+        //     visible : false,    // hide until shout is loaded
+        // });
+        // menuItemAddMate.addEventListener('click', goAddMate);
     }
 }
 
@@ -705,17 +725,17 @@ function prepareAndroidMenu(menu) {
     'use strict';
 
     if (OS_ANDROID) {
-        var menuItemDoFavShout = menu.findItem(CONST.MENU.SHOUTS_DO_FAV_SHOUT);
-        var menuItemAddMate = menu.findItem(CONST.MENU.SHOUTS_ADD_MATE);
-        // show/hide menuitems depending on if we have a current shout
-        if ($.mShout && $.mShout.id) {
-            if (menuItemDoFavShout) {
-                menuItemDoFavShout.setVisible(true);
-            }
-            if (menuItemAddMate) {
-                menuItemAddMate.setVisible(true);
-            }
-        }
+        // var menuItemDoFavShout = menu.findItem(CONST.MENU.SHOUTS_DO_FAV_SHOUT);
+        // var menuItemAddMate = menu.findItem(CONST.MENU.SHOUTS_ADD_MATE);
+        // // show/hide menuitems depending on if we have a current shout
+        // if ($.mShout && $.mShout.id) {
+        //     if (menuItemDoFavShout) {
+        //         menuItemDoFavShout.setVisible(true);
+        //     }
+        //     if (menuItemAddMate) {
+        //         menuItemAddMate.setVisible(true);
+        //     }
+        // }
     }
 }
 

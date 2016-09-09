@@ -17,7 +17,7 @@ exports.definition = {
 
                 Object.defineProperty(t, 'uiWho', {
                     get : function() {
-                        return t.name + "'s " + L('shouts_shout');
+                        return (t.name ? (t.name + "'s " + L('shouts_shout')) : L('app_my_shout'));
                     }
                 });
 
@@ -49,10 +49,10 @@ exports.definition = {
                 // generate a mate ID from the shout's ID and the mate's index
                 return this.id + '-' + (this.getMates().length + 1);
             },
-            setMate : function(oMate, bReplaceCurrentMate) {
+            updateMate : function(oMate, bReplaceCurrentMate) {
                 // check we have a valid mate
                 if (!oMate || (oMate && !oMate.mateId)) {
-                    log.error('setMate called without a valid oMate!', 'models/shouts.js > setMate()');
+                    log.error('updateMate called without a valid oMate!', 'models/shouts.js > setMate()');
                     throw new Error(L('shouts_could_not_find_mate'));
                 }
                 if (bReplaceCurrentMate) {
@@ -104,6 +104,7 @@ exports.definition = {
                 if (oMate.hasShout) {
                     this.giveMateTheShout(oMate.mateId);
                 }
+                return oMate;
             },
             getMates : function() {
                 return this.get('mates') || [];
