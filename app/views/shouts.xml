@@ -75,7 +75,13 @@
 					</ItemTemplate>
 				</Templates>
 				<ListSection id="fav_shout_listsection"/>
-				<ListSection id="shout_mates_listsection" headerTitle="L('shouts_mates')"/>
+				<ListSection id="shout_mates_listsection" headerTitle="L('shouts_mates')">
+					<HeaderView>
+						<View class="appCompositeView">
+							<Label class="listHeaderAddIcon appListItemRightIcon1" onClick="goAddMate"/>
+						</View>
+					</HeaderView>
+				</ListSection>
 				<!-- <ListSection>
 					  <HeaderView>
 							<Button class="appWideButton" title="L('shouts_add_mate')" onClick="goAddMate" />

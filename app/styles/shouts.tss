@@ -212,3 +212,13 @@
 	/*color will be dynamically bound...*/
 	text: Alloy.Globals.fa_icons.save,
 }
+
+'.listHeaderAddIcon': {
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'FontAwesome',
+	},
+	color: Alloy.CFG.colors.tintColor,
+	text: Alloy.Globals.fa_icons.plus,
+}

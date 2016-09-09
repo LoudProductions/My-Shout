@@ -21,8 +21,8 @@ var _bAnimationComplete = false;
 // ################
 // temp: skip intro
 // ################
-// $.trigger('ended');
-// return;
+$.trigger('ended');
+return;
 // ################
 
 
@@ -51,7 +51,7 @@ function init() {
 // ####################
 // temp: skip animation
 // ####################
-// return;
+return;
 // ####################
 
 
