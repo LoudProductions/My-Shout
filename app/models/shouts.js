@@ -185,7 +185,7 @@ exports.definition = {
                 oShouter.balance = (oShouter.balance || 0) + shoutCost;
                 // subtract price from each mates balance
                 _.each(aMates, function(oMate) {
-                    if (oMate !== oShouter) {
+                    if (!oMate.isInactive && oMate !== oShouter) {
                         oMate.balance = (oMate.balance || 0) - oMate.price;
                     }
                 });
