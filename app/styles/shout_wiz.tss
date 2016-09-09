@@ -25,6 +25,24 @@
 	top: 10
 }
 
+'.shoutType': {
+	width: Titanium.UI.FILL,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: 16,
+    	fontFamily: 'OpenSans-Bold',
+	},
+}
+
+'.shoutPlace': {
+	width: Titanium.UI.FILL,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: 16,
+    	fontFamily: 'OpenSans-Regular',
+	},
+}
+
 '.priceInput': {
 	keyboardType: Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD,
 	maxLength: 4

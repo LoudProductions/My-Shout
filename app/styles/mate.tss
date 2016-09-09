@@ -11,6 +11,7 @@
 }
 
 '.mateName': {
+	top: 20,
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
@@ -20,6 +21,7 @@
 }
 
 '.matePoison': {
+	top: 20,
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
@@ -29,6 +31,7 @@
 }
 
 '.matePrice': {
+	top: 20,
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {

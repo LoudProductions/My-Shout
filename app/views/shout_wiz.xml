@@ -12,22 +12,23 @@
 				<Label class="wizSubtitle" text="L('shout_wiz_lets_get_you_started')" />
 			</ScrollView>
 			<ScrollView class="appCanvas appVScrollView">
-				<Label class="wizTitle" text="L('shout_wiz_choose_shout')" />
-				<Label class="wizSubtitle" text="L('shout_wiz_what_will_you_be_shouting')" />
-				<Picker class="wizInput" selectionIndicator="true" onChange="onShoutPickerChange">
-					<PickerRow title="L('shout_wiz_coffee')" />
-					<PickerRow title="L('shout_wiz_beer')" />
-				</Picker>
-				<Label class="wizTitle" text="L('shout_wiz_choose_place')" />
-				<Label class="wizSubtitle" text="L('shout_wiz_where_will_you_be_shouting')" />
-				<TextField class="wizInput" hintText="L('shout_wiz_place_optional')" value="{$.mShout.place}" />
+				<View layout="vertical" class="appHalfWidth">
+					<Label class="wizTitle" text="L('shout_wiz_choose_shout')" />
+					<Label class="wizSubtitle" text="L('shout_wiz_what_will_you_be_shouting')" />
+					<View class="appVSpacer" />
+					<Picker class="shoutType" selectionIndicator="true" onChange="onShoutPickerChange">
+						<PickerRow title="L('shout_wiz_coffee')" />
+						<PickerRow title="L('shout_wiz_beer')" />
+					</Picker>
+					<Label class="wizTitle" text="L('shout_wiz_choose_place')" />
+					<Label class="wizSubtitle" text="L('shout_wiz_where_will_you_be_shouting')" />
+					<View class="appVSpacer" />
+					<TextField class="shoutPlace" hintText="L('shout_wiz_place_optional')" value="{$.mShout.place}" onChange="onShoutPlaceChange" />
+				</View>
 			</ScrollView>
 			<ScrollView class="appCanvas appVScrollView">
 				<Label class="wizTitle" text="L('shout_wiz_choose_mates')" />
 				<Label class="wizSubtitle" text="L('shout_wiz_who_will_you_be_shouting')" />
-				<!-- <TextField class="wizInput" hintText="L('shout_wiz_mates_name')" id="mates_name_input" returnKeyType="Titanium.UI.RETURNKEY_NEXT" /> -->
-				<!-- <TextField class="wizInput2" hintText="L('shout_wiz_mates_poison')" id="mates_poison_input" returnKeyType="Titanium.UI.RETURNKEY_NEXT" /> -->
-				<!-- <TextField class="wizInput2 priceInput" hintText="L('shout_wiz_mates_price')" id="mates_price_input" returnKeyType="Titanium.UI.RETURNKEY_DONE" onReturn="addShoutMate" /> -->
 				<View class="appVSpacer" />
 				<Button class="appWideButton" title="L('shout_wiz_add_mate')" onClick="goAddMate" />
 				<ListView class="matesList" onItemclick="onMatesListClick" editing="true" onDelete="onMatesListDelete">

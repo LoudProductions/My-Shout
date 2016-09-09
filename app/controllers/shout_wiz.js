@@ -190,7 +190,17 @@ function onWizPageChange(e) {
 function onShoutPickerChange(e) {
     'use strict';
 
-    $.mShout.set('type', e.selectedValue[0]);
+    $.mShout.set('type', e.selectedValue[0], {
+        silent: true
+    });
+}
+
+function onShoutPlaceChange(e){
+    'use strict';
+
+    $.mShout.set('place', e.value, {
+        silent: true
+    });
 }
 
 function onMatesListClick(e) {
@@ -359,6 +369,8 @@ function wizDone(e) {
             merge : true
         });
         // raise 'done' event on controller, supplying new shout model to subscribers
+        log.trace('raising shout_wiz controller done event...');
+        log.trace($.mShout.toJSON());
         $.trigger('done', {
             mShout: $.mShout
         });
