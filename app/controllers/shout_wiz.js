@@ -1,9 +1,8 @@
 var CONST = require('constants');
 var dialogs = require('alloy/dialogs');
 
-var _fnLoadedCallback;
-var _fnDoneCallback;
 var _bCanSkipWelcome = false;
+var _bNoAnimateInOnOpen = false;
 // var _aMates = [];
 var _oMateController;
 
@@ -18,13 +17,14 @@ var _oMateController;
     // FIXME: https://jira.appcelerator.org/browse/ALOY-1263
     'use strict';
 
-    _fnLoadedCallback = args.fnLoadedCallback;
-    _fnDoneCallback = args.fnDoneCallback;
     _bCanSkipWelcome = args.bCanSkipWelcome;
+    _bNoAnimateInOnOpen = args.bNoAnimateInOnOpen;
 
     _.defer(function() {
         init();
     });
+
+    $.animateIn = animateIn;
 
     /**
      * window open/close
@@ -40,9 +40,8 @@ function init() {
     // initialise shout model
     $.mShout.set('type', L('shout_wiz_coffee'));
 
-    if (_.isFunction(_fnLoadedCallback)) {
-        _fnLoadedCallback();
-    }
+    log.trace('raising shout_wiz controller loaded event...');
+    $.trigger('loaded');
 }
 
 function onWindowOpen() {
@@ -52,11 +51,9 @@ function onWindowOpen() {
 
     // set android menu callbacks
     if (OS_ANDROID) {
-        // Ti.Android.currentActivity.onCreateOptionsMenu = function(e) {
         $.window.activity.onCreateOptionsMenu = function(e) {
             createAndroidMenu(e.menu);
         };
-        // Ti.Android.currentActivity.onPrepareOptionsMenu = function(e) {
         $.window.activity.onPrepareOptionsMenu = function(e) {
             prepareAndroidMenu(e.menu);
         };
@@ -67,7 +64,12 @@ function onWindowOpen() {
         $.wiz_pages.scrollToView(1);
     }
     // animate content from transparent to visible
-    animateIn();
+    if (!_bNoAnimateInOnOpen) {
+        animateIn();
+    }
+
+    log.trace('raising shout_wiz controller open event...');
+    $.trigger('open');
 }
 
 function onWindowClose() {
@@ -161,7 +163,7 @@ function prepareAndroidMenu(menu) {
     }
 }
 
-function changeMenu(e) {
+function changeMenu() {
     'use strict';
 
     if (OS_ANDROID) {
@@ -345,11 +347,8 @@ function wizDone(e) {
                 message : L('shout_wiz_you_did_not_add_any_mates'),
                 callback : function() {
                     // exit without saving
-                    if (_.isFunction(_fnDoneCallback)) {
-                        _fnDoneCallback();
-                    } else {
-                        Alloy.Globals.Navigator.pop();
-                    }
+                    $.trigger('done');
+                    Alloy.Globals.Navigator.pop();
                 }
             });
         }
@@ -359,11 +358,12 @@ function wizDone(e) {
         Alloy.Collections.instance('shouts').add($.mShout, {
             merge : true
         });
-        if (_.isFunction(_fnDoneCallback)) {
-            _fnDoneCallback($.mShout);
-        } else {
-            Alloy.Globals.Navigator.pop();
-        }
+        // raise 'done' event on controller, supplying new shout model to subscribers
+        $.trigger('done', {
+            mShout: $.mShout
+        });
+        // navigate back
+        Alloy.Globals.Navigator.pop();
     }
 }
 
@@ -374,16 +374,11 @@ function goAddMate() {
         mShout: $.mShout
     });
     // register for 'done' event on controller
-    _oMateController.on('done', onGoAddMateDone);
-}
+    _oMateController.once('done', function(e) {
+        _oMateController = null;
 
-function onGoAddMateDone(e) {
-    'use strict';
-
-    _oMateController.off('done', onGoAddMateDone);
-    _oMateController = null;
-
-    if (e.oMate) {
-        addShoutMate(e.oMate);
-    }
+        if (e.oMate) {
+            addShoutMate(e.oMate);
+        }
+    });
 }

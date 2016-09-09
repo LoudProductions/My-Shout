@@ -32,20 +32,27 @@
 	backgroundColor: Alloy.CFG.colors.backgroundColor,
 }
 
+'.appVScrollView': {
+}
+
+'.appVScrollView[platform=android]': {
+	scrollType: 'vertical',
+}
+
 '.appTransparent': {
 	opacity: 0,
 }
 
 '.appListItemRightIcon1': {
-	right: 5,
+	right: 16,
 }
 
 '.appListItemRightIcon2': {
-	right: 50,
+	right: 60,
 }
 
 '.appListItemRightIcon3': {
-	right: 95,
+	right: 96,
 }
 
 '.appCompositeView': {

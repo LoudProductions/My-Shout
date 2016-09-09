@@ -49,6 +49,29 @@ exports.definition = {
                 // generate a mate ID from the shout's ID and the mate's index
                 return this.id + '-' + (this.getMates().length + 1);
             },
+            setMate : function(oMate, bReplaceCurrentMate) {
+                // check we have a valid mate
+                if (!oMate || (oMate && !oMate.mateId)) {
+                    log.error('setMate called without a valid oMate!', 'models/shouts.js > setMate()');
+                    throw new Error(L('shouts_could_not_find_mate'));
+                }
+                if (bReplaceCurrentMate) {
+                    // remove current mate and add new one
+                    this.removeMate(oMate.mateId);
+                    this.addMate(oMate);
+                } else {
+                    // extend current mate with changes
+                    var aMates = this.getMates();
+                    var oCurrentMate = this.getMate(oMate.mateId);
+                    _.extend(oCurrentMate, oMate);
+                    // update the model
+                    this.set('mates', aMates);
+                    if (oMate.hasShout) {
+                        // set the shout name based on the new shouter
+                        this.set('name', oMate.name);
+                    }
+                }
+            },
             removeMate : function(mateId) {
                 // find the specified mate
                 var oMate = this.getMate(mateId);
@@ -69,6 +92,9 @@ exports.definition = {
                 if (aMates.length === 0) {
                     oMate.hasShout = true;
                     this.set('name', oMate.name);
+                }
+                if (!oMate.mateId) {
+                    oMate.mateId = this.getNextMateId();
                 }
                 aMates.push(oMate);
                 // update shout model
@@ -138,12 +164,12 @@ exports.definition = {
 
                 return oReturn;
             },
-            calcShoutCost : function() {
+            calcShoutCost : function(bIncludeShouter) {
                 var aMates = this.getMates();
                 // calculate cost to the shouter
                 return _.reduce(aMates, function(memo, oMate) {
                     // add up the cost for active non-shouters
-                    if (oMate.isInactive || oMate.hasShout) {
+                    if (oMate.isInactive || (oMate.hasShout && !bIncludeShouter)) {
                         return memo + 0;
                     } else {
                         return memo + Number(oMate.price);

@@ -42,59 +42,20 @@ var launch = true;
 function init() {
     'use strict';
 
+    // load intro controller first to provide startup animation while app loads
+    // but don't open window until nav window has been opened
+    log.trace('creating intro controller...');
     _introController = Alloy.createController('intro');
-    _introController.window.open();
+    log.trace('intro controller created');
 
-    _.defer(function() {
-        var cShouts = Alloy.Collections.instance('shouts');
-        cShouts.fetch();
-        if (cShouts.length === 0) {
-            // no shouts yet: open shout wizard controller
-            _shoutWizController = Alloy.createController('shout_wiz', {
-                fnLoadedCallback : function() {
-                    'use strict';
-                    _introController.endIntro(displayShoutWiz);
-                },
-                fnDoneCallback : function() {
-                    'use strict';
-                    _shoutsController = Alloy.createController('shouts');            
-                    displayShouts();
-                }
-            });
-        } else {
-            // shouts exist: open shouts controller
-            _shoutsController = Alloy.createController('shouts', {
-                fnLoadedCallback : function() {
-                    'use strict';
-                    _introController.endIntro(displayShouts);
-                }
-            });            
-        }
-        
+    // create main controller with navigation window
+    log.trace('creating shouts controller...');
+    _shoutsController = Alloy.createController('shouts', {
+        bMustDelayInit: true
     });
+    log.trace('shouts controller created');
 
-}
-
-/**
- * Display shout wizard screen
- */
-function displayShoutWiz() {
-    'use strict';
-    
-    _shoutWizController.window.open();
-    // _shoutWizController.animateIn();
-
-    _introController.window.close();
-    _introController = null;
-
-}
-
-/**
- * Display shouts screen
- */
-function displayShouts() {
-    'use strict';
-
+    log.trace('initialising navigation...');
     if (OS_IOS) {
         var navWindow = Ti.UI.iOS.createNavigationWindow({
             window : _shoutsController.window
@@ -106,17 +67,87 @@ function displayShouts() {
         Alloy.Globals.initNavigation();
         Alloy.Globals.Navigator.push(_shoutsController);
     }
+    log.trace('navigation initialised');
 
-    _shoutsController.animateIn();
+    _.defer(function() {
+        log.trace('fetching shouts collection...');
+        var cShouts = Alloy.Collections.instance('shouts');
+        cShouts.fetch();
+        log.trace('shouts collection fetched... model count: ' + cShouts.length);
+        if (cShouts.length === 0) {
+            // no shouts yet: load shout wizard controller
+            log.trace('creating shout_wiz controller...');
+            _shoutWizController = Alloy.Globals.Navigator.push('shout_wiz', {
+                bNoAnimateInOnOpen: true
+            });
+            log.trace('shout_wiz controller created');
+            // open the intro animation window
+            log.trace('opening intro controller window...');
+            _introController.window.open();
+            // once wizard loaded end intro and display wizard
+            _shoutWizController.once('loaded', function(e) {
+                log.trace('shout_wiz controller loaded event received');
+                log.trace('calling intro controller endIntro()...');
+                _introController.endIntro();
+                _introController.once('ended', function() {
+                    log.trace('intro controller ended event received');
+                    displayShoutWiz();
+                });
+            });
+            // once wizard done display shouts
+            _shoutWizController.once('done', function(e) {
+                _shoutsController.delayedInit();
+                _shoutsController.once('loaded', function() {
+                    displayShouts();
+                });
+            });
+        } else {
+            // FIXME: figure out why sometimes the app closes its last window during startup
+            // now open the intro animation window
+            _introController.window.open();
+            // shouts exist: end intro and animate in shouts controller
+            _shoutsController.delayedInit();
+            _shoutsController.once('loaded', function(e) {
+                log.trace('shouts controller loaded event received');
+                log.trace('calling intro controller endIntro()...');
+                _introController.endIntro();
+                _introController.once('ended', function() {
+                    log.trace('intro controller ended event received');
+                    displayShouts();
+                });
+            });
+        }
+    });
+}
+
+/**
+ * Display shout wizard screen
+ */
+function displayShoutWiz() {
+    'use strict';
 
     if (_introController) {
+        log.trace('closing intro controller window...');
         _introController.window.close();
         _introController = null;
     }
-    
-    if (_shoutWizController) {
-        _shoutWizController.window.close();
-        _shoutWizController = null;        
-    }
+
+    log.trace('animating in shout_wiz controller...');
+    _shoutWizController.animateIn();
 }
 
+/**
+ * Display shouts screen
+ */
+function displayShouts() {
+    'use strict';
+
+    if (_introController) {
+        log.trace('closing intro controller window...');
+        _introController.window.close();
+        _introController = null;
+    }
+
+    log.trace('animating in shouts controller...');
+    _shoutsController.animateIn();
+}

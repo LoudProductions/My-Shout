@@ -1,11 +1,12 @@
+var CONST = require('constants');
 var animation = require('alloy/animation');
 var dialogs = require('alloy/dialogs');
 
-var _fnLoadedCallback;
 var _bIsEditingMate = false;
 var _iIsEditingIndex = 0;
 var _oIsEditingMate;
 var _oMateController;
+var _oShoutWizController;
 
 /**
  * self-executing function to organize otherwise inline constructor code
@@ -18,16 +19,22 @@ var _oMateController;
     // FIXME: https://jira.appcelerator.org/browse/ALOY-1263
     'use strict';
 
-    _fnLoadedCallback = args.fnLoadedCallback;
+    if (!args.bMustDelayInit) {
+        // even if we're not asked to delay init, we throw it onto the stack
+        // so intro animations etc. have a chance to get started
+        _.defer(function() {
+            init();
+        });
+    }
 
-    _.defer(function() {
-        init();
-    });
+    $.delayedInit = function() {
+        _.defer(function() {
+            init();
+        });
+    };
 
-    /**
-     * animate in view
-     */
     $.animateIn = function() {
+        log.trace('running shouts controller animateIn...');
         $.activity_indicator.hide();
 
         $.shouts_container.animate(Ti.UI.createAnimation({
@@ -36,18 +43,24 @@ var _oMateController;
         }));
     };
 
+    /**
+     * window open/close
+     */
+    $.window.addEventListener('open', onWindowOpen);
+    $.window.addEventListener('close', onWindowClose);
+
 })(arguments[0] || {});
 
 function init() {
     'use strict';
+    log.trace('running shouts controller init...');
 
     fetchFavShout();
     fillFavShoutSection();
     fillShoutMatesSection();
 
-    if (_.isFunction(_fnLoadedCallback)) {
-        _fnLoadedCallback();
-    }
+    log.trace('raising shouts controller loaded event...');
+    $.trigger('loaded');
 }
 
 function fetchFavShout() {
@@ -61,10 +74,11 @@ function fetchFavShout() {
     if (!mFavShout) {
         mFavShout = cShouts.first();
     }
-
-    // fetch model bound to view
-    $.mShout.id = mFavShout.id;
-    $.mShout.fetch();
+    if (mFavShout) {
+        // fetch model bound to view
+        $.mShout.id = mFavShout.id;
+        $.mShout.fetch();
+    }
 }
 
 function fetchShoutIndex(iOffset) {
@@ -95,6 +109,9 @@ function fetchShoutIndex(iOffset) {
     // fetch model bound to view
     $.mShout.id = mNextShout.id;
     $.mShout.fetch();
+
+    // reconfigure menus
+    changeMenu();
 }
 
 function onFavShoutSwipe(e) {
@@ -278,7 +295,7 @@ function mapMateListItem(oMate, template) {
         },
         mate_balance: {
             // text : oMate.balance,
-            attributedString: getAttributedBalanceText(oMate.balance),
+            attributedString: getAttributedBalanceText(oMate.balance, oMate.hasShout),
         },
         mate_has_shout: {
             color: mateColor,
@@ -314,7 +331,7 @@ function mapMateListItem(oMate, template) {
 function getAttributedPriceText(price) {
     'use strict';
 
-    price = Number.isNaN(price) ? 0 : price;
+    price = isNaN(price) ? 0 : price;
     var oAttributedString = Ti.UI.createAttributedString({
         text: '$' + Number(price).toFixed(2),
     });
@@ -329,10 +346,10 @@ function getAttributedPriceText(price) {
     return oAttributedString;
 }
 
-function getAttributedBalanceText(balance) {
+function getAttributedBalanceText(balance, hasShout) {
     'use strict';
 
-    balance = Number.isNaN(balance) ? 0 : balance;
+    balance = isNaN(balance) ? 0 : balance;
     var sign = (balance < 0 ? '-' : '');
     var oAttributedString = Ti.UI.createAttributedString({
         text: sign + '$' + Number(Math.abs(balance)).toFixed(2),
@@ -349,7 +366,7 @@ function getAttributedBalanceText(balance) {
         // change color if balance is negative
         oAttributedString.addAttribute({
             type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
-            value: Alloy.CFG.colors.negativeColor,
+            value: (hasShout ? Alloy.CFG.colors.backgroundColor : Alloy.CFG.colors.negativeColor),
             range: [0, oAttributedString.text.length]
         });
 
@@ -357,33 +374,33 @@ function getAttributedBalanceText(balance) {
     return oAttributedString;
 }
 
-/**
- * event listener set via view for when the user clicks a MenuItem
- * @param  {Object} e Event
- */
-function goShoutWiz(e) {
+function goShoutWiz() {
     'use strict';
 
-    Alloy.Globals.Navigator.push('shout_wiz', {
+    _oShoutWizController = Alloy.Globals.Navigator.push('shout_wiz', {
         bCanSkipWelcome: true,
-        fnDoneCallback: function(mShout) {
-            Alloy.Globals.Navigator.pop();
-            if (mShout) {
-                // mark the new fav shout
-                mShout.markAsFav();
-                mShout.save();
-                // unmark the current fav shout
-                $.mShout.unmarkAsFav();
-                $.mShout.save();
-                // fetch the shout bound to the view again
-                $.mShout.id = mShout.id;
-                $.mShout.fetch();
+    });
+    // register with wizard 'done' event
+    _oShoutWizController.once('done', function(e) {
+        _oShoutWizController = null;
 
-                // update list
-                updateFavShoutSection();
-                fillShoutMatesSection();
+        if (e.mShout) {
+            // mark the new fav shout
+            e.mShout.markAsFav();
+            e.mShout.save();
+            // unmark the current fav shout
+            $.mShout.unmarkAsFav();
+            $.mShout.save();
+            // fetch the shout bound to the view again
+            $.mShout.id = e.mShout.id;
+            $.mShout.fetch();
 
-            }
+            // reconfigure menus
+            changeMenu();
+
+            // update list
+            updateFavShoutSection();
+            fillShoutMatesSection();
         }
     });
 }
@@ -394,7 +411,7 @@ function saveEditingMateChanges() {
     // save changes, if any
     var oMate = $.mShout.getMate(_oIsEditingMate.mateId);
     if (!_.isEqual(oMate, _oIsEditingMate)) {
-        _.extend(oMate, _oIsEditingMate);
+        $.mShout.setMate(_oIsEditingMate);
         $.mShout.save();
     }
 }
@@ -515,11 +532,18 @@ function onMateSwipe(e) {
 function onGoEditMateDone(e) {
     'use strict';
 
-    _oMateController.off('done', onGoEditMateDone);
     _oMateController = null;
 
     if (e.oMate) {
-        var bMustUpdateFavShoutSection = _oIsEditingMate.name === $.mShout.get('name') ? true : false;
+        log.trace('received changed mate from editing:');
+        log.trace(e.oMate);
+        log.trace('current mate before editing:');
+        log.trace(_oIsEditingMate);
+        var bMustUpdateFavShoutSection = false;
+        if (_oIsEditingMate.hasShout && _oIsEditingMate.name !== e.oMate.name) {
+            // if the shouter's name has changed then so also the shout
+            bMustUpdateFavShoutSection = true;
+        }
 
         // merge changed mate with model
         _.extend(_oIsEditingMate, e.oMate);
@@ -537,7 +561,6 @@ function onGoEditMateDone(e) {
 function onGoEditMateDelete(e) {
     'use strict';
 
-    _oMateController.off('delete', onGoEditMateDelete);
     _oMateController = null;
 
     if (e.oMate) {
@@ -569,8 +592,8 @@ function goEditMate(mateId) {
         oMate: oMate
     });
     // register for 'done' and 'delete' events on controller
-    _oMateController.on('done', onGoEditMateDone);
-    _oMateController.on('delete', onGoEditMateDelete);
+    _oMateController.once('done', onGoEditMateDone);
+    _oMateController.once('delete', onGoEditMateDelete);
 }
 
 /**
@@ -581,7 +604,7 @@ function doFavShout(e) {
     'use strict';
 
     dialogs.confirm({
-        message: String.format(L('shouts_total_cost'), Number($.mShout.calcShoutCost()).toFixed(2)),
+        message: String.format(L('shouts_total_cost'), Number($.mShout.calcShoutCost(true)).toFixed(2)),
         callback: function() {
             // update shouter balance and toast the next shouter!
             var oNextToShout = $.mShout.updateShouterBalance();
@@ -619,28 +642,114 @@ function deleteShout(e) {
     });
 }
 
-function onGoAddMateDone(e){
-    'use strict';
-
-    _oMateController.off('done', onGoAddMateDone);
-    _oMateController = null;
-
-    if (e.oMate) {
-        $.mShout.addMate(e.oMate);
-        $.mShout.save();
-
-        $.shout_mates_listsection.appendItems([mapMateListItem(e.oMate)], {
-            animated : true
-        });
-    }
-}
-
-function goAddMate(e){
+function goAddMate(){
     'use strict';
 
     _oMateController = Alloy.Globals.Navigator.push('mate', {
         mShout: $.mShout
     });
     // register for 'done' event on controller
-    _oMateController.on('done', onGoAddMateDone);
+    _oMateController.once('done', function(e) {
+        _oMateController = null;
+
+        if (e.oMate) {
+            $.mShout.addMate(e.oMate);
+            $.mShout.save();
+
+            $.shout_mates_listsection.appendItems([mapMateListItem(e.oMate)], {
+                animated : true
+            });
+        }
+    });
+}
+
+function createAndroidMenu(menu) {
+    'use strict';
+
+    if (OS_ANDROID) {
+        var menuItemDoFavShout = menu.add({
+            itemId : CONST.MENU.SHOUTS_DO_FAV_SHOUT,
+            title : L('shouts_fav_shout'),
+            showAsAction : Ti.Android.SHOW_AS_ACTION_IF_ROOM,
+            visible : false,    // hide until shout is loaded
+        });
+        menuItemDoFavShout.addEventListener('click', doFavShout);
+
+        var menuItemAddShout = menu.add({
+            itemId : CONST.MENU.SHOUTS_ADD_SHOUT,
+            title : L('shouts_add_shout'),
+            showAsAction : Ti.Android.SHOW_AS_ACTION_IF_ROOM,
+        });
+        menuItemAddShout.addEventListener('click', goShoutWiz);
+
+        var menuItemAddMate = menu.add({
+            itemId : CONST.MENU.SHOUTS_ADD_MATE,
+            title : L('shout_wiz_add_mate'),
+            showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER,
+            visible : false,    // hide until shout is loaded
+        });
+        menuItemAddMate.addEventListener('click', goAddMate);
+    }
+}
+
+function prepareAndroidMenu(menu) {
+    'use strict';
+
+    if (OS_ANDROID) {
+        var menuItemDoFavShout = menu.findItem(CONST.MENU.SHOUTS_DO_FAV_SHOUT);
+        var menuItemAddMate = menu.findItem(CONST.MENU.SHOUTS_ADD_MATE);
+        // show/hide menuitems depending on if we have a current shout
+        if ($.mShout && $.mShout.id) {
+            if (menuItemDoFavShout) {
+                menuItemDoFavShout.setVisible(true);
+            }
+            if (menuItemAddMate) {
+                menuItemAddMate.setVisible(true);
+            }
+        }
+    }
+}
+
+function changeMenu() {
+    'use strict';
+
+    if (OS_ANDROID) {
+        // we have to signal android to invalidate the options menu:
+        // it will be reconfigured in the onPrepareOptionsMenu handler
+        $.window.activity.invalidateOptionsMenu();
+    }
+    if (OS_IOS) {
+
+    }
+}
+
+function onWindowOpen() {
+    'use strict';
+
+    $.window.removeEventListener('open', onWindowOpen);
+
+    // set android menu callbacks
+    if (OS_ANDROID) {
+        $.window.activity.onCreateOptionsMenu = function(e) {
+            createAndroidMenu(e.menu);
+        };
+        $.window.activity.onPrepareOptionsMenu = function(e) {
+            prepareAndroidMenu(e.menu);
+        };
+    }
+
+    // reconfigure menus
+    changeMenu();
+
+    log.trace('raising shouts controller open event...');
+    $.trigger('open');
+}
+
+function onWindowClose() {
+    'use strict';
+
+    $.window.removeEventListener('close', onWindowClose);
+
+    // destroy alloy data bindings
+    $.destroy();
 }

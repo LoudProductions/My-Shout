@@ -1,4 +1,5 @@
-var _fnLoadedCallback;
+var CONST = require('constants');
+
 var _oMate;
 var _mShout;
 var _bIsEditingMate = false;
@@ -14,9 +15,6 @@ var _bIsEditingMate = false;
     // FIXME: https://jira.appcelerator.org/browse/ALOY-1263
     'use strict';
 
-log.debug(args);
-
-    _fnLoadedCallback = args.fnLoadedCallback;
     _mShout = args.mShout;
     _oMate = args.oMate;
 
@@ -48,9 +46,7 @@ function init() {
         $.mMate.set('mateId', _mShout.getNextMateId());
     }
 
-    if (_.isFunction(_fnLoadedCallback)) {
-        _fnLoadedCallback();
-    }
+    $.trigger('loaded');
 }
 
 // function createAndroidMenu(menu) {
@@ -69,13 +65,12 @@ function init() {
 //     }
 // }
 //
-// function changeMenu(e) {
+// function changeMenu() {
 //     'use strict';
 //
 //     if (OS_ANDROID) {
 //         // we have to signal android to invalidate the options menu:
 //         // it will be reconfigured in the onPrepareOptionsMenu handler
-//         // Ti.Android.currentActivity.invalidateOptionsMenu();
 //         $.window.activity.invalidateOptionsMenu();
 //     }
 //     if (OS_IOS) {
@@ -90,22 +85,23 @@ function onWindowOpen() {
 
     // // set android menu callbacks
     // if (OS_ANDROID) {
-    //     // Ti.Android.currentActivity.onCreateOptionsMenu = function(e) {
     //     $.window.activity.onCreateOptionsMenu = function(e) {
     //         createAndroidMenu(e.menu);
     //     };
-    //     // Ti.Android.currentActivity.onPrepareOptionsMenu = function(e) {
     //     $.window.activity.onPrepareOptionsMenu = function(e) {
     //         prepareAndroidMenu(e.menu);
     //     };
     // }
 
+    log.trace('raising mate controller open event...');
+    $.trigger('open');
 }
 
 function onWindowClose() {
     'use strict';
 
     $.window.removeEventListener('close', onWindowClose);
+
     // destroy alloy data bindings
     $.destroy();
 }

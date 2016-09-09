@@ -78,4 +78,15 @@ exports.debug = function(thingTolog, callingContext) {
         // callingContext = this.debug.caller;  // cannot use .caller in strict mode
     }
     Titanium.API.debug(contextualiseLogMessage(formatForLogging(thingTolog), callingContext));
-}; 
+};
+/**
+ * alias for Titanium.API.trace that checks for safe string conversion with optional contextualisation of the log message
+ * @param {Object} thingTolog
+ * @param {Object} callingContext
+ */
+exports.trace = function(thingTolog, callingContext) {
+    if (!callingContext) {
+        // callingContext = this.trace.caller;  // cannot use .caller in strict mode
+    }
+    Titanium.API.trace(contextualiseLogMessage(formatForLogging(thingTolog), callingContext));
+};

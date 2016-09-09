@@ -12,6 +12,9 @@ exports.definition = {
 			validate : function(bNoFix) {
 				// check all keys actually exist
 				var oMate = this.toJSON();
+				log.debug('validating mate model:');
+				log.debug(oMate);
+
 				if (!_.has(oMate, 'name')) {
 					oMate.name = '';
 				}
@@ -35,7 +38,7 @@ exports.definition = {
 					log.error(L('mate_name_is_required'), 'models/mates.js > validate()');
 					throw new Error(L('mate_name_is_required'));
 				}
-				oMate.price = Number.isNaN(oMate.price) ? Number(0).toFixed(2) : Number(oMate.price).toFixed(2);
+				oMate.price = isNaN(oMate.price) ? Number(0).toFixed(2) : Number(oMate.price).toFixed(2);
 				if (!bNoFix) {
 					this.set(oMate);
 				}

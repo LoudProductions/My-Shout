@@ -4,4 +4,7 @@ exports.MENU = {
     SHOUT_WIZ_NEXT : 0,
     SHOUT_WIZ_DONE : 1,
     SHOUT_WIZ_ADD_MATE : 2,
+    SHOUTS_DO_FAV_SHOUT : 3,
+    SHOUTS_ADD_SHOUT : 4,
+    SHOUTS_ADD_MATE : 5,
 };

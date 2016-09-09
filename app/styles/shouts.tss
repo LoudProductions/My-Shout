@@ -59,7 +59,7 @@
 
 '.otherShoutsListItem': {
 	height: 40,
-	left: 5,
+	left: 16,
 	layout: 'vertical',
 }
 
@@ -71,7 +71,7 @@
 
 '.matesListItemLeft': {
 	/*borderColor: 'red',*/
-	left: 5,
+	left: 16,
 	width: '50%',
 	layout: 'vertical',
 }
@@ -83,7 +83,7 @@
 
 '.matesListItemRight': {
 	/*borderColor: 'green',*/
-	right: 5,
+	right: 16,
 	width: '50%',
 	layout: 'vertical',
 }

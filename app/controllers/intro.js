@@ -1,6 +1,5 @@
-var _animateOutOnComplete = false;
-var _animationComplete = false;
-var _callback;
+var _bAnimateOutOnComplete = false;
+var _bAnimationComplete = false;
 
 /**
  * self-executing function to organize otherwise inline constructor code
@@ -17,18 +16,21 @@ var _callback;
      * End intro once animation has completed
      * @param {Object} callback
      */
-    $.endIntro = function(callback) {
-        'use strict';
-
+    $.endIntro = function() {
+        _.defer(function() {
+// ################
 // temp: skip intro
-callback();
-return;
+// ################
+// $.trigger('ended');
+// return;
+// ################
 
-        _callback = callback;
-        _animateOutOnComplete = true;
-        if (_animationComplete) {
-            animateOut();
-        }
+
+            _bAnimateOutOnComplete = true;
+            if (_bAnimationComplete) {
+                animateOut();
+            }
+        });
     };
 
     /**
@@ -46,15 +48,18 @@ function init() {
 
     $.window.removeEventListener('open', init);
 
+// ####################
 // temp: skip animation
-return;
+// ####################
+// return;
+// ####################
+
 
     var animation = Ti.UI.createAnimation({
         backgroundColor: Alloy.CFG.colors.backgroundColor,
         duration : 100
     });
     animation.addEventListener('complete', function(e) {
-        'use strict';
         var animation = Ti.UI.createAnimation({
             transform: Ti.UI.create2DMatrix({rotate: -160}),
             // transform : Ti.UI.create2DMatrix({
@@ -68,7 +73,6 @@ return;
             duration : 1000
         });
         animation.addEventListener('complete', function(e) {
-            'use strict';
             var animation = Ti.UI.createAnimation({
                 transform : Ti.UI.create2DMatrix({
                     rotate : 11.3
@@ -76,9 +80,8 @@ return;
                 duration : 200
             });
             animation.addEventListener('complete', function(e) {
-                'use strict';
-                _animationComplete = true;
-                if (_animateOutOnComplete) {
+                _bAnimationComplete = true;
+                if (_bAnimateOutOnComplete) {
                     animateOut();
                 } else {
                     $.activity_indicator.show();
@@ -106,6 +109,9 @@ function animateOut() {
         opacity : 0,
         duration : 1000
     });
-    animation.addEventListener('complete', _callback);
-    $.window.animate(animation);
+    animation.addEventListener('complete', function() {
+        log.trace('raising init controller ended event...');
+        $.trigger('ended');
+    });
+    $.my_shout_circle.animate(animation);
 }
