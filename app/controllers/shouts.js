@@ -80,6 +80,7 @@ function fetchFavShout() {
     }
     if (mFavShout) {
         // fetch model bound to view
+        $.mShout.clear();
         $.mShout.id = mFavShout.id;
         $.mShout.fetch();
     }
@@ -111,6 +112,7 @@ function fetchShoutIndex(iOffset) {
     }
 
     // fetch model bound to view
+    $.mShout.clear();
     $.mShout.id = mNextShout.id;
     $.mShout.fetch();
 
@@ -291,7 +293,7 @@ function mapMateListItem(oMate, template) {
         },
         mate_price: {
             // text: oMate.price,
-            attributedString: getAttributedPriceText(oMate.price),
+            attributedString: getAttributedPriceText(oMate.price, oMate.hasShout),
         },
         mate_price_edit: {
             value: oMate.price,
@@ -315,7 +317,8 @@ function mapMateListItem(oMate, template) {
             color: mateColor,
             backgroundColor: mateBackgroundColor
         },
-        mate_shout_icon: {
+        mate_your_shout_icon: {
+            visible: (oMate.hasShout ? false : true),
             color: mateColor,
             backgroundColor: mateBackgroundColor
         },
@@ -331,7 +334,7 @@ function mapMateListItem(oMate, template) {
     };
 }
 
-function getAttributedPriceText(price) {
+function getAttributedPriceText(price, hasShout) {
     'use strict';
 
     price = isNaN(price) ? 0 : price;
@@ -341,11 +344,20 @@ function getAttributedPriceText(price) {
     oAttributedString.addAttribute({
         type: Ti.UI.ATTRIBUTE_FONT,
         value: {
-            fontSize: 14,
-            fontFamily: 'OpenSans-ExtraBold'
+            fontSize: 12,
+            fontFamily: 'OpenSans-Bold'
         },
         range: [0, 1]
     });
+    if (hasShout) {
+        // change color if mate has the shout
+        oAttributedString.addAttribute({
+            type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
+            value: Alloy.CFG.colors.backgroundColor,
+            range: [0, oAttributedString.text.length]
+        });
+
+    }
     return oAttributedString;
 }
 
@@ -365,8 +377,8 @@ function getAttributedBalanceText(balance, hasShout) {
         },
         range: [0, 1]
     });
-    if (balance < 0) {
-        // change color if balance is negative
+    if (hasShout || balance < 0) {
+        // change color if balance is negative or mate has the shout
         oAttributedString.addAttribute({
             type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
             value: (hasShout ? Alloy.CFG.colors.backgroundColor : Alloy.CFG.colors.negativeColor),
@@ -489,7 +501,7 @@ function onMateEditClick(e) {
     goEditMate(e.itemId);
 }
 
-function onMateShoutClick(e) {
+function onMateYourShoutClick(e) {
     'use strict';
 
     try {

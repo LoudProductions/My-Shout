@@ -105,7 +105,7 @@
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
-		fontSize: 10,
+		fontSize: 12,
     	fontFamily: 'OpenSans-Light'
 	}
 }

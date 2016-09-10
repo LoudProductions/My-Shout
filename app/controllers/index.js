@@ -81,7 +81,7 @@ function init() {
         log.trace('fetching shouts collection...');
         var cShouts = Alloy.Collections.instance('shouts');
         cShouts.fetch();
-        log.trace('shouts collection fetched... model count: ' + cShouts.length);
+        log.debug('shouts collection fetched... model count: ' + cShouts.length);
         log.trace('calling shouts controller delayedInit()...');
         // _oShoutsController.delayedInit();
         if (cShouts.length === 0) {
