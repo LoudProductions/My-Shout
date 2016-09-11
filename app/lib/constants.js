@@ -7,4 +7,5 @@ exports.MENU = {
     SHOUTS_DO_FAV_SHOUT : 3,
     SHOUTS_ADD_SHOUT : 4,
     SHOUTS_ADD_MATE : 5,
+    SHOUTS_HISTORY : 6,
 };

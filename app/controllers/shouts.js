@@ -70,19 +70,28 @@ function init() {
 function fetchFavShout() {
     'use strict';
 
+    var logContext = 'shouts.js > fetchFavShout()';
+
     // find the first shout model marked as favourite
     var cShouts = Alloy.Collections.instance('shouts');
     var mFavShout = cShouts.findWhere({
         isFav: true
     });
+
     if (!mFavShout) {
         mFavShout = cShouts.first();
+        log.debug('fav shout not found; selecting first model:', logContext);
     }
+
     if (mFavShout) {
+        log.debug('fav shout:', logContext);
+        log.debug(mFavShout, logContext);
         // fetch model bound to view
         $.mShout.clear();
         $.mShout.id = mFavShout.id;
         $.mShout.fetch();
+    } else {
+        log.debug('fav shout not found!', logContext);
     }
 }
 
@@ -154,7 +163,6 @@ function onFavShoutSwipe(e) {
             animation.fadeIn(oView, 100);
         });
     });
-
 }
 
 function updateFavShoutSection() {
@@ -392,23 +400,31 @@ function getAttributedBalanceText(balance, hasShout) {
 function onShoutWizDone(e) {
     'use strict';
 
-    log.trace('shout_wiz controller done event received');
-    log.trace(e);
+    var logContext = 'shouts.js > onShoutWizDone()';
+    log.debug('$.mShout currently bound to view', logContext);
+    log.debug($.mShout, logContext);
+    log.debug('new mShout model received from shout_wiz:', logContext);
+    log.debug(e.mShout, logContext);
 
     _oShoutWizController = null;
 
     if (e.mShout) {
+
         // mark the new fav shout
         e.mShout.markAsFav();
         e.mShout.save();
-        // unmark the current fav shout
-        $.mShout.unmarkAsFav();
-        $.mShout.save();
+        // unmark the current fav shout (if any)
+        if ($.mShout.id) {
+            $.mShout.unmarkAsFav();
+            $.mShout.save();
+        }
 
         // clear/fetch the shout bound to the view with the new shout's id
         $.mShout.clear();
         $.mShout.id = e.mShout.id;
         $.mShout.fetch();
+        log.debug('$.mShout model after fetch:', logContext);
+        log.debug($.mShout, logContext);
 
         // reconfigure menus
         changeMenu();
@@ -649,12 +665,19 @@ function doFavShout(e) {
             callback: function() {
                 // update shouter balance and toast the next shouter!
                 var oNextToShout = $.mShout.updateShouterBalance();
+                // archive shout to history
+                Alloy.Collections.instance('history').archiveShout($.mShout);
+                // give next mate the shout and save
+                $.mShout.giveMateTheShout(oNextToShout.mateId);
                 $.mShout.save();
+
                 toast.show(String.format(L('shouts_next_shout_is_on'), oNextToShout.name));
 
                 // update list
                 updateFavShoutSection();
                 fillShoutMatesSection();
+
+                changeMenu();
             }
         });
     }
@@ -709,6 +732,14 @@ function goAddMate(){
     });
 }
 
+function goHistory(){
+    'use strict';
+
+    Alloy.Globals.Navigator.push('history', {
+        mShout: $.mShout
+    });
+}
+
 function createAndroidMenu(menu) {
     'use strict';
 
@@ -735,6 +766,14 @@ function createAndroidMenu(menu) {
         //     visible : false,    // hide until shout is loaded
         // });
         // menuItemAddMate.addEventListener('click', goAddMate);
+
+        var menuItemHistory = menu.add({
+            itemId : CONST.MENU.SHOUTS_HISTORY,
+            title : L('shouts_history'),
+            showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER,
+            visible : false,    // hide until shout is loaded
+        });
+        menuItemHistory.addEventListener('click', goHistory);
     }
 }
 
@@ -744,15 +783,19 @@ function prepareAndroidMenu(menu) {
     if (OS_ANDROID) {
         // var menuItemDoFavShout = menu.findItem(CONST.MENU.SHOUTS_DO_FAV_SHOUT);
         // var menuItemAddMate = menu.findItem(CONST.MENU.SHOUTS_ADD_MATE);
-        // // show/hide menuitems depending on if we have a current shout
-        // if ($.mShout && $.mShout.id) {
-        //     if (menuItemDoFavShout) {
-        //         menuItemDoFavShout.setVisible(true);
-        //     }
-        //     if (menuItemAddMate) {
-        //         menuItemAddMate.setVisible(true);
-        //     }
-        // }
+        var menuItemHistory = menu.findItem(CONST.MENU.SHOUTS_HISTORY);
+        // show/hide menuitems depending on if we have a current shout
+        if ($.mShout && $.mShout.id) {
+            // if (menuItemDoFavShout) {
+            //     menuItemDoFavShout.setVisible(true);
+            // }
+            // if (menuItemAddMate) {
+            //     menuItemAddMate.setVisible(true);
+            // }
+            if (menuItemHistory) {
+                menuItemHistory.setVisible(true);
+            }
+        }
     }
 }
 

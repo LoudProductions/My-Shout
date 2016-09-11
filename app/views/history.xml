@@ -1,0 +1,33 @@
+<Alloy>
+	<Window id="window" title="L('history_shout_history')">
+		<View class="appCanvas">
+			<ListView class="historyList" id="history_listview">
+				<Templates>
+					<ItemTemplate name="shout_mates_template" class="matesListItem">
+						<View bindId="mate_bg_view" onClick="onMateClick">
+							<View class="matesListItemLeft">
+								<View class="appHalfHeight">
+									<Label class="listItemTitle" bindId="mate_name"/>
+								</View>
+								<View class="appHalfHeight">
+									<Label class="listItemSubtitle" bindId="mate_balance"/>
+								</View>
+							</View>
+							<View class="matesListItemMiddle">
+								<View class="appHalfHeight">
+									<Label class="listItemPoison" bindId="mate_poison"/>
+								</View>
+								<View class="appHalfHeight">
+									<Label class="listItemPrice" bindId="mate_price"/>
+								</View>
+							</View>
+							<View class="appCompositeView">
+								<Label class="listItemUndoIcon appListItemRightIcon1" bindId="mate_undo_icon"/>
+							</View>
+						</View>
+					</ItemTemplate>
+				</Templates>
+			</ListView>
+		</View>
+	</Window>
+</Alloy>

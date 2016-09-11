@@ -12,6 +12,7 @@
     <string name="shouts_fav_shout">Shout!</string>
     <string name="shouts_add_shout">Add Shout</string>
     <string name="shouts_add_mate">Add Mate</string>
+    <string name="shouts_history">History</string>
     <string name="shouts_my">My</string>
     <string name="shouts_shout">Shout</string>
     <string name="shouts_mates">Shout Mates</string>
@@ -53,4 +54,6 @@
     <string name="mate_tell_us_about_your_mate">Tell us about your mate.</string>
     <string name="mate_a_mate_named_x_has_already">A mate named %s has already been added!</string>
     <string name="mate_name_is_required">Name is required!</string>
+    <string name="history_shout_history">Shout History</string>
+    <string name="history_could_not_find_shout">Could not find the specified shout!</string>
 </resources>
