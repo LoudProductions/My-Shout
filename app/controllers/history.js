@@ -44,10 +44,15 @@ function init() {
     log.debug('history for shout:', logContext);
     log.debug(aShoutHistory, logContext);
 
-    var aSortedShoutHistory = _.sortBy(aShoutHistory, function(mHistory) {
-        return mHistory.get('shoutAt');
-    }).reverse();
-    buildHistoryList(aSortedShoutHistory);
+    if (aShoutHistory.length > 0) {
+        $.no_history_view.setVisible(false);
+        $.history_listview.setVisible(true);
+
+        var aSortedShoutHistory = _.sortBy(aShoutHistory, function(mHistory) {
+            return mHistory.get('shoutAt');
+        }).reverse();
+        buildHistoryList(aSortedShoutHistory);
+    }
 
     log.trace('raising $.loaded event...', logContext);
     $.trigger('loaded');

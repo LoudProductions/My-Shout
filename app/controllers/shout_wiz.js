@@ -37,15 +37,19 @@ var _oMateController;
 function init() {
     'use strict';
 
+    var logContext = 'shout_wiz.js > init()';
+
     // initialise shout model
     $.mShout.set('type', L('shout_wiz_coffee'));
 
-    log.trace('raising shout_wiz controller loaded event...');
+    log.trace('raising $.loaded event...', logContext);
     $.trigger('loaded');
 }
 
 function onWindowOpen() {
     'use strict';
+
+    var logContext = 'shout_wiz.js > onWindowOpen()';
 
     $.window.removeEventListener('open', onWindowOpen);
 
@@ -59,7 +63,7 @@ function onWindowOpen() {
         };
     }
     changeMenu();
-    
+
     // skip welcome page of wizard if requested
     if (_bCanSkipWelcome) {
         $.wiz_pages.scrollToView(1);
@@ -69,7 +73,7 @@ function onWindowOpen() {
         animateIn();
     }
 
-    log.trace('raising shout_wiz controller open event...');
+    log.trace('raising $.open event...', logContext);
     $.trigger('open');
 }
 
@@ -363,6 +367,8 @@ function wizNext(e) {
 function wizDone(e) {
     'use strict';
 
+    var logContext = 'shout_wiz.js > wizDone()';
+
     // if ($.mShout.getMates().length === 0) {
     //     // check that we have at least one shout set up, else we can't exit the wizard
     //     if (Alloy.Collections.instance('shouts').length === 0) {
@@ -385,8 +391,8 @@ function wizDone(e) {
             merge : true
         });
         // raise 'done' event on controller, supplying new shout model to subscribers
-        log.trace('raising shout_wiz controller done event...');
-        log.trace($.mShout.toJSON());
+        log.trace('raising $.done event...', logContext);
+        log.trace($.mShout, logContext);
         $.trigger('done', {
             mShout: $.mShout
         });

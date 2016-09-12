@@ -81,6 +81,8 @@ function init() {
 function onWindowOpen() {
     'use strict';
 
+    var logContext = 'mate.js > onWindowOpen()';
+
     $.window.removeEventListener('open', onWindowOpen);
 
     // // set android menu callbacks
@@ -93,7 +95,7 @@ function onWindowOpen() {
     //     };
     // }
 
-    log.trace('raising mate controller open event...');
+    log.trace('raising $.open event...', logContext);
     $.trigger('open');
 }
 

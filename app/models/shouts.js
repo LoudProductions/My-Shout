@@ -227,6 +227,14 @@ exports.definition = {
             unmarkAsFav : function() {
                 this.set('isFav', false);
             },
+            save : function(options) {
+                var logContext = 'models/shouts.js > save()';
+
+                options = options ? _.clone(options) : {};
+                log.debug('saving...' + (options ? ' with options: ' + JSON.stringify(options) : ''), logContext);
+                log.debug(this, logContext);
+                return Backbone.Model.prototype.save.call(this, options);
+            },
         });
 
         return Model;

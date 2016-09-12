@@ -1,3 +1,18 @@
+'.historyTitle': {
+	top: 40,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'OpenSans-Bold',
+	},
+}
+
+'.historySubtitle': {
+	font: {
+		fontSize: 14,
+    	fontFamily: 'OpenSans-Light',
+	},
+}
+
 '.historyList': {
 
 }

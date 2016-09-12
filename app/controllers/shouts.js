@@ -35,7 +35,9 @@ var _bDidAnimateIn = false;
     };
 
     $.animateIn = function() {
-        log.trace('running shouts controller animateIn...');
+        var logContext = 'shouts.js > $.animateIn()';
+        log.trace('running animateIn...', logContext);
+
         $.activity_indicator.hide();
 
         $.shouts_container.animate(Ti.UI.createAnimation({
@@ -57,13 +59,14 @@ var _bDidAnimateIn = false;
 
 function init() {
     'use strict';
-    log.trace('running shouts controller init...');
+    var logContext = 'shouts.js > init()';
+    log.trace('running init...', logContext);
 
     fetchFavShout();
     fillFavShoutSection();
     fillShoutMatesSection();
 
-    log.trace('raising shouts controller loaded event...');
+    log.trace('raising $.loaded event...', logContext);
     $.trigger('loaded');
 }
 
@@ -586,13 +589,14 @@ function onMateSwipe(e) {
 function onGoEditMateDone(e) {
     'use strict';
 
+    var logContext = 'shouts.js > onGoEditMateDone()';
     _oMateController = null;
 
     if (e.oMate) {
-        log.trace('received changed mate from editing:');
-        log.trace(e.oMate);
-        log.trace('current mate before editing:');
-        log.trace(_oIsEditingMate);
+        log.trace('received changed mate from editing:', logContext);
+        log.trace(e.oMate, logContext);
+        log.trace('current mate before editing:', logContext);
+        log.trace(_oIsEditingMate, logContext);
         var bMustUpdateFavShoutSection = false;
         if (_oIsEditingMate.hasShout && _oIsEditingMate.name !== e.oMate.name) {
             // if the shouter's name has changed then so also the shout
@@ -690,8 +694,9 @@ function doFavShout(e) {
 function deleteShout(e) {
     'use strict';
 
-    log.warn('deleted list item: ' + e.itemId);
-    log.debug(e);
+    var logContext = 'shouts.js > deleteShout()';
+    log.warn('deleted list item: ' + e.itemId, logContext);
+    log.debug(e, logContext);
 
     // remove the model from the collection
     var mShout = Alloy.Collections.instance('shouts').get(e.itemId);
@@ -815,6 +820,8 @@ function changeMenu() {
 function onWindowOpen() {
     'use strict';
 
+    var logContext = 'shouts.js > onWindowOpen()';
+
     $.window.removeEventListener('open', onWindowOpen);
 
     // set android menu callbacks
@@ -830,7 +837,7 @@ function onWindowOpen() {
     // reconfigure menus
     changeMenu();
 
-    log.trace('raising shouts controller open event...');
+    log.trace('raising $.open event...', logContext);
     $.trigger('open');
 }
 

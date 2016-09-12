@@ -75,9 +75,9 @@ function init() {
     log.trace('navigation initialised', logContext);
 
     // open intro controller as "modal" window to provide startup animation while app loads
-    // log.trace('creating modal intro controller...');
+    // log.trace('creating modal intro controller...', logContext);
     // _oIntroController = Alloy.Globals.Navigator.openModal('intro');
-    // log.trace('intro controller created');
+    // log.trace('intro controller created', logContext);
 
     _.defer(function() {
         log.trace('fetching shouts collection...', logContext);

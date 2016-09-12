@@ -56,4 +56,6 @@
     <string name="mate_name_is_required">Name is required!</string>
     <string name="history_shout_history">Shout History</string>
     <string name="history_could_not_find_shout">Could not find the specified shout!</string>
+    <string name="history_no_history">No History</string>
+	<string name="history_dont_just_stand_there">Well, don't just stand there: shout something!</string>
 </resources>

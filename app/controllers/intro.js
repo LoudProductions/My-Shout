@@ -100,6 +100,9 @@ function init() {
  */
 function animateOut() {
     'use strict';
+
+    var logContext = 'intro.js > animateOut()';
+
     $.activity_indicator.hide();
 
     var animation = Ti.UI.createAnimation({
@@ -110,7 +113,7 @@ function animateOut() {
         duration : 1000
     });
     animation.addEventListener('complete', function() {
-        log.trace('raising init controller ended event...');
+        log.trace('raising $.ended event...', logContext);
         $.trigger('ended');
     });
     $.my_shout_circle.animate(animation);

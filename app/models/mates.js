@@ -10,10 +10,12 @@ exports.definition = {
 		_.extend(Model.prototype, {
 			// extended functions and properties go here
 			validate : function(bNoFix) {
+				var logContext = 'models/mates.js > validate()';
+
 				// check all keys actually exist
 				var oMate = this.toJSON();
-				log.debug('validating mate model:');
-				log.debug(oMate);
+				log.debug('validating mate model:', logContext);
+				log.debug(oMate, logContext);
 
 				if (!_.has(oMate, 'name')) {
 					oMate.name = '';
@@ -35,7 +37,7 @@ exports.definition = {
 				}
 				// now check that we have acceptable values for each
 				if (!oMate.name) {
-					log.error(L('mate_name_is_required'), 'models/mates.js > validate()');
+					log.error(L('mate_name_is_required'), logContext);
 					throw new Error(L('mate_name_is_required'));
 				}
 				oMate.price = isNaN(oMate.price) ? Number(0).toFixed(2) : Number(oMate.price).toFixed(2);

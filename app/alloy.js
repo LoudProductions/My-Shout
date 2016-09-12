@@ -18,7 +18,7 @@
 
     global.toast = require('toast');
     global.log = require('logger');
-    log.info('Loading Alloy globals...');
+    log.info('Loading Alloy globals...', 'alloy.js');
 
 	// On iOS views start behind the 20dp high statusBar. we use this
 	// global in styles/app.tss to make sure our canvas starts under it.
@@ -31,13 +31,13 @@
     // Navigation singleton
     //
     ///////////////////////////////////////////////////////////////////////////////
-    
+
     /**
      * The navigator object which handles all navigation
      * @type {Object}
      */
     Alloy.Globals.Navigator = {};
-    
+
     /**
      * Init navigation
      * Called from index controller once intro animation is complete
@@ -49,5 +49,5 @@
             parent : Alloy.Globals.navigationWindow || null
         });
     };
-    
+
 })(this);
