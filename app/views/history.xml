@@ -1,10 +1,10 @@
 <Alloy>
 	<Window id="window" title="L('history_shout_history')">
+		<View class="appCanvas" id="no_history_view">
+			<Label class="historyTitle" text="L('history_no_history')" />
+			<Label class="historySubtitle" text="L('history_dont_just_stand_there')" />
+		</View>
 		<View class="appCanvas">
-			<View class="appCanvas" id="no_history_view">
-				<Label class="historyTitle" text="L('history_no_history')" />
-				<Label class="historySubtitle" text="L('history_dont_just_stand_there')" />
-			</View>
 			<ListView class="historyList" id="history_listview" visible="false">
 				<Templates>
 					<ItemTemplate name="shout_mates_template" class="matesListItem">

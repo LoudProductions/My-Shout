@@ -64,8 +64,11 @@ function buildHistoryList(aShoutHistory) {
     // create a section for each shout
     _.each(aShoutHistory, function(mHistory) {
         var oHistory = mHistory.transform();
+        // var oShoutSection = Ti.UI.createListSection({
+        //     headerTitle: oHistory.uiWho + ', ' + moment(oHistory.shoutAt).fromNow()
+        // });
         var oShoutSection = Ti.UI.createListSection({
-            headerTitle: oHistory.uiWho + ', ' + moment(oHistory.shoutAt).fromNow()
+            headerView: buildHistorySectionHeader(oHistory)
         });
         var aMatesListItems = _.map(oHistory.mates, function(oMate) {
             return mapMateListItem(oMate);
@@ -73,6 +76,32 @@ function buildHistoryList(aShoutHistory) {
         oShoutSection.setItems(aMatesListItems);
         $.history_listview.appendSection(oShoutSection);
     });
+}
+
+function buildHistorySectionHeader(oHistory) {
+    'use strict';
+
+    // create section header view
+    var oHeaderView = Ti.UI.createView();
+    $.addClass(oHeaderView, 'listHeader');
+
+    // add label with section title
+    var oHeaderTitle = Ti.UI.createLabel({
+        text : oHistory.uiWho + ', ' + moment(oHistory.shoutAt).fromNow(),
+    });
+    $.addClass(oHeaderTitle, 'listHeaderTitle');
+    oHeaderView.add(oHeaderTitle);
+
+    // add view and label for undo icon
+    var oUndoIconView = Ti.UI.createView();
+    $.addClass(oUndoIconView, 'appCompositeView');
+    var oUndoIconLabel = Ti.UI.createLabel();
+    $.addClass(oUndoIconLabel, 'listHeaderUndoIcon appListItemRightIcon1');
+    oUndoIconLabel.addEventListener('click', onUndoShout);
+    oUndoIconView.add(oUndoIconLabel);
+    oHeaderView.add(oUndoIconView);
+
+    return oHeaderView;
 }
 
 function mapMateListItem(oMate, template) {
@@ -270,8 +299,16 @@ function onWindowClose() {
     $.destroy();
 }
 
+function onUndoShout(e){
+    'use strict';
+
+    // TODO: get current shout model and credit all mates' balances
+    alert('undo of whole shout coming soon...');
+}
+
 function onMateClick(e){
     'use strict';
+
     // TODO: get current shout model and credit mate's balance
-    alert('undo coming soon...');
+    alert('undo of mate participation in shout coming soon...');
 }

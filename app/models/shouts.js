@@ -221,12 +221,6 @@ exports.definition = {
                 });
                 return oNextToShout;
             },
-            markAsFav : function() {
-                this.set('isFav', true);
-            },
-            unmarkAsFav : function() {
-                this.set('isFav', false);
-            },
             save : function(options) {
                 var logContext = 'models/shouts.js > save()';
 
@@ -251,7 +245,19 @@ exports.definition = {
                 options = options ? _.clone(options) : {};
                 options.reset = true;
                 return Backbone.Collection.prototype.fetch.call(this, options);
-            }
+            },
+            markAsFav : function(mFavShout) {
+                // mark the new model as favourite and unmark all others
+                _.each(this.models, function(mShout) {
+                    if (mShout.id === mFavShout.id && !mShout.get('isFav')) {
+                        mShout.set('isFav', true);
+                        mShout.save();
+                    } else if (mShout.get('isFav')) {
+                        mShout.set('isFav', false);
+                        mShout.save();
+                    }
+                });
+            },
         });
 
         return Collection;

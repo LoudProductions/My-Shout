@@ -5,6 +5,7 @@
 	<Window id="window" title="L('app_my_shout')">
 
 		<RightNavButtons platform="ios">
+			<Button title="L('shouts_history')" onClick="goHistory"/>
 			<Button title="L('shouts_add_shout')" onClick="goShoutWiz"/>
 		</RightNavButtons>
 

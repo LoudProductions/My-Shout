@@ -412,15 +412,8 @@ function onShoutWizDone(e) {
     _oShoutWizController = null;
 
     if (e.mShout) {
-
         // mark the new fav shout
-        e.mShout.markAsFav();
-        e.mShout.save();
-        // unmark the current fav shout (if any)
-        if ($.mShout.id) {
-            $.mShout.unmarkAsFav();
-            $.mShout.save();
-        }
+        Alloy.Collections.instance('shouts').markAsFav(e.mShout);
 
         // clear/fetch the shout bound to the view with the new shout's id
         $.mShout.clear();
@@ -635,7 +628,6 @@ function onGoEditMateDelete(e) {
         } catch (oErr) {
             toast.show(oErr.message || oErr);
         } finally {
-
         }
     }
 }
@@ -667,14 +659,17 @@ function doFavShout(e) {
         dialogs.confirm({
             message: String.format(L('shouts_total_cost'), Number($.mShout.calcShoutCost(true)).toFixed(2)),
             callback: function() {
-                // update shouter balance and toast the next shouter!
+                // update shouter balance
                 var oNextToShout = $.mShout.updateShouterBalance();
                 // archive shout to history
                 Alloy.Collections.instance('history').archiveShout($.mShout);
                 // give next mate the shout and save
                 $.mShout.giveMateTheShout(oNextToShout.mateId);
                 $.mShout.save();
+                // the last shout becomes the favourite
+                Alloy.Collections.instance('shouts').markAsFav($.mShout);
 
+                // let the user now who's next up
                 toast.show(String.format(L('shouts_next_shout_is_on'), oNextToShout.name));
 
                 // update list
