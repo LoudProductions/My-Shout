@@ -58,4 +58,6 @@
     <string name="history_could_not_find_shout">Could not find the specified shout!</string>
     <string name="history_no_history">No History</string>
 	<string name="history_dont_just_stand_there">Well, don't just stand there: shout something!</string>
+    <string name="history_could_not_find_shout">Could not find the specified shout!</string>
+    <string name="history_shout_has_been_reversed">The shout has been reversed...</string>
 </resources>

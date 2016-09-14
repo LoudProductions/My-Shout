@@ -3,6 +3,28 @@
 	windowSoftInputMode: Ti.UI.Android.SOFT_INPUT_ADJUST_PAN,
 }
 
+'.navAddShoutIcon': {
+	width: 40,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 24,
+    	fontFamily: 'FontAwesome',
+	},
+	color: Alloy.CFG.colors.tintColor,
+	text: Alloy.Globals.fa_icons.plus,
+}
+
+'.navHistoryIcon': {
+	width: 40,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 24,
+    	fontFamily: 'FontAwesome',
+	},
+	color: Alloy.CFG.colors.tintColor,
+	text: Alloy.Globals.fa_icons.history,
+}
+
 '.favShoutCirc1': {
 	top: '15%',
 	width: 250,
@@ -50,6 +72,11 @@
 
 '.shoutsList': {
 	/*top: '20%',*/
+}
+
+'.shoutsList[platform=ios]': {
+	separatorStyle: Ti.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE,
+	allowsSelection: false,
 }
 
 '.favShoutsListItem': {
@@ -235,7 +262,7 @@
 }
 
 '.listHeaderAddIcon': {
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 30,
     	fontFamily: 'FontAwesome',

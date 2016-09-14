@@ -2,6 +2,7 @@ var CONST = require('constants');
 var animation = require('alloy/animation');
 var dialogs = require('alloy/dialogs');
 
+var _mShout;
 var _bIsEditingMate = false;
 var _iIsEditingIndex = 0;
 var _oIsEditingMate;
@@ -77,22 +78,18 @@ function fetchFavShout() {
 
     // find the first shout model marked as favourite
     var cShouts = Alloy.Collections.instance('shouts');
-    var mFavShout = cShouts.findWhere({
+    _mShout = cShouts.findWhere({
         isFav: true
     });
 
-    if (!mFavShout) {
-        mFavShout = cShouts.first();
+    if (!_mShout) {
+        _mShout = cShouts.first();
         log.debug('fav shout not found; selecting first model:', logContext);
     }
 
-    if (mFavShout) {
+    if (_mShout) {
         log.debug('fav shout:', logContext);
-        log.debug(mFavShout, logContext);
-        // fetch model bound to view
-        $.mShout.clear();
-        $.mShout.id = mFavShout.id;
-        $.mShout.fetch();
+        log.debug(_mShout, logContext);
     } else {
         log.debug('fav shout not found!', logContext);
     }
@@ -107,7 +104,7 @@ function fetchShoutIndex(iOffset) {
     var cShouts = Alloy.Collections.instance('shouts');
     var iCurrent = -1;
     for (var i = 0; i < cShouts.models.length; i++) {
-        if (cShouts.models[i].id === $.mShout.id) {
+        if (cShouts.models[i].id === _mShout.id) {
             iCurrent = i;
             break;
         }
@@ -122,11 +119,7 @@ function fetchShoutIndex(iOffset) {
             mNextShout = cShouts.last();
         }
     }
-
-    // fetch model bound to view
-    $.mShout.clear();
-    $.mShout.id = mNextShout.id;
-    $.mShout.fetch();
+    _mShout = mNextShout;
 
     // reconfigure menus
     changeMenu();
@@ -172,7 +165,7 @@ function updateFavShoutSection() {
     'use strict';
 
     if ($.fav_shout_listsection.items.length) {
-        $.fav_shout_listsection.updateItemAt(0, mapShoutListItem($.mShout, 'fav_shout_template'), {
+        $.fav_shout_listsection.updateItemAt(0, mapShoutListItem(_mShout, 'fav_shout_template'), {
             animated: true
         });
     }
@@ -181,8 +174,11 @@ function updateFavShoutSection() {
 function fillFavShoutSection() {
     'use strict';
 
+    if (!_mShout) {
+        return false;
+    }
     // add favourite shout to list
-    var aFavListItem = [mapShoutListItem($.mShout, 'fav_shout_template')];
+    var aFavListItem = [mapShoutListItem(_mShout, 'fav_shout_template')];
     $.fav_shout_listsection.appendItems(aFavListItem, {
         animated: true
     });
@@ -202,11 +198,15 @@ function fillFavShoutSection() {
 function fillShoutMatesSection() {
     'use strict';
 
+    if (!_mShout) {
+        return false;
+    }
+
     // housekeeping for older mates
-    $.mShout.generateMissingMateIds();
+    _mShout.generateMissingMateIds();
 
     // add shout mates to list
-    var aMates = $.mShout.getMates();
+    var aMates = _mShout.getMates();
     var aMatesListItems = _.map(aMates, function(oMate) {
         return mapMateListItem(oMate);
     });
@@ -404,8 +404,8 @@ function onShoutWizDone(e) {
     'use strict';
 
     var logContext = 'shouts.js > onShoutWizDone()';
-    log.debug('$.mShout currently bound to view', logContext);
-    log.debug($.mShout, logContext);
+    log.debug('_mShout currently bound to view', logContext);
+    log.debug(_mShout, logContext);
     log.debug('new mShout model received from shout_wiz:', logContext);
     log.debug(e.mShout, logContext);
 
@@ -413,20 +413,20 @@ function onShoutWizDone(e) {
 
     if (e.mShout) {
         // mark the new fav shout
-        Alloy.Collections.instance('shouts').markAsFav(e.mShout);
+        var bIsFirstShout = _mShout ? false : true;
 
-        // clear/fetch the shout bound to the view with the new shout's id
-        $.mShout.clear();
-        $.mShout.id = e.mShout.id;
-        $.mShout.fetch();
-        log.debug('$.mShout model after fetch:', logContext);
-        log.debug($.mShout, logContext);
+        _mShout = e.mShout;
+        Alloy.Collections.instance('shouts').markAsFav(_mShout);
 
         // reconfigure menus
         changeMenu();
 
         // update list
-        updateFavShoutSection();
+        if (bIsFirstShout) {
+            fillFavShoutSection();
+        } else {
+            updateFavShoutSection();
+        }
         fillShoutMatesSection();
 
         _.defer(function() {
@@ -459,10 +459,10 @@ function saveEditingMateChanges() {
     'use strict';
 
     // save changes, if any
-    var oMate = $.mShout.getMate(_oIsEditingMate.mateId);
+    var oMate = _mShout.getMate(_oIsEditingMate.mateId);
     if (!_.isEqual(oMate, _oIsEditingMate)) {
-        $.mShout.updateMate(_oIsEditingMate);
-        $.mShout.save();
+        _mShout.updateMate(_oIsEditingMate);
+        _mShout.save();
     }
 }
 
@@ -471,7 +471,7 @@ function toggleMateEditing(mateId, itemIndex) {
 
     if (!_bIsEditingMate) {
         // set up a clone of the selected mate for editing
-        _oIsEditingMate = _.clone($.mShout.getMate(mateId));
+        _oIsEditingMate = _.clone(_mShout.getMate(mateId));
 
         // render shout mate item with editing template
         $.shout_mates_listsection.updateItemAt(itemIndex, mapMateListItem(_oIsEditingMate, 'edit_mate_template'), {
@@ -517,15 +517,15 @@ function onMateYourShoutClick(e) {
     'use strict';
 
     try {
-        var oReturn = $.mShout.giveMateTheShout(e.itemId);
-        $.mShout.save();
+        var oReturn = _mShout.giveMateTheShout(e.itemId);
+        _mShout.save();
 
         // merge the update shouter details into the editing clone
-        _.extend(_oIsEditingMate, $.mShout.getShouter());
+        _.extend(_oIsEditingMate, _mShout.getShouter());
 
         // rerender the original shouting mate's listitem
         if (oReturn.oldShouterIndex !== e.itemIndex) {
-            var oOldShoutMate = $.mShout.getMate(oReturn.oldShouterId);
+            var oOldShoutMate = _mShout.getMate(oReturn.oldShouterId);
             $.shout_mates_listsection.updateItemAt(oReturn.oldShouterIndex, mapMateListItem(oOldShoutMate), {
                 animated : true
             });
@@ -618,8 +618,8 @@ function onGoEditMateDelete(e) {
         toggleMateEditing(_oIsEditingMate.mateId, _iIsEditingIndex);
 
         try {
-            $.mShout.removeMate(e.oMate.mateId);
-            $.mShout.save();
+            _mShout.removeMate(e.oMate.mateId);
+            _mShout.save();
 
             $.shout_mates_listsection.deleteItemsAt(0, $.shout_mates_listsection.items.length, {
                 animated: true
@@ -635,10 +635,10 @@ function onGoEditMateDelete(e) {
 function goEditMate(mateId) {
     'use strict';
 
-    var oMate = _.clone($.mShout.getMate(mateId));
+    var oMate = _.clone(_mShout.getMate(mateId));
 
     _oMateController = Alloy.Globals.Navigator.push('mate', {
-        mShout: $.mShout,
+        mShout: _mShout,
         oMate: oMate
     });
     // register for 'done' and 'delete' events on controller
@@ -653,21 +653,21 @@ function goEditMate(mateId) {
 function doFavShout(e) {
     'use strict';
 
-    if ($.mShout.getMates().length === 0) {
+    if (_mShout.getMates().length === 0) {
         showAddSomeMatesToast(L('shouts_you_need_to_add_some_mates_first'));
     } else {
         dialogs.confirm({
-            message: String.format(L('shouts_total_cost'), Number($.mShout.calcShoutCost(true)).toFixed(2)),
+            message: String.format(L('shouts_total_cost'), Number(_mShout.calcShoutCost(true)).toFixed(2)),
             callback: function() {
                 // update shouter balance
-                var oNextToShout = $.mShout.updateShouterBalance();
+                var oNextToShout = _mShout.updateShouterBalance();
                 // archive shout to history
-                Alloy.Collections.instance('history').archiveShout($.mShout);
+                Alloy.Collections.instance('history').archiveShout(_mShout);
                 // give next mate the shout and save
-                $.mShout.giveMateTheShout(oNextToShout.mateId);
-                $.mShout.save();
+                _mShout.giveMateTheShout(oNextToShout.mateId);
+                _mShout.save();
                 // the last shout becomes the favourite
-                Alloy.Collections.instance('shouts').markAsFav($.mShout);
+                Alloy.Collections.instance('shouts').markAsFav(_mShout);
 
                 // let the user now who's next up
                 toast.show(String.format(L('shouts_next_shout_is_on'), oNextToShout.name));
@@ -711,15 +711,15 @@ function goAddMate(){
     'use strict';
 
     _oMateController = Alloy.Globals.Navigator.push('mate', {
-        mShout: $.mShout
+        mShout: _mShout
     });
     // register for 'done' event on controller
     _oMateController.once('done', function(e) {
         _oMateController = null;
 
         if (e.oMate) {
-            var oAddedMate = $.mShout.addMate(e.oMate);
-            $.mShout.save();
+            var oAddedMate = _mShout.addMate(e.oMate);
+            _mShout.save();
 
             $.shout_mates_listsection.appendItems([mapMateListItem(oAddedMate)], {
                 animated : true
@@ -735,8 +735,12 @@ function goAddMate(){
 function goHistory(){
     'use strict';
 
-    Alloy.Globals.Navigator.push('history', {
-        mShout: $.mShout
+    var oHistoryController = Alloy.Globals.Navigator.push('history', {
+        mShout: _mShout
+    });
+    oHistoryController.once('undo', function() {
+        updateFavShoutSection();
+        fillShoutMatesSection();
     });
 }
 
@@ -785,7 +789,7 @@ function prepareAndroidMenu(menu) {
         // var menuItemAddMate = menu.findItem(CONST.MENU.SHOUTS_ADD_MATE);
         var menuItemHistory = menu.findItem(CONST.MENU.SHOUTS_HISTORY);
         // show/hide menuitems depending on if we have a current shout
-        if ($.mShout && $.mShout.id) {
+        if (_mShout && _mShout.id) {
             // if (menuItemDoFavShout) {
             //     menuItemDoFavShout.setVisible(true);
             // }

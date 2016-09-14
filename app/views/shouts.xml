@@ -1,12 +1,12 @@
 <Alloy>
-	<Model src="shouts" instance="true" id="mShout"/>
-
 	<!-- iOS: The window will start behind the statusBar -->
 	<Window id="window" title="L('app_my_shout')">
 
 		<RightNavButtons platform="ios">
-			<Button title="L('shouts_history')" onClick="goHistory"/>
-			<Button title="L('shouts_add_shout')" onClick="goShoutWiz"/>
+			<!-- <Button title="L('shouts_history')" onClick="goHistory"/>
+			<Button title="L('shouts_add_shout')" onClick="goShoutWiz"/> -->
+			<Label class="navAddShoutIcon" onClick="goShoutWiz"/>
+			<Label class="navHistoryIcon" onClick="goHistory"/>
 		</RightNavButtons>
 
 		<!-- Android: Add MenuItem with ActionView for search -->
@@ -89,10 +89,10 @@
 				<ListSection id="fav_shout_listsection"/>
 				<ListSection id="shout_mates_listsection" headerTitle="L('shouts_mates')">
 					<HeaderView>
-						<!-- <View class="appCompositeView"> -->
+						<View class="appCompositeView">
 							<!-- <Label class="listHeaderAddIcon appListItemRightIcon1" id="go_add_mate_icon" onClick="goAddMate"/> -->
-						<!-- </View> -->
-						<Label class="listHeaderAddIcon" id="go_add_mate_icon" onClick="goAddMate"/>
+							<Label class="listHeaderAddIcon" id="go_add_mate_icon" onClick="goAddMate"/>
+						</View>
 					</HeaderView>
 				</ListSection>
 				<!-- <ListSection>

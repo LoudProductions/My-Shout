@@ -17,22 +17,29 @@ exports.definition = {
 				log.debug('validating mate model:', logContext);
 				log.debug(oMate, logContext);
 
+				var bDidChange = false;
 				if (!_.has(oMate, 'name')) {
+					bDidChange = true;
 					oMate.name = '';
 				}
 				if (!_.has(oMate, 'poison')) {
+					bDidChange = true;
 					oMate.poison = '';
 				}
 				if (!_.has(oMate, 'price')) {
+					bDidChange = true;
 					oMate.price = 0;
 				}
 				if (!_.has(oMate, 'balance')) {
+					bDidChange = true;
 					oMate.balance = 0;
 				}
 				if (!_.has(oMate, 'hasShout')) {
+					bDidChange = true;
 					oMate.hasShout = false;
 				}
 				if (!_.has(oMate, 'isInactive')) {
+					bDidChange = true;
 					oMate.isInactive = false;
 				}
 				// now check that we have acceptable values for each
@@ -40,11 +47,29 @@ exports.definition = {
 					log.error(L('mate_name_is_required'), logContext);
 					throw new Error(L('mate_name_is_required'));
 				}
-				oMate.price = isNaN(oMate.price) ? Number(0).toFixed(2) : Number(oMate.price).toFixed(2);
-				if (!bNoFix) {
+				// check/format price
+				var sPrice = isNaN(oMate.price) ? Number(0).toFixed(2) : Number(oMate.price).toFixed(2);
+				if (oMate.price !== sPrice) {
+					bDidChange = true;
+					oMate.price = nPrice;
+				}
+				if (!bNoFix && bDidChange) {
+					log.debug('model changed as a result of validation:', logContext);
+					log.debug(oMate, logContext);
 					this.set(oMate);
 				}
-			}
+			},
+			save : function(options) {
+					var logContext = 'models/mate.js > save()';
+
+					// validate model first
+					this.validate();
+
+					options = options ? _.clone(options) : {};
+					log.debug('saving...' + (options ? ' with options: ' + JSON.stringify(options) : ''), logContext);
+					log.debug(this, logContext);
+					return Backbone.Model.prototype.save.call(this, options);
+			},
 		});
 
 		return Model;

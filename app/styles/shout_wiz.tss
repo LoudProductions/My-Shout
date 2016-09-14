@@ -3,11 +3,14 @@
 }
 
 '.wizTitle': {
-	top: 40,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'OpenSans-Bold'
-	}
+    	fontFamily: 'OpenSans-Bold',
+	},
+}
+
+'.wizTitle[platform=android]': {
+	top: 20,
 }
 
 '.wizSubtitle': {
