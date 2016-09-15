@@ -327,14 +327,14 @@ function mapMateListItem(oMate, template) {
         },
         mate_price: {
             // text: oMate.price,
-            attributedString: getAttributedPriceText(oMate.price, oMate.hasShout),
+            attributedString: getAttributedPriceText(oMate.price, oMate.hasShout, oMate.isInactive),
         },
         mate_price_edit: {
             value: oMate.price,
         },
         mate_balance: {
             // text : oMate.balance,
-            attributedString: getAttributedBalanceText(oMate.balance, oMate.hasShout),
+            attributedString: getAttributedBalanceText(oMate.balance, oMate.hasShout, oMate.isInactive),
         },
         mate_has_shout: {
             color: mateColor,
@@ -375,7 +375,6 @@ function mapMateListItem(oMate, template) {
     return oMateListItem;
 }
 
-function getAttributedPriceText(price, hasShout) {
 function setupMateEditActions(oMate) {
     'use strict';
 
@@ -393,6 +392,7 @@ function setupMateEditActions(oMate) {
     return aEditActions;
 }
 
+function getAttributedPriceText(price, hasShout, isInactive) {
     'use strict';
 
     price = isNaN(price) ? 0 : price;
@@ -414,12 +414,19 @@ function setupMateEditActions(oMate) {
             value: Alloy.CFG.colors.backgroundColor,
             range: [0, oAttributedString.text.length]
         });
-
+    }
+    if (isInactive) {
+        // change color if mate is inactive
+        oAttributedString.addAttribute({
+            type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
+            value: Alloy.CFG.colors.inactiveColor,
+            range: [0, oAttributedString.text.length]
+        });
     }
     return oAttributedString;
 }
 
-function getAttributedBalanceText(balance, hasShout) {
+function getAttributedBalanceText(balance, hasShout, isInactive) {
     'use strict';
 
     balance = isNaN(balance) ? 0 : balance;
@@ -443,6 +450,14 @@ function getAttributedBalanceText(balance, hasShout) {
             range: [0, oAttributedString.text.length]
         });
 
+    }
+    if (isInactive) {
+        // change color if mate is inactive
+        oAttributedString.addAttribute({
+            type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
+            value: Alloy.CFG.colors.inactiveColor,
+            range: [0, oAttributedString.text.length]
+        });
     }
     return oAttributedString;
 }
