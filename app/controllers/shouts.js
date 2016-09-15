@@ -158,30 +158,69 @@ function onFavShoutSwipe(e) {
         }
         return false;
     }
+
+    switch (e.direction) {
+        // case 'up':
+        case 'left':
+            fetchShoutIndex(-1);
+            break;
+
+            // case 'down':
+        case 'right':
+            fetchShoutIndex(1);
+            break;
+
+        default:
+            break;
+    }
+
+    // start by hiding the shout details
+    if ($.fav_shout_listsection.items.length) {
+        $.fav_shout_listsection.updateItemAt(0, mapShoutListItem(_mShout, 'fav_shout_template', true), {
+            animated: true
+        });
+    }
+
+    // repeat a series of 'scale horizontally to zero and back' animations,
+    // to create the impression of a spinning coin (slowing down to the end)
     var oView = e.source;
-    animation.fadeOut(oView, 100, function() {
-        // fetch the next/previous shout
-        switch (e.direction) {
-            // case 'up':
-            case 'left':
-                fetchShoutIndex(-1);
-                break;
-
-                // case 'down':
-            case 'right':
-                fetchShoutIndex(1);
-                break;
-
-            default:
-                break;
-        }
+    var aAnimations = [];
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(0,1),
+        duration : 10,
+    }));
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(1,1),
+        duration : 20,
+    }));
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(0,1),
+        duration : 40,
+    }));
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(1,1),
+        duration : 70,
+    }));
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(0,1),
+        duration : 110,
+    }));
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(1,1),
+        duration : 160,
+    }));
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(0,1),
+        duration : 220,
+    }));
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(1,1),
+        duration : 300,
+    }));
+    animation.chainAnimate(oView, aAnimations, function() {
         // update list
         updateFavShoutSection();
         fillShoutMatesSection();
-
-        _.defer(function() {
-            animation.fadeIn(oView, 100);
-        });
     });
 }
 
@@ -244,7 +283,7 @@ function fillShoutMatesSection() {
     });
 }
 
-function mapShoutListItem(mShout, template) {
+function mapShoutListItem(mShout, template, bIsSwiping) {
     'use strict';
 
     var oShout = mShout.transform();
@@ -261,10 +300,12 @@ function mapShoutListItem(mShout, template) {
                 // image : ...
         },
         shout_who: {
-            text: oShout.uiWho
+            text: oShout.uiWho,
+            visible: (bIsSwiping ? false : true),
         },
         shout_where: {
-            text: oShout.uiWhere
+            text: oShout.uiWhere,
+            visible: (bIsSwiping ? false : true),
         }
     };
 }
