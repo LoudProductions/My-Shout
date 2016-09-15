@@ -286,3 +286,37 @@
 	color: Alloy.CFG.colors.tintColor,
 	text: Alloy.Globals.fa_icons.plus,
 }
+
+'.currentPageIndicatorIcon': {
+	width: 10,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: 8,
+    	fontFamily: 'FontAwesome',
+	},
+	color: Alloy.CFG.colors.brandHintColor,
+	text: Alloy.Globals.fa_icons.dot_circle_o,
+}
+
+'.otherPageIndicatorIcon': {
+	width: 10,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: 8,
+    	fontFamily: 'FontAwesome',
+	},
+	color: Alloy.CFG.colors.inactiveBackgroundColor,
+	text: Alloy.Globals.fa_icons.circle,
+}
+
+'.pageIndicators': {
+	top: 10,
+	height: Ti.UI.SIZE,
+	width: Ti.UI.FILL,
+}
+
+'.pageIndicatorIcons': {
+	height: Ti.UI.SIZE,
+	width: Ti.UI.SIZE,
+	layout: 'horizontal',
+}

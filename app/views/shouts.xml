@@ -32,6 +32,11 @@
 		 						 this view is to be hidden upon $.animateIn() -->
 
 			<ListView class="shoutsList" id="shouts_listview" onEditaction="onEditAction">
+				<HeaderView>
+					<View class="pageIndicators">
+						<View class="pageIndicatorIcons" id="page_indicator_icons_view" />
+					</View>					  
+				</HeaderView>
 				<Templates>
 					<ItemTemplate name="fav_shout_template" class="favShoutsListItem">
 						<View onSwipe="onFavShoutSwipe" onClick="onFavShoutClick">

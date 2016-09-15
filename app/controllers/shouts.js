@@ -88,6 +88,7 @@ function init() {
     log.trace('running init...', logContext);
 
     fetchFavShout();
+    fillPageIndicatorIcons();
     fillFavShoutSection();
     fillShoutMatesSection();
 
@@ -116,6 +117,34 @@ function fetchFavShout() {
         log.debug(_mShout, logContext);
     } else {
         log.debug('fav shout not found!', logContext);
+    }
+}
+
+function fillPageIndicatorIcons() {
+    'use strict';
+
+    $.page_indicator_icons_view.removeAllChildren();
+    Alloy.Collections.instance('shouts').each(function(mShout) {
+        var oPageIndicatorIcon = Ti.UI.createLabel();
+        if (_mShout && _mShout.id === mShout.id) {
+            $.addClass(oPageIndicatorIcon, 'currentPageIndicatorIcon');
+        } else {
+            $.addClass(oPageIndicatorIcon, 'otherPageIndicatorIcon');
+        }
+        $.page_indicator_icons_view.add(oPageIndicatorIcon);
+    });
+}
+
+function updatePageIndicatorIcons() {
+    'use strict';
+
+    var iCurrentPageIndex = Alloy.Collections.instance('shouts').indexOf(_mShout);
+    for (var i = 0; i < $.page_indicator_icons_view.children.length; i++) {
+        if (i === iCurrentPageIndex) {
+            $.resetClass($.page_indicator_icons_view.children[i], 'currentPageIndicatorIcon');
+        } else {
+            $.resetClass($.page_indicator_icons_view.children[i], 'otherPageIndicatorIcon');
+        }
     }
 }
 
@@ -162,12 +191,12 @@ function onFavShoutSwipe(e) {
     switch (e.direction) {
         // case 'up':
         case 'left':
-            fetchShoutIndex(-1);
+            fetchShoutIndex(1);
             break;
 
             // case 'down':
         case 'right':
-            fetchShoutIndex(1);
+            fetchShoutIndex(-1);
             break;
 
         default:
@@ -180,6 +209,13 @@ function onFavShoutSwipe(e) {
             animated: true
         });
     }
+
+    var onAnimationComplete = function() {
+        // update list
+        updatePageIndicatorIcons();
+        updateFavShoutSection();
+        fillShoutMatesSection();
+    };
 
     // repeat a series of 'scale horizontally to zero and back' animations,
     // to create the impression of a spinning coin (slowing down to the end)
@@ -217,11 +253,7 @@ function onFavShoutSwipe(e) {
         transform: Ti.UI.create2DMatrix().scale(1,1),
         duration : 300,
     }));
-    animation.chainAnimate(oView, aAnimations, function() {
-        // update list
-        updateFavShoutSection();
-        fillShoutMatesSection();
-    });
+    animation.chainAnimate(oView, aAnimations, onAnimationComplete);
 }
 
 function updateFavShoutSection() {
@@ -532,7 +564,9 @@ function onShoutWizDone(e) {
         } else {
             updateFavShoutSection();
         }
+        fillPageIndicatorIcons();
         fillShoutMatesSection();
+
 
         _.defer(function() {
             if (!_bDidAnimateIn) {
