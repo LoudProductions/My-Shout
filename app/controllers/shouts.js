@@ -341,7 +341,9 @@ function mapMateListItem(oMate, template) {
             text: (oMate.hasShout ? Alloy.Globals.fa_icons.bullhorn : null),
         },
         mate_is_inactive: {
-            value: (oMate.isInactive ? false : true),
+            // value: (oMate.isInactive ? false : true),
+            text: (oMate.isInactive ? Alloy.Globals.fa_icons.toggle_off : Alloy.Globals.fa_icons.toggle_on),
+            color: mateColor,
             visible: (oMate.hasShout ? false : true),
         },
         mate_ellipsis_icon: {
@@ -553,6 +555,12 @@ function toggleMateEditing(mateId, itemIndex) {
         _bIsEditingMate = false;
         _iIsEditingIndex = 0;
     }
+}
+
+function onMateInactiveIconClick(e) {
+    'use strict';
+
+    onMateInactiveSwitchClick(e, _oIsEditingMate.isInactive);
 }
 
 function onMateInactiveSwitchClick(e, bActive) {

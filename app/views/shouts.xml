@@ -79,8 +79,9 @@
 							</View>
 							<View class="appCompositeView">
 								<Label class="listItemYourShoutIcon appListItemRightIcon3" bindId="mate_your_shout_icon" onClick="onMateYourShoutClick"/>
-								<Label class="listItemEditIcon appListItemRightIcon2" bindId="mate_edit_icon" onClick="onMateEditClick"/>
-								<Switch class="listItemSwitch appListItemRightIcon1" bindId="mate_is_inactive" onChange="onMateInactiveSwitchClick"/>
+								<!-- <Switch class="listItemSwitch appListItemRightIcon1" bindId="mate_is_inactive" onChange="onMateInactiveSwitchClick"/> -->
+								<Label class="listItemIsInactiveIcon appListItemRightIcon2" bindId="mate_is_inactive" onClick="onMateInactiveIconClick"/>
+								<Label class="listItemEditIcon appListItemRightIcon1" bindId="mate_edit_icon" onClick="onMateEditClick"/>
 							</View>
 						</View>
 					</ItemTemplate>

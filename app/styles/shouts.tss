@@ -257,6 +257,16 @@
 	text: Alloy.Globals.fa_icons.hand_o_left,
 }
 
+'.listItemIsInactiveIcon': {
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'FontAwesome',
+	},
+	/*color will be dynamically bound...*/
+	text: Alloy.Globals.fa_icons.toggle_off,
+}
+
 '.listItemSaveIcon': {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {

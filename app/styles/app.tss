@@ -52,7 +52,7 @@
 }
 
 '.appListItemRightIcon3': {
-	right: 96,
+	right: 104,
 }
 
 '.appCompositeView': {
