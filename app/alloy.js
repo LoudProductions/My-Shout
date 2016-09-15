@@ -20,10 +20,6 @@
     global.log = require('logger');
     log.info('Loading Alloy globals...', 'alloy.js');
 
-	// On iOS views start behind the 20dp high statusBar. we use this
-	// global in styles/app.tss to make sure our canvas starts under it.
-	Alloy.Globals.canvasTop = OS_IOS ? 20 : 0;
-
     Alloy.Globals.fa_icons = require('fa_icons');
 
     ///////////////////////////////////////////////////////////////////////////////

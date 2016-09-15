@@ -51,7 +51,7 @@ exports.definition = {
 				var sPrice = isNaN(oMate.price) ? Number(0).toFixed(2) : Number(oMate.price).toFixed(2);
 				if (oMate.price !== sPrice) {
 					bDidChange = true;
-					oMate.price = nPrice;
+					oMate.price = sPrice;
 				}
 				if (!bNoFix && bDidChange) {
 					log.debug('model changed as a result of validation:', logContext);

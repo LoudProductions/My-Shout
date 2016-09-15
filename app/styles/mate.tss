@@ -21,6 +21,13 @@
 	},
 }
 
+'.autoNext': {
+}
+
+'.autoNext[platform=ios]': {
+	suppressReturn: false,
+}
+
 '.matePoison': {
 	top: 20,
 	width: Titanium.UI.FILL,
