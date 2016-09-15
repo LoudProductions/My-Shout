@@ -98,11 +98,17 @@
 
 '.matesListItemLeft': {
 	/*borderColor: 'red',*/
+	width: '50%',
+	layout: 'vertical',
+}
+
+'.matesListItemLeftThird': {
+	/*borderColor: 'red',*/
 	width: '33%',
 	layout: 'vertical',
 }
 
-'.matesListItemMiddle': {
+'.matesListItemMiddleThird': {
 	/*borderColor: 'green',*/
 	width: '33%',
 	layout: 'vertical',
