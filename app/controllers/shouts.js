@@ -10,6 +10,30 @@ var _oMateController;
 var _oShoutWizController;
 var _bDidAnimateIn = false;
 
+if (OS_IOS) {
+    var _oEditActions = {
+        oYourShout : {
+            identifier : CONST.ACTIONS.YOUR_SHOUT,
+            title : L('shouts_your_shout'),
+            style : Ti.UI.iOS.ROW_ACTION_STYLE_NORMAL,
+        },
+        oActivate : {
+            identifier : CONST.ACTIONS.ACTIVATE,
+            title : L('shouts_activate'),
+            style : Ti.UI.iOS.ROW_ACTION_STYLE_DEFAULT,
+        },
+        oDeactivate : {
+            identifier : CONST.ACTIONS.DEACTIVATE,
+            title : L('shouts_deactivate'),
+            style : Ti.UI.iOS.ROW_ACTION_STYLE_DESTRUCTIVE,
+        },
+        oEdit : {
+            identifier : CONST.ACTIONS.EDIT,
+            title : L('app_edit'),
+            style : Ti.UI.iOS.ROW_ACTION_STYLE_NORMAL,
+        },
+    };
+}
 /**
  * self-executing function to organize otherwise inline constructor code
  * @param  {Object} args arguments passed to the controller
@@ -269,13 +293,12 @@ function mapMateListItem(oMate, template) {
         mateColor = Alloy.CFG.colors.backgroundColor;
         mateBackgroundColor = Alloy.CFG.colors.tintColor;
     }
-
-    return {
+    var oMateListItem = {
         template: template || 'shout_mates_template',
         properties: {
             accessoryType: Ti.UI.LIST_ACCESSORY_TYPE_NONE,
             searchableText: oMate.name + oMate.poison + oMate.price,
-            itemId: oMate.mateId
+            itemId: oMate.mateId,
                 // if using built-in item templates for iOS, uncomment these
                 // title : oMate.name
                 // subtitle : oMate.poison
@@ -319,6 +342,7 @@ function mapMateListItem(oMate, template) {
         },
         mate_is_inactive: {
             value: (oMate.isInactive ? false : true),
+            visible: (oMate.hasShout ? false : true),
         },
         mate_ellipsis_icon: {
             color: mateColor,
@@ -336,16 +360,39 @@ function mapMateListItem(oMate, template) {
         // if binding to a view then the associated class is overridden
         // and all styling properties must be supplied here
         mate_bg_view: {
-        	width: '100%',
-        	layout: 'horizontal',
-        	horizontalWrap: false,
+            width: '100%',
+            layout: 'horizontal',
+            horizontalWrap: false,
             color: mateColor,
             backgroundColor: mateBackgroundColor
         },
     };
+    if (OS_IOS) {
+        oMateListItem.properties = oMateListItem.properties || {};
+        oMateListItem.properties.canEdit = true;
+        oMateListItem.properties.editActions = setupMateEditActions(oMate);
+    }
+    return oMateListItem;
 }
 
 function getAttributedPriceText(price, hasShout) {
+function setupMateEditActions(oMate) {
+    'use strict';
+
+    var aEditActions = [];
+    aEditActions.push(_oEditActions.oEdit);
+    if (oMate.isInactive) {
+        aEditActions.push(_oEditActions.oActivate);
+    }
+    if (!oMate.isInactive && !oMate.hasShout) {
+        aEditActions.push(_oEditActions.oDeactivate);
+    }
+    if (!oMate.hasShout) {
+        aEditActions.push(_oEditActions.oYourShout);
+    }
+    return aEditActions;
+}
+
     'use strict';
 
     price = isNaN(price) ? 0 : price;
@@ -484,7 +531,7 @@ function toggleMateEditing(mateId, itemIndex) {
     } else {
         // rerender the original mate listitem
         $.shout_mates_listsection.updateItemAt(_iIsEditingIndex, mapMateListItem(_oIsEditingMate), {
-            animated : true
+            animated: true
         });
 
         // flag that mates list editing is done
@@ -493,14 +540,16 @@ function toggleMateEditing(mateId, itemIndex) {
     }
 }
 
-function onMateInactiveSwitchClick(e) {
+function onMateInactiveSwitchClick(e, bActive) {
     'use strict';
 
+    bActive = (bActive !== undefined ? bActive : e.value);
+
     // check that the mate does not currently have the shout before deactivating!
-    if (_oIsEditingMate.hasShout && e.value === false) {
+    if (_oIsEditingMate.hasShout && bActive === false) {
         toast.show(L('shouts_give_the_next_shout_to_someone_else_first'));
     } else {
-        _oIsEditingMate.isInactive = e.value ? false : true;
+        _oIsEditingMate.isInactive = bActive ? false : true;
 
         saveEditingMateChanges();
     }
@@ -513,25 +562,30 @@ function onMateEditClick(e) {
     goEditMate(e.itemId);
 }
 
+function giveMateTheShout(e) {
+    'use strict';
+    var oReturn = _mShout.giveMateTheShout(e.itemId);
+    _mShout.save();
+
+    // merge the update shouter details into the editing clone
+    _.extend(_oIsEditingMate, _mShout.getShouter());
+
+    // rerender the original shouting mate's listitem
+    if (oReturn.oldShouterIndex !== e.itemIndex) {
+        var oOldShoutMate = _mShout.getMate(oReturn.oldShouterId);
+        $.shout_mates_listsection.updateItemAt(oReturn.oldShouterIndex, mapMateListItem(oOldShoutMate), {
+            animated: true
+        });
+        // rerender the fav shout listitem
+        updateFavShoutSection();
+    }
+}
+
 function onMateYourShoutClick(e) {
     'use strict';
 
     try {
-        var oReturn = _mShout.giveMateTheShout(e.itemId);
-        _mShout.save();
-
-        // merge the update shouter details into the editing clone
-        _.extend(_oIsEditingMate, _mShout.getShouter());
-
-        // rerender the original shouting mate's listitem
-        if (oReturn.oldShouterIndex !== e.itemIndex) {
-            var oOldShoutMate = _mShout.getMate(oReturn.oldShouterId);
-            $.shout_mates_listsection.updateItemAt(oReturn.oldShouterIndex, mapMateListItem(oOldShoutMate), {
-                animated : true
-            });
-            // rerender the fav shout listitem
-            updateFavShoutSection();
-        }
+        giveMateTheShout(e);
     } catch (oErr) {
         toast.show(oErr.message || oErr);
     } finally {
@@ -555,6 +609,11 @@ function onFavShoutClick(e) {
 function onMateClick(e) {
     'use strict';
 
+    if (OS_IOS) {
+        // we use editactions on ios
+        return false;
+    }
+
     switch (e.section) {
         case $.shout_mates_listsection:
             toggleMateEditing(e.itemId, e.itemIndex);
@@ -568,6 +627,11 @@ function onMateClick(e) {
 
 function onMateSwipe(e) {
     'use strict';
+
+    if (OS_IOS) {
+        // we use editactions on ios
+        return false;
+    }
 
     switch (e.section) {
         case $.shout_mates_listsection:
@@ -627,8 +691,7 @@ function onGoEditMateDelete(e) {
             fillShoutMatesSection();
         } catch (oErr) {
             toast.show(oErr.message || oErr);
-        } finally {
-        }
+        } finally {}
     }
 }
 
@@ -682,32 +745,7 @@ function doFavShout(e) {
     }
 }
 
-/**
- * event listener set via view for when the user deletes a ListView item
- * @param  {Object} e Event
- */
-function deleteShout(e) {
-    'use strict';
-
-    var logContext = 'shouts.js > deleteShout()';
-    log.warn('deleted list item: ' + e.itemId, logContext);
-    log.debug(e, logContext);
-
-    // remove the model from the collection
-    var mShout = Alloy.Collections.instance('shouts').get(e.itemId);
-    // prompt the user to confirm shout should be deleted
-    alloy_dialogs.confirm({
-        title: L('shouts_delete_shout'),
-        message: L('app_are_you_sure'),
-        callback: function() {
-            return mShout.destroy({
-                wait: true
-            });
-        }
-    });
-}
-
-function goAddMate(){
+function goAddMate() {
     'use strict';
 
     _oMateController = Alloy.Globals.Navigator.push('mate', {
@@ -722,7 +760,7 @@ function goAddMate(){
             _mShout.save();
 
             $.shout_mates_listsection.appendItems([mapMateListItem(oAddedMate)], {
-                animated : true
+                animated: true
             });
 
             if (oAddedMate.hasShout) {
@@ -732,7 +770,7 @@ function goAddMate(){
     });
 }
 
-function goHistory(){
+function goHistory() {
     'use strict';
 
     var oHistoryController = Alloy.Globals.Navigator.push('history', {
@@ -757,9 +795,9 @@ function createAndroidMenu(menu) {
         // menuItemDoFavShout.addEventListener('click', doFavShout);
 
         var menuItemAddShout = menu.add({
-            itemId : CONST.MENU.SHOUTS_ADD_SHOUT,
-            title : L('shouts_add_shout'),
-            showAsAction : Ti.Android.SHOW_AS_ACTION_IF_ROOM,
+            itemId: CONST.MENU.SHOUTS_ADD_SHOUT,
+            title: L('shouts_add_shout'),
+            showAsAction: Ti.Android.SHOW_AS_ACTION_IF_ROOM,
         });
         menuItemAddShout.addEventListener('click', goShoutWiz);
 
@@ -772,10 +810,10 @@ function createAndroidMenu(menu) {
         // menuItemAddMate.addEventListener('click', goAddMate);
 
         var menuItemHistory = menu.add({
-            itemId : CONST.MENU.SHOUTS_HISTORY,
-            title : L('shouts_history'),
-            showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER,
-            visible : false,    // hide until shout is loaded
+            itemId: CONST.MENU.SHOUTS_HISTORY,
+            title: L('shouts_history'),
+            showAsAction: Ti.Android.SHOW_AS_ACTION_NEVER,
+            visible: false, // hide until shout is loaded
         });
         menuItemHistory.addEventListener('click', goHistory);
     }
@@ -847,4 +885,34 @@ function onWindowClose() {
 
     // destroy alloy data bindings
     $.destroy();
+}
+
+function onEditAction(e){
+    'use strict';
+
+    _bIsEditingMate = true;
+    _iIsEditingIndex = e.itemIndex;
+    _oIsEditingMate = _.clone(_mShout.getMate(e.itemId));
+
+    // switch (e.identifier) {
+    switch (e.action) {
+        case CONST.ACTIONS.EDIT:
+            goEditMate(e.itemId);
+            break;
+
+        case CONST.ACTIONS.YOUR_SHOUT:
+            onMateYourShoutClick(e);
+            break;
+
+        case CONST.ACTIONS.ACTIVATE:
+            onMateInactiveSwitchClick(e, true);
+            break;
+
+        case CONST.ACTIONS.DEACTIVATE:
+            onMateInactiveSwitchClick(e, false);
+            break;
+
+        default:
+
+    }
 }

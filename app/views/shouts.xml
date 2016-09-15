@@ -31,8 +31,7 @@
 			<!-- TODO: add placeholder view with instructions to add a shout for in case the user backs out of wizard
 		 						 this view is to be hidden upon $.animateIn() -->
 
-			<!-- <ListView class="shoutsList" onItemclick="onShoutsListClick" editing="true" onDelete="deleteShout"> -->
-			<ListView class="shoutsList" id="shouts_listview" editing="true" onDelete="deleteShout">
+			<ListView class="shoutsList" id="shouts_listview" onEditaction="onEditAction">
 				<Templates>
 					<ItemTemplate name="fav_shout_template" class="favShoutsListItem">
 						<View onSwipe="onFavShoutSwipe" onClick="onFavShoutClick">
