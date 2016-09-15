@@ -98,11 +98,17 @@
 
 '.matesListItemLeft': {
 	/*borderColor: 'red',*/
+	width: '50%',
+	layout: 'vertical',
+}
+
+'.matesListItemLeftThird': {
+	/*borderColor: 'red',*/
 	width: '33%',
 	layout: 'vertical',
 }
 
-'.matesListItemMiddle': {
+'.matesListItemMiddleThird': {
 	/*borderColor: 'green',*/
 	width: '33%',
 	layout: 'vertical',
@@ -249,6 +255,16 @@
 	},
 	/*color will be dynamically bound...*/
 	text: Alloy.Globals.fa_icons.hand_o_left,
+}
+
+'.listItemIsInactiveIcon': {
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'FontAwesome',
+	},
+	/*color will be dynamically bound...*/
+	text: Alloy.Globals.fa_icons.toggle_off,
 }
 
 '.listItemSaveIcon': {
