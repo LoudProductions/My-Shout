@@ -203,13 +203,6 @@ function onFavShoutSwipe(e) {
             break;
     }
 
-    // start by hiding the shout details
-    if ($.fav_shout_listsection.items.length) {
-        $.fav_shout_listsection.updateItemAt(0, mapShoutListItem(_mShout, 'fav_shout_template', true), {
-            animated: true
-        });
-    }
-
     var onAnimationComplete = function() {
         // update list
         updatePageIndicatorIcons();
@@ -222,36 +215,44 @@ function onFavShoutSwipe(e) {
     var oView = e.source;
     var aAnimations = [];
     aAnimations.push(Ti.UI.createAnimation({
-        transform: Ti.UI.create2DMatrix().scale(0,1),
+        transform: Ti.UI.create2DMatrix().scale(0.1,1),
         duration : 10,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
     }));
     aAnimations.push(Ti.UI.createAnimation({
         transform: Ti.UI.create2DMatrix().scale(1,1),
         duration : 20,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
     }));
     aAnimations.push(Ti.UI.createAnimation({
-        transform: Ti.UI.create2DMatrix().scale(0,1),
+        transform: Ti.UI.create2DMatrix().scale(0.1,1),
         duration : 40,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
     }));
     aAnimations.push(Ti.UI.createAnimation({
         transform: Ti.UI.create2DMatrix().scale(1,1),
         duration : 70,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
     }));
     aAnimations.push(Ti.UI.createAnimation({
-        transform: Ti.UI.create2DMatrix().scale(0,1),
+        transform: Ti.UI.create2DMatrix().scale(0.1,1),
         duration : 110,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
     }));
     aAnimations.push(Ti.UI.createAnimation({
         transform: Ti.UI.create2DMatrix().scale(1,1),
         duration : 160,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
     }));
     aAnimations.push(Ti.UI.createAnimation({
-        transform: Ti.UI.create2DMatrix().scale(0,1),
+        transform: Ti.UI.create2DMatrix().scale(0.1,1),
         duration : 220,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
     }));
     aAnimations.push(Ti.UI.createAnimation({
         transform: Ti.UI.create2DMatrix().scale(1,1),
         duration : 300,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
     }));
     animation.chainAnimate(oView, aAnimations, onAnimationComplete);
 }
