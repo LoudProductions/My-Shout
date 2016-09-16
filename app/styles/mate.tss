@@ -1,3 +1,10 @@
+"Window" : {
+ backgroundGradient: {
+ type: 'linear',
+ colors: [ '#f09273', '#6a6a7d' ]
+ }
+}
+
 '#mate_container': {
 		/*borderColor: 'pink',*/
 }
@@ -25,7 +32,7 @@
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
-		fontSize: 12,
+		fontSize: 14,
     	fontFamily: 'OpenSans-Light',
 	},
 }
@@ -39,6 +46,8 @@
     	fontFamily: 'OpenSans-BoldItalic',
 	},
   keyboardType: Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD,
+	color: "lime",
+
 }
 
 '.bottomButton': {

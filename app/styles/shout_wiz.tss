@@ -1,3 +1,10 @@
+"Window" : {
+ backgroundGradient: {
+ type: 'linear',
+ colors: [ '#f09273', '#6a6a7d' ]
+ }
+}
+
 '.wizWelcome': {
 	layout: 'vertical'
 }

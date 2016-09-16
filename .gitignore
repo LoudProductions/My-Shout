@@ -1,5 +1,6 @@
 .DS_Store
 .my-shout-acs
+.idea
 /platform
 /i18n
 /plugins
