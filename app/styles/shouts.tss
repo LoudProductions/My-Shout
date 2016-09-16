@@ -1,16 +1,16 @@
-/*"Window" : {
+"Window" : {
  backgroundGradient: {
  type: 'linear',
  colors: [ '#222238', '#6a6a7d' ]
  }
-} */
+}
 
-"Window" : {
+/*"Window" : {
  backgroundGradient: {
  type: 'linear',
  colors: [ '#f09273', '#6a6a7d' ]
  }
-}
+}*/
 
 'Label[platform=android]': {
 	color: Alloy.CFG.colors.textColor, // All platforms except Android default to black, correcting that here
@@ -45,12 +45,12 @@
 
 '.favShoutImage': {
 	backgroundImage: '/images/shout.png',
-	width: 300,
-	height: 300,
+	width: 290,
+	height: 290, 
 }
 
 '.favShoutWhereTop': {
-	top: 20,
+	top: 10,
 	font: {
 		fontSize: 20,
     	fontFamily: 'OpenSans-Light',
@@ -113,7 +113,7 @@
 }
 
 '.favShoutsListItem': {
-	height: 350,
+	height: 290,
 	layout: 'vertical',
 }
 
@@ -343,7 +343,7 @@
 }
 
 '.pageIndicators': {
-	top: 10,
+	top: 8,
 	height: Ti.UI.SIZE,
 	width: Ti.UI.FILL,
 }

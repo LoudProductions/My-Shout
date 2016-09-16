@@ -370,7 +370,7 @@ function mapMateListItem(oMate, template) {
     var mateBackgroundColor = Alloy.CFG.colors.backgroundColor;
     if (oMate.isInactive) {
         mateColor = Alloy.CFG.colors.inactiveColor;
-        // mateBackgroundColor = Alloy.CFG.colors.inactiveBackgroundColor;
+    //    mateBackgroundColor = Alloy.CFG.colors.inactiveBackgroundColor;
     } else if (oMate.hasShout) {
         mateColor = Alloy.CFG.colors.backgroundColor;
         // mateBackgroundColor = Alloy.CFG.colors.tintColor;
