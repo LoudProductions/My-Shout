@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>au.com.loudproductions.myshout.app</id>
-    <guid>de1e5027-00a3-4480-9444-507d3f4968e7</guid>
+    <guid>85e48234-4fdb-487e-9bbb-51fb47dd3e4d</guid>
     <name>My Shout</name>
     <version>1.0.7</version>
     <publisher>My Shout (ACS version) - by Loud Productions</publisher>
@@ -66,7 +66,7 @@
         <plugin version="1.0">ti.alloy</plugin>
         <plugin version="1.0">ti.version</plugin>
     </plugins>
-    <property name="appc-app-id" type="string">57d63399cdbd74153d40285e</property>
+    <property name="appc-app-id" type="string">57becdae5ea990014a65a4f2</property>
     <property name="appc-org-id" type="string">100020939</property>
     <property name="appc-creator-user-id" type="string">257ddd06-4118-4943-9837-1cd6d75a0be2</property>
 </ti:app>
