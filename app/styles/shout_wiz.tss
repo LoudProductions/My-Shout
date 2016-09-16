@@ -5,6 +5,14 @@
  }
 }
 
+'Label[platform=android]': {
+	color: Alloy.CFG.colors.backgroundColor, // All platforms except Android default to black, correcting that here
+}
+
+'TextField': {
+	color: Alloy.CFG.colors.backgroundColor,
+}
+
 '.wizWelcome': {
 	layout: 'vertical'
 }
@@ -36,16 +44,20 @@
 }
 
 '.shoutType': {
-	width: 200,
+	width: 110,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	textStyle: Ti.UI.TEXT_STYLE_HEADLINE,
 	font: {
-		fontSize: 16,
+		fontSize: 20,
     	fontFamily: 'OpenSans-Bold',
 	},
+	backgroundColor: Alloy.CFG.colors.bgColorTransparent,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUND,
+	borderRadius: 25,
 }
 
 '.shoutPlace': {
-	width: 200,
+	width: 180,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 16,

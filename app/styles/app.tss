@@ -6,7 +6,7 @@
 }
 
 'Label[platform=android]': {
-	color: Alloy.CFG.colors.textColor, // All platforms except Android default to black, correcting that here
+	color: Alloy.CFG.colors.backgroundColor, // All platforms except Android default to black, correcting that here
 }
 
 'Window': {
@@ -19,12 +19,17 @@
 }
 
 'PickerRow': {
-	color: Alloy.CFG.colors.tintColor,
+	color: Alloy.CFG.colors.backgroundColor,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+
 }
 
 'TextField': {
 	color: Alloy.CFG.colors.tintColor,
 	hintTextColor: Alloy.CFG.colors.brandHintColor,
+	backgroundColor: Alloy.CFG.colors.bgColorTransparent,
+  borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUND,
+	borderRadius: 25,
 }
 
 '.appCanvas': {
@@ -102,7 +107,9 @@
 }
 
 '.appDestructiveButton': {
-	width: 200,
+	width: 180,
 	color: Alloy.CFG.colors.backgroundColor,
-	backgroundColor: Alloy.CFG.colors.negativeColor,
+	backgroundColor: Alloy.CFG.colors.tintColor,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+	borderRadius: 25,
 }

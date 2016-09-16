@@ -5,8 +5,10 @@
 			"mustShowDate": true
 		},
 		"colors": {
-			"textColor": "#90000000",
+  		"textColor": "#90000000",
 			"backgroundColor": "#ffffff",
+			"bgColorTransparent": "#10ffffff",
+			"gradientTop": "#f09273",
 			"tintColor": "#f96636",
 			"brandHintColor": "#35ffffff",
 			"inactiveColor": "#50b3b3b3",
