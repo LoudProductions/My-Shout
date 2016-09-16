@@ -1,3 +1,10 @@
+"Window" : {
+ backgroundGradient: {
+ type: 'linear',
+ colors: [ '#222238', '#6a6a7d' ]
+ }
+}
+
 'Window[platform=android]': {
 	// must use SOFT_INPUT_ADJUST_PAN to support TextField inside ListView
 	windowSoftInputMode: Ti.UI.Android.SOFT_INPUT_ADJUST_PAN,

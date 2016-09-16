@@ -5,11 +5,11 @@
 			"mustShowDate": true
 		},
 		"colors": {
-			"textColor": "#000",
-			"backgroundColor": "#fff",
-			"tintColor": "#cd1625",
-			"brandHintColor": "#80cd1625",
-			"inactiveColor": "#b3b3b3",
+			"textColor": "#90000000",
+			"backgroundColor": "#ffffff",
+			"tintColor": "#f96636",
+			"brandHintColor": "#35ffffff",
+			"inactiveColor": "#50b3b3b3",
 			"inactiveBackgroundColor": "#80b3b3b3",
 			"negativeColor": "#ff0000"
 		},
