@@ -307,7 +307,11 @@ function fillShoutMatesSection() {
 
     // add shout mates to list
     var aMates = _mShout.getMates();
-    var aMatesListItems = _.map(aMates, function(oMate) {
+    var aSortedMates = _.sortBy(aMates, function(oMate) {
+        return (oMate.hasShout ? 0 : 1);
+    });
+
+    var aMatesListItems = _.map(aSortedMates, function(oMate) {
         return mapMateListItem(oMate);
     });
     if ($.shout_mates_listsection.items.length) {
@@ -369,7 +373,8 @@ function mapMateListItem(oMate, template) {
         // mateBackgroundColor = Alloy.CFG.colors.inactiveBackgroundColor;
     } else if (oMate.hasShout) {
         mateColor = Alloy.CFG.colors.backgroundColor;
-        mateBackgroundColor = Alloy.CFG.colors.tintColor;
+        // mateBackgroundColor = Alloy.CFG.colors.tintColor;
+        mateBackgroundColor = Alloy.CFG.colors.gradientTop;
     }
     var oMateListItem = {
         template: template || 'shout_mates_template',
