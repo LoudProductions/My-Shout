@@ -374,7 +374,7 @@ function mapMateListItem(oMate, template) {
     } else if (oMate.hasShout) {
         mateColor = Alloy.CFG.colors.backgroundColor;
         // mateBackgroundColor = Alloy.CFG.colors.tintColor;
-        mateBackgroundColor = Alloy.CFG.colors.gradientTop;
+        mateBackgroundColor = Alloy.CFG.colors.shoutBackgroundColor;
     }
     var oMateListItem = {
         template: template || 'shout_mates_template',
