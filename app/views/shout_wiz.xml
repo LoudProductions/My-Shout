@@ -1,7 +1,7 @@
 <Alloy>
 	<Model src="shouts" instance="true" id="mShout" />
 	<Window id="window" title="L('shouts_add_shout')">
-		<ScrollableView id="wiz_pages" class="appCanvas appTransparent" onScrollend="onWizPageChange">
+		<ScrollableView id="wiz_pages" class="appCanvas appTransparent" onScrollend="onWizPageChange" showPagingControl="true">
 			<ScrollView class="wizWelcome appVScrollView">
 				<Label class="wizTitle" text="L('shout_wiz_welcome')" />
 				<Label class="wizSubtitle" text="L('shout_wiz_lets_get_you_started')" />
@@ -10,7 +10,7 @@
 				<View class="wizForm">
 					<Label class="wizTitle" text="L('shout_wiz_choose_shout')" />
 					<Label class="wizSubtitle" text="L('shout_wiz_what_will_you_be_shouting')" />
-					<View class="appVSpacer" />
+					<View platform="android" class="appVSpacer" />
 					<Picker class="shoutType" selectionIndicator="true" onChange="onShoutPickerChange">
 						<PickerRow title="L('shout_wiz_coffee')" />
 						<PickerRow title="L('shout_wiz_beer')" />

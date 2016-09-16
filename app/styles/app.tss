@@ -32,10 +32,6 @@
 }
 
 '.appCanvas[platform=ios]': {
-	// On iOS7+ we'll set this global to 20 in alloy.js to move the actual content under the statusBar
-	top: Alloy.Globals.canvasTop,
-
-	// Make our canvas white, leaving only the statusBar red
 	backgroundColor: Alloy.CFG.colors.backgroundColor,
 }
 
@@ -59,7 +55,7 @@
 }
 
 '.appListItemRightIcon3': {
-	right: 96,
+	right: 104,
 }
 
 '.appCompositeView': {

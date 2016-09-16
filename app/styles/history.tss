@@ -17,6 +17,10 @@
 
 }
 
+'.historyList[platform=ios]': {
+	allowsSelection: false,
+}
+
 '.matesListItem': {
 	height: 50,
 	layout: 'horizontal',

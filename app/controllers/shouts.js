@@ -2,6 +2,7 @@ var CONST = require('constants');
 var animation = require('alloy/animation');
 var dialogs = require('alloy/dialogs');
 
+var _mShout;
 var _bIsEditingMate = false;
 var _iIsEditingIndex = 0;
 var _oIsEditingMate;
@@ -9,6 +10,30 @@ var _oMateController;
 var _oShoutWizController;
 var _bDidAnimateIn = false;
 
+if (OS_IOS) {
+    var _oEditActions = {
+        oYourShout : {
+            identifier : CONST.ACTIONS.YOUR_SHOUT,
+            title : L('shouts_your_shout'),
+            style : Ti.UI.iOS.ROW_ACTION_STYLE_NORMAL,
+        },
+        oActivate : {
+            identifier : CONST.ACTIONS.ACTIVATE,
+            title : L('shouts_activate'),
+            style : Ti.UI.iOS.ROW_ACTION_STYLE_DEFAULT,
+        },
+        oDeactivate : {
+            identifier : CONST.ACTIONS.DEACTIVATE,
+            title : L('shouts_deactivate'),
+            style : Ti.UI.iOS.ROW_ACTION_STYLE_DESTRUCTIVE,
+        },
+        oEdit : {
+            identifier : CONST.ACTIONS.EDIT,
+            title : L('app_edit'),
+            style : Ti.UI.iOS.ROW_ACTION_STYLE_NORMAL,
+        },
+    };
+}
 /**
  * self-executing function to organize otherwise inline constructor code
  * @param  {Object} args arguments passed to the controller
@@ -63,6 +88,7 @@ function init() {
     log.trace('running init...', logContext);
 
     fetchFavShout();
+    fillPageIndicatorIcons();
     fillFavShoutSection();
     fillShoutMatesSection();
 
@@ -77,24 +103,48 @@ function fetchFavShout() {
 
     // find the first shout model marked as favourite
     var cShouts = Alloy.Collections.instance('shouts');
-    var mFavShout = cShouts.findWhere({
+    _mShout = cShouts.findWhere({
         isFav: true
     });
 
-    if (!mFavShout) {
-        mFavShout = cShouts.first();
+    if (!_mShout) {
+        _mShout = cShouts.first();
         log.debug('fav shout not found; selecting first model:', logContext);
     }
 
-    if (mFavShout) {
+    if (_mShout) {
         log.debug('fav shout:', logContext);
-        log.debug(mFavShout, logContext);
-        // fetch model bound to view
-        $.mShout.clear();
-        $.mShout.id = mFavShout.id;
-        $.mShout.fetch();
+        log.debug(_mShout, logContext);
     } else {
         log.debug('fav shout not found!', logContext);
+    }
+}
+
+function fillPageIndicatorIcons() {
+    'use strict';
+
+    $.page_indicator_icons_view.removeAllChildren();
+    Alloy.Collections.instance('shouts').each(function(mShout) {
+        var oPageIndicatorIcon = Ti.UI.createLabel();
+        if (_mShout && _mShout.id === mShout.id) {
+            $.addClass(oPageIndicatorIcon, 'currentPageIndicatorIcon');
+        } else {
+            $.addClass(oPageIndicatorIcon, 'otherPageIndicatorIcon');
+        }
+        $.page_indicator_icons_view.add(oPageIndicatorIcon);
+    });
+}
+
+function updatePageIndicatorIcons() {
+    'use strict';
+
+    var iCurrentPageIndex = Alloy.Collections.instance('shouts').indexOf(_mShout);
+    for (var i = 0; i < $.page_indicator_icons_view.children.length; i++) {
+        if (i === iCurrentPageIndex) {
+            $.resetClass($.page_indicator_icons_view.children[i], 'currentPageIndicatorIcon');
+        } else {
+            $.resetClass($.page_indicator_icons_view.children[i], 'otherPageIndicatorIcon');
+        }
     }
 }
 
@@ -107,7 +157,7 @@ function fetchShoutIndex(iOffset) {
     var cShouts = Alloy.Collections.instance('shouts');
     var iCurrent = -1;
     for (var i = 0; i < cShouts.models.length; i++) {
-        if (cShouts.models[i].id === $.mShout.id) {
+        if (cShouts.models[i].id === _mShout.id) {
             iCurrent = i;
             break;
         }
@@ -122,11 +172,7 @@ function fetchShoutIndex(iOffset) {
             mNextShout = cShouts.last();
         }
     }
-
-    // fetch model bound to view
-    $.mShout.clear();
-    $.mShout.id = mNextShout.id;
-    $.mShout.fetch();
+    _mShout = mNextShout;
 
     // reconfigure menus
     changeMenu();
@@ -141,38 +187,81 @@ function onFavShoutSwipe(e) {
         }
         return false;
     }
-    var oView = e.source;
-    animation.fadeOut(oView, 100, function() {
-        // fetch the next/previous shout
-        switch (e.direction) {
-            // case 'up':
-            case 'left':
-                fetchShoutIndex(-1);
-                break;
 
-                // case 'down':
-            case 'right':
-                fetchShoutIndex(1);
-                break;
+    switch (e.direction) {
+        // case 'up':
+        case 'left':
+            fetchShoutIndex(1);
+            break;
 
-            default:
-                break;
-        }
+            // case 'down':
+        case 'right':
+            fetchShoutIndex(-1);
+            break;
+
+        default:
+            break;
+    }
+
+    var onAnimationComplete = function() {
         // update list
+        updatePageIndicatorIcons();
         updateFavShoutSection();
         fillShoutMatesSection();
+    };
 
-        _.defer(function() {
-            animation.fadeIn(oView, 100);
-        });
-    });
+    // repeat a series of 'scale horizontally to zero and back' animations,
+    // to create the impression of a spinning coin (slowing down to the end)
+    var oView = e.source;
+    var aAnimations = [];
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(0.1,1),
+        duration : 10,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+    }));
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(1,1),
+        duration : 20,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+    }));
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(0.1,1),
+        duration : 40,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+    }));
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(1,1),
+        duration : 70,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+    }));
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(0.1,1),
+        duration : 110,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+    }));
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(1,1),
+        duration : 160,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+    }));
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(0.1,1),
+        duration : 220,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+    }));
+    aAnimations.push(Ti.UI.createAnimation({
+        transform: Ti.UI.create2DMatrix().scale(1,1),
+        duration : 300,
+        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+    }));
+    animation.chainAnimate(oView, aAnimations, onAnimationComplete);
 }
 
 function updateFavShoutSection() {
     'use strict';
 
     if ($.fav_shout_listsection.items.length) {
-        $.fav_shout_listsection.updateItemAt(0, mapShoutListItem($.mShout, 'fav_shout_template'), {
+        $.fav_shout_listsection.updateItemAt(0, mapShoutListItem(_mShout, 'fav_shout_template'), {
             animated: true
         });
     }
@@ -181,8 +270,11 @@ function updateFavShoutSection() {
 function fillFavShoutSection() {
     'use strict';
 
+    if (!_mShout) {
+        return false;
+    }
     // add favourite shout to list
-    var aFavListItem = [mapShoutListItem($.mShout, 'fav_shout_template')];
+    var aFavListItem = [mapShoutListItem(_mShout, 'fav_shout_template')];
     $.fav_shout_listsection.appendItems(aFavListItem, {
         animated: true
     });
@@ -202,11 +294,15 @@ function fillFavShoutSection() {
 function fillShoutMatesSection() {
     'use strict';
 
+    if (!_mShout) {
+        return false;
+    }
+
     // housekeeping for older mates
-    $.mShout.generateMissingMateIds();
+    _mShout.generateMissingMateIds();
 
     // add shout mates to list
-    var aMates = $.mShout.getMates();
+    var aMates = _mShout.getMates();
     var aMatesListItems = _.map(aMates, function(oMate) {
         return mapMateListItem(oMate);
     });
@@ -220,7 +316,7 @@ function fillShoutMatesSection() {
     });
 }
 
-function mapShoutListItem(mShout, template) {
+function mapShoutListItem(mShout, template, bIsSwiping) {
     'use strict';
 
     var oShout = mShout.transform();
@@ -237,10 +333,12 @@ function mapShoutListItem(mShout, template) {
                 // image : ...
         },
         shout_who: {
-            text: oShout.uiWho
+            text: oShout.uiWho,
+            visible: (bIsSwiping ? false : true),
         },
         shout_where: {
-            text: oShout.uiWhere
+            text: oShout.uiWhere,
+            visible: (bIsSwiping ? false : true),
         }
     };
 }
@@ -269,13 +367,12 @@ function mapMateListItem(oMate, template) {
         mateColor = Alloy.CFG.colors.backgroundColor;
         mateBackgroundColor = Alloy.CFG.colors.tintColor;
     }
-
-    return {
+    var oMateListItem = {
         template: template || 'shout_mates_template',
         properties: {
             accessoryType: Ti.UI.LIST_ACCESSORY_TYPE_NONE,
             searchableText: oMate.name + oMate.poison + oMate.price,
-            itemId: oMate.mateId
+            itemId: oMate.mateId,
                 // if using built-in item templates for iOS, uncomment these
                 // title : oMate.name
                 // subtitle : oMate.poison
@@ -304,21 +401,24 @@ function mapMateListItem(oMate, template) {
         },
         mate_price: {
             // text: oMate.price,
-            attributedString: getAttributedPriceText(oMate.price, oMate.hasShout),
+            attributedString: getAttributedPriceText(oMate.price, oMate.hasShout, oMate.isInactive),
         },
         mate_price_edit: {
             value: oMate.price,
         },
         mate_balance: {
             // text : oMate.balance,
-            attributedString: getAttributedBalanceText(oMate.balance, oMate.hasShout),
+            attributedString: getAttributedBalanceText(oMate.balance, oMate.hasShout, oMate.isInactive),
         },
         mate_has_shout: {
             color: mateColor,
             text: (oMate.hasShout ? Alloy.Globals.fa_icons.bullhorn : null),
         },
         mate_is_inactive: {
-            value: (oMate.isInactive ? false : true),
+            // value: (oMate.isInactive ? false : true),
+            text: (oMate.isInactive ? Alloy.Globals.fa_icons.toggle_off : Alloy.Globals.fa_icons.toggle_on),
+            color: mateColor,
+            visible: (oMate.hasShout ? false : true),
         },
         mate_ellipsis_icon: {
             color: mateColor,
@@ -336,16 +436,39 @@ function mapMateListItem(oMate, template) {
         // if binding to a view then the associated class is overridden
         // and all styling properties must be supplied here
         mate_bg_view: {
-        	width: '100%',
-        	layout: 'horizontal',
-        	horizontalWrap: false,
+            width: '100%',
+            layout: 'horizontal',
+            horizontalWrap: false,
             color: mateColor,
             backgroundColor: mateBackgroundColor
         },
     };
+    if (OS_IOS) {
+        oMateListItem.properties = oMateListItem.properties || {};
+        oMateListItem.properties.canEdit = true;
+        oMateListItem.properties.editActions = setupMateEditActions(oMate);
+    }
+    return oMateListItem;
 }
 
-function getAttributedPriceText(price, hasShout) {
+function setupMateEditActions(oMate) {
+    'use strict';
+
+    var aEditActions = [];
+    aEditActions.push(_oEditActions.oEdit);
+    if (oMate.isInactive) {
+        aEditActions.push(_oEditActions.oActivate);
+    }
+    if (!oMate.isInactive && !oMate.hasShout) {
+        aEditActions.push(_oEditActions.oDeactivate);
+    }
+    if (!oMate.hasShout) {
+        aEditActions.push(_oEditActions.oYourShout);
+    }
+    return aEditActions;
+}
+
+function getAttributedPriceText(price, hasShout, isInactive) {
     'use strict';
 
     price = isNaN(price) ? 0 : price;
@@ -367,12 +490,19 @@ function getAttributedPriceText(price, hasShout) {
             value: Alloy.CFG.colors.backgroundColor,
             range: [0, oAttributedString.text.length]
         });
-
+    }
+    if (isInactive) {
+        // change color if mate is inactive
+        oAttributedString.addAttribute({
+            type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
+            value: Alloy.CFG.colors.inactiveColor,
+            range: [0, oAttributedString.text.length]
+        });
     }
     return oAttributedString;
 }
 
-function getAttributedBalanceText(balance, hasShout) {
+function getAttributedBalanceText(balance, hasShout, isInactive) {
     'use strict';
 
     balance = isNaN(balance) ? 0 : balance;
@@ -397,6 +527,14 @@ function getAttributedBalanceText(balance, hasShout) {
         });
 
     }
+    if (isInactive) {
+        // change color if mate is inactive
+        oAttributedString.addAttribute({
+            type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
+            value: Alloy.CFG.colors.inactiveColor,
+            range: [0, oAttributedString.text.length]
+        });
+    }
     return oAttributedString;
 }
 
@@ -404,8 +542,8 @@ function onShoutWizDone(e) {
     'use strict';
 
     var logContext = 'shouts.js > onShoutWizDone()';
-    log.debug('$.mShout currently bound to view', logContext);
-    log.debug($.mShout, logContext);
+    log.debug('_mShout currently bound to view', logContext);
+    log.debug(_mShout, logContext);
     log.debug('new mShout model received from shout_wiz:', logContext);
     log.debug(e.mShout, logContext);
 
@@ -413,21 +551,23 @@ function onShoutWizDone(e) {
 
     if (e.mShout) {
         // mark the new fav shout
-        Alloy.Collections.instance('shouts').markAsFav(e.mShout);
+        var bIsFirstShout = _mShout ? false : true;
 
-        // clear/fetch the shout bound to the view with the new shout's id
-        $.mShout.clear();
-        $.mShout.id = e.mShout.id;
-        $.mShout.fetch();
-        log.debug('$.mShout model after fetch:', logContext);
-        log.debug($.mShout, logContext);
+        _mShout = e.mShout;
+        Alloy.Collections.instance('shouts').markAsFav(_mShout);
 
         // reconfigure menus
         changeMenu();
 
         // update list
-        updateFavShoutSection();
+        if (bIsFirstShout) {
+            fillFavShoutSection();
+        } else {
+            updateFavShoutSection();
+        }
+        fillPageIndicatorIcons();
         fillShoutMatesSection();
+
 
         _.defer(function() {
             if (!_bDidAnimateIn) {
@@ -459,10 +599,10 @@ function saveEditingMateChanges() {
     'use strict';
 
     // save changes, if any
-    var oMate = $.mShout.getMate(_oIsEditingMate.mateId);
+    var oMate = _mShout.getMate(_oIsEditingMate.mateId);
     if (!_.isEqual(oMate, _oIsEditingMate)) {
-        $.mShout.updateMate(_oIsEditingMate);
-        $.mShout.save();
+        _mShout.updateMate(_oIsEditingMate);
+        _mShout.save();
     }
 }
 
@@ -471,7 +611,7 @@ function toggleMateEditing(mateId, itemIndex) {
 
     if (!_bIsEditingMate) {
         // set up a clone of the selected mate for editing
-        _oIsEditingMate = _.clone($.mShout.getMate(mateId));
+        _oIsEditingMate = _.clone(_mShout.getMate(mateId));
 
         // render shout mate item with editing template
         $.shout_mates_listsection.updateItemAt(itemIndex, mapMateListItem(_oIsEditingMate, 'edit_mate_template'), {
@@ -484,7 +624,7 @@ function toggleMateEditing(mateId, itemIndex) {
     } else {
         // rerender the original mate listitem
         $.shout_mates_listsection.updateItemAt(_iIsEditingIndex, mapMateListItem(_oIsEditingMate), {
-            animated : true
+            animated: true
         });
 
         // flag that mates list editing is done
@@ -493,14 +633,22 @@ function toggleMateEditing(mateId, itemIndex) {
     }
 }
 
-function onMateInactiveSwitchClick(e) {
+function onMateInactiveIconClick(e) {
     'use strict';
 
+    onMateInactiveSwitchClick(e, _oIsEditingMate.isInactive);
+}
+
+function onMateInactiveSwitchClick(e, bActive) {
+    'use strict';
+
+    bActive = (bActive !== undefined ? bActive : e.value);
+
     // check that the mate does not currently have the shout before deactivating!
-    if (_oIsEditingMate.hasShout && e.value === false) {
+    if (_oIsEditingMate.hasShout && bActive === false) {
         toast.show(L('shouts_give_the_next_shout_to_someone_else_first'));
     } else {
-        _oIsEditingMate.isInactive = e.value ? false : true;
+        _oIsEditingMate.isInactive = bActive ? false : true;
 
         saveEditingMateChanges();
     }
@@ -513,25 +661,30 @@ function onMateEditClick(e) {
     goEditMate(e.itemId);
 }
 
+function giveMateTheShout(e) {
+    'use strict';
+    var oReturn = _mShout.giveMateTheShout(e.itemId);
+    _mShout.save();
+
+    // merge the update shouter details into the editing clone
+    _.extend(_oIsEditingMate, _mShout.getShouter());
+
+    // rerender the original shouting mate's listitem
+    if (oReturn.oldShouterIndex !== e.itemIndex) {
+        var oOldShoutMate = _mShout.getMate(oReturn.oldShouterId);
+        $.shout_mates_listsection.updateItemAt(oReturn.oldShouterIndex, mapMateListItem(oOldShoutMate), {
+            animated: true
+        });
+        // rerender the fav shout listitem
+        updateFavShoutSection();
+    }
+}
+
 function onMateYourShoutClick(e) {
     'use strict';
 
     try {
-        var oReturn = $.mShout.giveMateTheShout(e.itemId);
-        $.mShout.save();
-
-        // merge the update shouter details into the editing clone
-        _.extend(_oIsEditingMate, $.mShout.getShouter());
-
-        // rerender the original shouting mate's listitem
-        if (oReturn.oldShouterIndex !== e.itemIndex) {
-            var oOldShoutMate = $.mShout.getMate(oReturn.oldShouterId);
-            $.shout_mates_listsection.updateItemAt(oReturn.oldShouterIndex, mapMateListItem(oOldShoutMate), {
-                animated : true
-            });
-            // rerender the fav shout listitem
-            updateFavShoutSection();
-        }
+        giveMateTheShout(e);
     } catch (oErr) {
         toast.show(oErr.message || oErr);
     } finally {
@@ -555,6 +708,11 @@ function onFavShoutClick(e) {
 function onMateClick(e) {
     'use strict';
 
+    if (OS_IOS) {
+        // we use editactions on ios
+        return false;
+    }
+
     switch (e.section) {
         case $.shout_mates_listsection:
             toggleMateEditing(e.itemId, e.itemIndex);
@@ -568,6 +726,11 @@ function onMateClick(e) {
 
 function onMateSwipe(e) {
     'use strict';
+
+    if (OS_IOS) {
+        // we use editactions on ios
+        return false;
+    }
 
     switch (e.section) {
         case $.shout_mates_listsection:
@@ -618,8 +781,8 @@ function onGoEditMateDelete(e) {
         toggleMateEditing(_oIsEditingMate.mateId, _iIsEditingIndex);
 
         try {
-            $.mShout.removeMate(e.oMate.mateId);
-            $.mShout.save();
+            _mShout.removeMate(e.oMate.mateId);
+            _mShout.save();
 
             $.shout_mates_listsection.deleteItemsAt(0, $.shout_mates_listsection.items.length, {
                 animated: true
@@ -627,18 +790,17 @@ function onGoEditMateDelete(e) {
             fillShoutMatesSection();
         } catch (oErr) {
             toast.show(oErr.message || oErr);
-        } finally {
-        }
+        } finally {}
     }
 }
 
 function goEditMate(mateId) {
     'use strict';
 
-    var oMate = _.clone($.mShout.getMate(mateId));
+    var oMate = _.clone(_mShout.getMate(mateId));
 
     _oMateController = Alloy.Globals.Navigator.push('mate', {
-        mShout: $.mShout,
+        mShout: _mShout,
         oMate: oMate
     });
     // register for 'done' and 'delete' events on controller
@@ -653,21 +815,21 @@ function goEditMate(mateId) {
 function doFavShout(e) {
     'use strict';
 
-    if ($.mShout.getMates().length === 0) {
+    if (_mShout.getMates().length === 0) {
         showAddSomeMatesToast(L('shouts_you_need_to_add_some_mates_first'));
     } else {
         dialogs.confirm({
-            message: String.format(L('shouts_total_cost'), Number($.mShout.calcShoutCost(true)).toFixed(2)),
+            message: String.format(L('shouts_total_cost'), Number(_mShout.calcShoutCost(true)).toFixed(2)),
             callback: function() {
                 // update shouter balance
-                var oNextToShout = $.mShout.updateShouterBalance();
+                var oNextToShout = _mShout.updateShouterBalance();
                 // archive shout to history
-                Alloy.Collections.instance('history').archiveShout($.mShout);
+                Alloy.Collections.instance('history').archiveShout(_mShout);
                 // give next mate the shout and save
-                $.mShout.giveMateTheShout(oNextToShout.mateId);
-                $.mShout.save();
+                _mShout.giveMateTheShout(oNextToShout.mateId);
+                _mShout.save();
                 // the last shout becomes the favourite
-                Alloy.Collections.instance('shouts').markAsFav($.mShout);
+                Alloy.Collections.instance('shouts').markAsFav(_mShout);
 
                 // let the user now who's next up
                 toast.show(String.format(L('shouts_next_shout_is_on'), oNextToShout.name));
@@ -682,47 +844,22 @@ function doFavShout(e) {
     }
 }
 
-/**
- * event listener set via view for when the user deletes a ListView item
- * @param  {Object} e Event
- */
-function deleteShout(e) {
-    'use strict';
-
-    var logContext = 'shouts.js > deleteShout()';
-    log.warn('deleted list item: ' + e.itemId, logContext);
-    log.debug(e, logContext);
-
-    // remove the model from the collection
-    var mShout = Alloy.Collections.instance('shouts').get(e.itemId);
-    // prompt the user to confirm shout should be deleted
-    alloy_dialogs.confirm({
-        title: L('shouts_delete_shout'),
-        message: L('app_are_you_sure'),
-        callback: function() {
-            return mShout.destroy({
-                wait: true
-            });
-        }
-    });
-}
-
-function goAddMate(){
+function goAddMate() {
     'use strict';
 
     _oMateController = Alloy.Globals.Navigator.push('mate', {
-        mShout: $.mShout
+        mShout: _mShout
     });
     // register for 'done' event on controller
     _oMateController.once('done', function(e) {
         _oMateController = null;
 
         if (e.oMate) {
-            var oAddedMate = $.mShout.addMate(e.oMate);
-            $.mShout.save();
+            var oAddedMate = _mShout.addMate(e.oMate);
+            _mShout.save();
 
             $.shout_mates_listsection.appendItems([mapMateListItem(oAddedMate)], {
-                animated : true
+                animated: true
             });
 
             if (oAddedMate.hasShout) {
@@ -732,11 +869,15 @@ function goAddMate(){
     });
 }
 
-function goHistory(){
+function goHistory() {
     'use strict';
 
-    Alloy.Globals.Navigator.push('history', {
-        mShout: $.mShout
+    var oHistoryController = Alloy.Globals.Navigator.push('history', {
+        mShout: _mShout
+    });
+    oHistoryController.once('undo', function() {
+        updateFavShoutSection();
+        fillShoutMatesSection();
     });
 }
 
@@ -753,9 +894,9 @@ function createAndroidMenu(menu) {
         // menuItemDoFavShout.addEventListener('click', doFavShout);
 
         var menuItemAddShout = menu.add({
-            itemId : CONST.MENU.SHOUTS_ADD_SHOUT,
-            title : L('shouts_add_shout'),
-            showAsAction : Ti.Android.SHOW_AS_ACTION_IF_ROOM,
+            itemId: CONST.MENU.SHOUTS_ADD_SHOUT,
+            title: L('shouts_add_shout'),
+            showAsAction: Ti.Android.SHOW_AS_ACTION_IF_ROOM,
         });
         menuItemAddShout.addEventListener('click', goShoutWiz);
 
@@ -768,10 +909,10 @@ function createAndroidMenu(menu) {
         // menuItemAddMate.addEventListener('click', goAddMate);
 
         var menuItemHistory = menu.add({
-            itemId : CONST.MENU.SHOUTS_HISTORY,
-            title : L('shouts_history'),
-            showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER,
-            visible : false,    // hide until shout is loaded
+            itemId: CONST.MENU.SHOUTS_HISTORY,
+            title: L('shouts_history'),
+            showAsAction: Ti.Android.SHOW_AS_ACTION_NEVER,
+            visible: false, // hide until shout is loaded
         });
         menuItemHistory.addEventListener('click', goHistory);
     }
@@ -785,7 +926,7 @@ function prepareAndroidMenu(menu) {
         // var menuItemAddMate = menu.findItem(CONST.MENU.SHOUTS_ADD_MATE);
         var menuItemHistory = menu.findItem(CONST.MENU.SHOUTS_HISTORY);
         // show/hide menuitems depending on if we have a current shout
-        if ($.mShout && $.mShout.id) {
+        if (_mShout && _mShout.id) {
             // if (menuItemDoFavShout) {
             //     menuItemDoFavShout.setVisible(true);
             // }
@@ -843,4 +984,34 @@ function onWindowClose() {
 
     // destroy alloy data bindings
     $.destroy();
+}
+
+function onEditAction(e){
+    'use strict';
+
+    _bIsEditingMate = true;
+    _iIsEditingIndex = e.itemIndex;
+    _oIsEditingMate = _.clone(_mShout.getMate(e.itemId));
+
+    // switch (e.identifier) {
+    switch (e.action) {
+        case CONST.ACTIONS.EDIT:
+            goEditMate(e.itemId);
+            break;
+
+        case CONST.ACTIONS.YOUR_SHOUT:
+            onMateYourShoutClick(e);
+            break;
+
+        case CONST.ACTIONS.ACTIVATE:
+            onMateInactiveSwitchClick(e, true);
+            break;
+
+        case CONST.ACTIONS.DEACTIVATE:
+            onMateInactiveSwitchClick(e, false);
+            break;
+
+        default:
+
+    }
 }

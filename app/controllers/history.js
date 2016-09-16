@@ -2,6 +2,7 @@ var dialogs = require('alloy/dialogs');
 var moment = require('alloy/moment');
 
 var _mShout;
+var _aSortedShoutHistory = [];
 
 /**
  * self-executing function to organize otherwise inline constructor code
@@ -48,10 +49,10 @@ function init() {
         $.no_history_view.setVisible(false);
         $.history_listview.setVisible(true);
 
-        var aSortedShoutHistory = _.sortBy(aShoutHistory, function(mHistory) {
+        _aSortedShoutHistory = _.sortBy(aShoutHistory, function(mHistory) {
             return mHistory.get('shoutAt');
         }).reverse();
-        buildHistoryList(aSortedShoutHistory);
+        buildHistoryList(_aSortedShoutHistory);
     }
 
     log.trace('raising $.loaded event...', logContext);
@@ -62,23 +63,26 @@ function buildHistoryList(aShoutHistory) {
     'use strict';
 
     // create a section for each shout
+    var i = 0;
     _.each(aShoutHistory, function(mHistory) {
         var oHistory = mHistory.transform();
         // var oShoutSection = Ti.UI.createListSection({
         //     headerTitle: oHistory.uiWho + ', ' + moment(oHistory.shoutAt).fromNow()
         // });
         var oShoutSection = Ti.UI.createListSection({
-            headerView: buildHistorySectionHeader(oHistory)
+            headerView: buildHistorySectionHeader(oHistory, i)
         });
         var aMatesListItems = _.map(oHistory.mates, function(oMate) {
-            return mapMateListItem(oMate);
+            return mapMateListItem(oMate, i);
         });
         oShoutSection.setItems(aMatesListItems);
         $.history_listview.appendSection(oShoutSection);
+
+        i++;
     });
 }
 
-function buildHistorySectionHeader(oHistory) {
+function buildHistorySectionHeader(oHistory, iSectionIndex) {
     'use strict';
 
     // create section header view
@@ -92,19 +96,22 @@ function buildHistorySectionHeader(oHistory) {
     $.addClass(oHeaderTitle, 'listHeaderTitle');
     oHeaderView.add(oHeaderTitle);
 
-    // add view and label for undo icon
-    var oUndoIconView = Ti.UI.createView();
-    $.addClass(oUndoIconView, 'appCompositeView');
-    var oUndoIconLabel = Ti.UI.createLabel();
-    $.addClass(oUndoIconLabel, 'listHeaderUndoIcon appListItemRightIcon1');
-    oUndoIconLabel.addEventListener('click', onUndoShout);
-    oUndoIconView.add(oUndoIconLabel);
-    oHeaderView.add(oUndoIconView);
+    // add view and label for undo icon (to first shout only)
+    if (iSectionIndex === 0) {
+        var oUndoIconView = Ti.UI.createView();
+        $.addClass(oUndoIconView, 'appCompositeView');
+        var oUndoIconLabel = Ti.UI.createLabel();
+        $.addClass(oUndoIconLabel, 'listHeaderUndoIcon appListItemRightIcon1');
+        oUndoIconLabel._app_iSectionIndex = iSectionIndex;
+        oUndoIconLabel.addEventListener('click', onUndoShout);
+        oUndoIconView.add(oUndoIconLabel);
+        oHeaderView.add(oUndoIconView);
+    }
 
     return oHeaderView;
 }
 
-function mapMateListItem(oMate, template) {
+function mapMateListItem(oMate, iSectionIndex, template) {
     'use strict';
 
     // set mate's background color
@@ -164,7 +171,10 @@ function mapMateListItem(oMate, template) {
             value: (oMate.isInactive ? false : true),
         },
         mate_undo_icon: {
-            visible: (oMate.isInactive ? false : true),
+            // TODO: enable undo for individual shouters? probably just as easy to undo the shout
+            // and deactivate a participant before shouting again...
+            // visible: (oMate.isInactive || iSectionIndex !== 0 ? false : true),
+            visible: false,
             color: mateColor,
             backgroundColor: mateBackgroundColor
         },
@@ -302,13 +312,31 @@ function onWindowClose() {
 function onUndoShout(e){
     'use strict';
 
-    // TODO: get current shout model and credit all mates' balances
-    alert('undo of whole shout coming soon...');
+    var logContext = 'history.js > onUndoShout()';
+
+    var iSectionIndex = (e && e.source && _.has(e.source, '_app_iSectionIndex') ? e.source._app_iSectionIndex : -1);
+    if (iSectionIndex === -1) {
+        log.error('unable to determine sectionIndex for shout!', logContext);
+        log.debug(e, logContext);
+        toast.show(L('history_could_not_find_shout'));
+    }
+
+    var mHistory = _aSortedShoutHistory[iSectionIndex];
+    if (mHistory) {
+        // undo the shout and destroy history model
+        mHistory.undoShout();
+        mHistory.destroy();
+
+        log.trace('raising $.undo event...', logContext);
+        $.trigger('undo');
+
+        // let the user know and navigate back
+        toast.show(L('history_shout_has_been_reversed'));
+        Alloy.Globals.Navigator.pop();
+    }
 }
 
 function onMateClick(e){
     'use strict';
 
-    // TODO: get current shout model and credit mate's balance
-    alert('undo of mate participation in shout coming soon...');
 }

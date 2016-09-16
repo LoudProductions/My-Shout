@@ -1,12 +1,12 @@
 <Alloy>
-	<Model src="shouts" instance="true" id="mShout"/>
-
 	<!-- iOS: The window will start behind the statusBar -->
 	<Window id="window" title="L('app_my_shout')">
 
 		<RightNavButtons platform="ios">
-			<Button title="L('shouts_history')" onClick="goHistory"/>
-			<Button title="L('shouts_add_shout')" onClick="goShoutWiz"/>
+			<!-- <Button title="L('shouts_history')" onClick="goHistory"/>
+			<Button title="L('shouts_add_shout')" onClick="goShoutWiz"/> -->
+			<Label class="navAddShoutIcon" onClick="goShoutWiz"/>
+			<Label class="navHistoryIcon" onClick="goHistory"/>
 		</RightNavButtons>
 
 		<!-- Android: Add MenuItem with ActionView for search -->
@@ -31,8 +31,12 @@
 			<!-- TODO: add placeholder view with instructions to add a shout for in case the user backs out of wizard
 		 						 this view is to be hidden upon $.animateIn() -->
 
-			<!-- <ListView class="shoutsList" onItemclick="onShoutsListClick" editing="true" onDelete="deleteShout"> -->
-			<ListView class="shoutsList" id="shouts_listview" editing="true" onDelete="deleteShout">
+			<ListView class="shoutsList" id="shouts_listview" onEditaction="onEditAction">
+				<HeaderView>
+					<View class="pageIndicators">
+						<View class="pageIndicatorIcons" id="page_indicator_icons_view" />
+					</View>					  
+				</HeaderView>
 				<Templates>
 					<ItemTemplate name="fav_shout_template" class="favShoutsListItem">
 						<View onSwipe="onFavShoutSwipe" onClick="onFavShoutClick">
@@ -47,7 +51,7 @@
 					</ItemTemplate>
 					<ItemTemplate name="shout_mates_template" class="matesListItem">
 						<View bindId="mate_bg_view" onSwipe="onMateSwipe" onClick="onMateClick">
-							<View class="matesListItemLeft">
+							<View class="matesListItemLeftThird">
 								<View class="appHalfHeight">
 									<Label class="listItemTitle" bindId="mate_name"/>
 								</View>
@@ -55,7 +59,7 @@
 									<Label class="listItemSubtitle" bindId="mate_balance"/>
 								</View>
 							</View>
-							<View class="matesListItemMiddle">
+							<View class="matesListItemMiddleThird">
 								<View class="appHalfHeight">
 									<Label class="listItemPoison" bindId="mate_poison"/>
 								</View>
@@ -80,8 +84,9 @@
 							</View>
 							<View class="appCompositeView">
 								<Label class="listItemYourShoutIcon appListItemRightIcon3" bindId="mate_your_shout_icon" onClick="onMateYourShoutClick"/>
-								<Label class="listItemEditIcon appListItemRightIcon2" bindId="mate_edit_icon" onClick="onMateEditClick"/>
-								<Switch class="listItemSwitch appListItemRightIcon1" bindId="mate_is_inactive" onChange="onMateInactiveSwitchClick"/>
+								<!-- <Switch class="listItemSwitch appListItemRightIcon1" bindId="mate_is_inactive" onChange="onMateInactiveSwitchClick"/> -->
+								<Label class="listItemIsInactiveIcon appListItemRightIcon2" bindId="mate_is_inactive" onClick="onMateInactiveIconClick"/>
+								<Label class="listItemEditIcon appListItemRightIcon1" bindId="mate_edit_icon" onClick="onMateEditClick"/>
 							</View>
 						</View>
 					</ItemTemplate>
@@ -89,10 +94,10 @@
 				<ListSection id="fav_shout_listsection"/>
 				<ListSection id="shout_mates_listsection" headerTitle="L('shouts_mates')">
 					<HeaderView>
-						<!-- <View class="appCompositeView"> -->
+						<View class="appCompositeView">
 							<!-- <Label class="listHeaderAddIcon appListItemRightIcon1" id="go_add_mate_icon" onClick="goAddMate"/> -->
-						<!-- </View> -->
-						<Label class="listHeaderAddIcon" id="go_add_mate_icon" onClick="goAddMate"/>
+							<Label class="listHeaderAddIcon" id="go_add_mate_icon" onClick="goAddMate"/>
+						</View>
 					</HeaderView>
 				</ListSection>
 				<!-- <ListSection>

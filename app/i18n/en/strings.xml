@@ -6,6 +6,7 @@
     <string name="app_save">Save</string>
     <string name="app_next">Next</string>
     <string name="app_done">Done</string>
+    <string name="app_edit">Edit</string>
     <string name="app_are_you_sure">This action cannot be undone. Are you sure?</string>
     <string name="app_please_provide_missing_input">Please provide missing input!</string>
     <string name="shouts_other_shouts">Other Shouts</string>
@@ -25,6 +26,9 @@
     <string name="shouts_give_the_next_shout_to_someone_else_first">Please give the next shout to someone else first...</string>
     <string name="shouts_add_some_mates">Add some mates to the shout...</string>
     <string name="shouts_you_need_to_add_some_mates_first">You need to add some mates to the shout first...</string>
+    <string name="shouts_your_shout">Your Shout</string>
+    <string name="shouts_deactivate">Deactivate</string>
+    <string name="shouts_activate">Activate</string>
     <string name="shout_wiz_welcome">Welcome</string>
     <string name="shout_wiz_lets_get_you_started">Let's get you started!</string>
     <string name="shout_wiz_choose_shout">Choose Shout</string>
@@ -58,4 +62,6 @@
     <string name="history_could_not_find_shout">Could not find the specified shout!</string>
     <string name="history_no_history">No History</string>
 	<string name="history_dont_just_stand_there">Well, don't just stand there: shout something!</string>
+    <string name="history_could_not_find_shout">Could not find the specified shout!</string>
+    <string name="history_shout_has_been_reversed">The shout has been reversed...</string>
 </resources>

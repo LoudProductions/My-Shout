@@ -28,6 +28,19 @@ exports.definition = {
 
 					return t;
 			},
+			undoShout: function() {
+				var logContext = 'models/history.js > model.undoShout()';
+
+				var mShout = Alloy.Collections.instance('shouts').get(this.get('shoutId'));
+				if (!mShout) {
+						log.error(String.format('Shout with id %s not found!', this.get('shoutId')), logContext);
+						throw new Error(L('history_could_not_find_shout'));
+				}
+
+				// undo the shout
+				mShout.undoShout(this.get('mates'));
+				mShout.save();
+			},
 		});
 
 		return Model;
@@ -49,7 +62,7 @@ exports.definition = {
 				// we now have a shallow copy of the shout, but need to copy each mate also
 				oArchivedShout.mates = _.map(oArchivedShout.mates, function(oMate) {
 					return _.clone(oMate);
-				})
+				});
 				log.debug('archiving shout:', logContext);
 				log.debug(oArchivedShout, logContext);
 

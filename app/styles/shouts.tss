@@ -17,6 +17,28 @@
 	windowSoftInputMode: Ti.UI.Android.SOFT_INPUT_ADJUST_PAN,
 }
 
+'.navAddShoutIcon': {
+	width: 40,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 24,
+    	fontFamily: 'FontAwesome',
+	},
+	color: Alloy.CFG.colors.tintColor,
+	text: Alloy.Globals.fa_icons.plus,
+}
+
+'.navHistoryIcon': {
+	width: 40,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 24,
+    	fontFamily: 'FontAwesome',
+	},
+	color: Alloy.CFG.colors.tintColor,
+	text: Alloy.Globals.fa_icons.history,
+}
+
 '.favShoutCirc1': {
 	top: '15%',
 	width: 250,
@@ -66,6 +88,11 @@
 	/*top: '20%',*/
 }
 
+'.shoutsList[platform=ios]': {
+	separatorStyle: Ti.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE,
+	allowsSelection: false,
+}
+
 '.favShoutsListItem': {
 	height: 350,
 	layout: 'vertical',
@@ -85,11 +112,17 @@
 
 '.matesListItemLeft': {
 	/*borderColor: 'red',*/
+	width: '50%',
+	layout: 'vertical',
+}
+
+'.matesListItemLeftThird': {
+	/*borderColor: 'red',*/
 	width: '33%',
 	layout: 'vertical',
 }
 
-'.matesListItemMiddle': {
+'.matesListItemMiddleThird': {
 	/*borderColor: 'green',*/
 	width: '33%',
 	layout: 'vertical',
@@ -238,6 +271,16 @@
 	text: Alloy.Globals.fa_icons.hand_o_left,
 }
 
+'.listItemIsInactiveIcon': {
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'FontAwesome',
+	},
+	/*color will be dynamically bound...*/
+	text: Alloy.Globals.fa_icons.toggle_off,
+}
+
 '.listItemSaveIcon': {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
@@ -249,11 +292,45 @@
 }
 
 '.listHeaderAddIcon': {
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 30,
     	fontFamily: 'FontAwesome',
 	},
 	color: Alloy.CFG.colors.tintColor,
 	text: Alloy.Globals.fa_icons.plus,
+}
+
+'.currentPageIndicatorIcon': {
+	width: 10,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: 8,
+    	fontFamily: 'FontAwesome',
+	},
+	color: Alloy.CFG.colors.brandHintColor,
+	text: Alloy.Globals.fa_icons.dot_circle_o,
+}
+
+'.otherPageIndicatorIcon': {
+	width: 10,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
+	font: {
+		fontSize: 8,
+    	fontFamily: 'FontAwesome',
+	},
+	color: Alloy.CFG.colors.inactiveBackgroundColor,
+	text: Alloy.Globals.fa_icons.circle,
+}
+
+'.pageIndicators': {
+	top: 10,
+	height: Ti.UI.SIZE,
+	width: Ti.UI.FILL,
+}
+
+'.pageIndicatorIcons': {
+	height: Ti.UI.SIZE,
+	width: Ti.UI.SIZE,
+	layout: 'horizontal',
 }

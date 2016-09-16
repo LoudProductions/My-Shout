@@ -172,3 +172,32 @@ function onChangePrice(e){
         silent: true
     });
 }
+
+function onAutoNextFieldReturn(e){
+    'use strict';
+
+    if (!OS_IOS) {
+        // iOS doesn't advance the focus to the next input field automatically
+        return;
+    }
+
+    var sHintText = e.source.getHintText(),
+        bIsNextOne = false,
+        bIsFinished = false;
+
+    // find currently focused field then declare that the next field is THE ONE
+    _.each($.mate_container.getChildren(), function(oView) {
+        if (bIsFinished) {
+            return;
+        }
+
+        if (oView.getHintText && oView.getHintText() === sHintText) {
+            bIsNextOne = true;
+            return;
+        }
+        if (bIsNextOne && oView.getApiName() === 'Ti.UI.TextField') {
+            bIsFinished = true;
+            return oView.focus();
+        }
+    });
+}
