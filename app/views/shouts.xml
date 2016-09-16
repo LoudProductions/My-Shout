@@ -35,18 +35,20 @@
 				<HeaderView>
 					<View class="pageIndicators">
 						<View class="pageIndicatorIcons" id="page_indicator_icons_view" />
-					</View>					  
+					</View>
 				</HeaderView>
 				<Templates>
 					<ItemTemplate name="fav_shout_template" class="favShoutsListItem">
+						<Label class="favShoutWhereTop" bindId="shout_where" touchEnabled="false"/>
 						<View onSwipe="onFavShoutSwipe" onClick="onFavShoutClick">
-							<View class="favShoutCirc1" touchEnabled="false" elevation="8">
+							<View class="favShoutImage" touchEnabled="false" elevation="8"/>
+							<!-- <View class="favShoutCirc1" touchEnabled="false" elevation="8">
 								<View class="favShoutCirc2" touchEnabled="false">
 									<Label class="favShoutIcon" touchEnabled="false"/>
 									<Label class="favShoutWho" bindId="shout_who" touchEnabled="false"/>
 									<Label class="favShoutWhere" bindId="shout_where" touchEnabled="false"/>
 								</View>
-							</View>
+							</View> -->
 						</View>
 					</ItemTemplate>
 					<ItemTemplate name="shout_mates_template" class="matesListItem">

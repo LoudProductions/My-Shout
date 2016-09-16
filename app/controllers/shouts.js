@@ -265,6 +265,8 @@ function updateFavShoutSection() {
             animated: true
         });
     }
+    var oShout = _mShout.transform();
+    $.window.setTitle(oShout.uiWho);
 }
 
 function fillFavShoutSection() {
@@ -289,6 +291,8 @@ function fillFavShoutSection() {
     // animated : true
     // });
 
+    var oShout = _mShout.transform();
+    $.window.setTitle(oShout.uiWho);
 }
 
 function fillShoutMatesSection() {

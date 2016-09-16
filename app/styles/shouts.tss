@@ -32,6 +32,21 @@
 	text: Alloy.Globals.fa_icons.history,
 }
 
+'.favShoutImage': {
+	backgroundImage: '/images/shout.png',
+	width: 300,
+	height: 300,
+}
+
+'.favShoutWhereTop': {
+	top: 20,
+	font: {
+		fontSize: 20,
+    	fontFamily: 'OpenSans-Light',
+	},
+	color: Alloy.CFG.colors.backgroundColor,
+}
+
 '.favShoutCirc1': {
 	top: '15%',
 	width: 250,
