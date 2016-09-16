@@ -12,6 +12,10 @@
  }
 }
 
+'Label[platform=android]': {
+	color: Alloy.CFG.colors.textColor, // All platforms except Android default to black, correcting that here
+}
+
 'Window[platform=android]': {
 	// must use SOFT_INPUT_ADJUST_PAN to support TextField inside ListView
 	windowSoftInputMode: Ti.UI.Android.SOFT_INPUT_ADJUST_PAN,

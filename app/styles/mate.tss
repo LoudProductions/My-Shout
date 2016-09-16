@@ -5,8 +5,11 @@
  }
 }
 
-'Label': {
-	color: Alloy.CFG.colors.backgroundColor, // All platforms except Android default to black, correcting that here
+'TextField': {
+	color: Alloy.CFG.colors.backgroundColor,
+	backgroundColor: Alloy.CFG.colors.bgColorTransparent,
+  borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUND,
+	borderRadius: 25,
 }
 
 '#mate_container': {
@@ -58,8 +61,6 @@
     	fontFamily: 'OpenSans-BoldItalic',
 	},
   keyboardType: Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD,
-	color: "lime",
-
 }
 
 '.bottomButton': {

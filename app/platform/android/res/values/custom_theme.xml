@@ -2,7 +2,7 @@
 <resources>
 	<style name="appcelerator" parent="@style/Theme.AppCompat">
 		<item name="colorPrimary">#f96636</item>
-		<item name="colorAccent">#fb541e</item>
+		<item name="colorAccent">#ffffff</item>
 		<item name="android:statusBarColor">#fd460b</item>
 		<item name="android:navigationBarColor">#fd460b</item>
 	</style>
