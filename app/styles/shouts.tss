@@ -1,7 +1,14 @@
-"Window" : {
+/*"Window" : {
  backgroundGradient: {
  type: 'linear',
  colors: [ '#222238', '#6a6a7d' ]
+ }
+} */
+
+"Window" : {
+ backgroundGradient: {
+ type: 'linear',
+ colors: [ '#f09273', '#6a6a7d' ]
  }
 }
 

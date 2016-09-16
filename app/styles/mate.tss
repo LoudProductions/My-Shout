@@ -5,6 +5,10 @@
  }
 }
 
+'Label': {
+	color: Alloy.CFG.colors.backgroundColor, // All platforms except Android default to black, correcting that here
+}
+
 '#mate_container': {
 		/*borderColor: 'pink',*/
 }
