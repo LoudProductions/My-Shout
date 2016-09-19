@@ -154,23 +154,16 @@ exports.definition = {
                 var logContext = 'models/shouts.js > giveMateTheShout()';
 
                 aMates = _.isArray(aMates) ? aMates : this.getMates();
-                var oReturn = {
-                    oldShouterId : null,
-                };
                 // find the specified mate
                 var oNewShouter = this.getMate(mateId, aMates);
                 // if the mate already has the shout there is nothing for us to do here
                 if (oNewShouter.hasShout) {
-                    oReturn.oldShouterId = oNewShouter.mateId;
-                    oReturn.oldShouterIndex = _.indexOf(aMates, oNewShouter);
                     log.debug('new shouter already has the shout: ' + oNewShouter.name, logContext);
-                    return oReturn;
+                    return oNewShouter;
                 }
 
                 // unmark previous shouter
                 var oOldShouter = this.getShouter(aMates);
-                oReturn.oldShouterId = oOldShouter.mateId;
-                oReturn.oldShouterIndex = _.indexOf(aMates, oOldShouter);
 
                 // switch the shout over
                 oOldShouter.hasShout = false;
@@ -186,7 +179,7 @@ exports.definition = {
                 log.debug('model after switching shouts:', logContext);
                 log.debug(this.toJSON(), logContext);
 
-                return oReturn;
+                return oOldShouter;
             },
             calcShoutCost : function(bIncludeShouter, aMates) {
                 var logContext = 'models/shouts.js > calcShoutCost()';

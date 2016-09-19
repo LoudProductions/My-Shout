@@ -307,6 +307,7 @@ function fillShoutMatesSection() {
 
     // add shout mates to list
     var aMates = _mShout.getMates();
+    // note: sortation is also considered when giving new mate the shout (and unmarking old one)!
     var aSortedMates = _.sortBy(aMates, function(oMate) {
         return (oMate.hasShout ? 0 : 1);
     });
@@ -672,16 +673,30 @@ function onMateEditClick(e) {
 
 function giveMateTheShout(e) {
     'use strict';
-    var oReturn = _mShout.giveMateTheShout(e.itemId);
+
+    var logContext = 'shouts.js > giveMateTheShout()';
+
+    var oOldShoutMate = _mShout.giveMateTheShout(e.itemId);
     _mShout.save();
+
+    log.debug('old shouter after giving new mate the shout:', logContext);
+    log.debug(oOldShoutMate, logContext);
 
     // merge the update shouter details into the editing clone
     _.extend(_oIsEditingMate, _mShout.getShouter());
 
+    // the list is sorted (at time of fetch) by who has the shout,
+    // so figure out the index of the old shout mate
+    var iOldShouterIndex = e.itemIndex;
+    for (var i = 0; i < $.shout_mates_listsection.items.length; i++) {
+        if ($.shout_mates_listsection.items[i].properties.itemId === oOldShoutMate.mateId) {
+            iOldShouterIndex = i;
+        }
+    }
+
     // rerender the original shouting mate's listitem
-    if (oReturn.oldShouterIndex !== e.itemIndex) {
-        var oOldShoutMate = _mShout.getMate(oReturn.oldShouterId);
-        $.shout_mates_listsection.updateItemAt(oReturn.oldShouterIndex, mapMateListItem(oOldShoutMate), {
+    if (iOldShouterIndex !== e.itemIndex) {
+        $.shout_mates_listsection.updateItemAt(iOldShouterIndex, mapMateListItem(oOldShoutMate), {
             animated: true
         });
         // rerender the fav shout listitem
