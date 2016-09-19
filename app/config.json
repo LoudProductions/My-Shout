@@ -7,11 +7,11 @@
 		"colors": {
   		"textColor": "#90000000",
 			"backgroundColor": "#ffffff",
-			"bgColorTransparent": "#50f96636",
+			"bgColorTransparent": "#10ffffff",
 			"gradientTop": "#f09273",
 			"shoutBackgroundColor": "#ec7e5d",
 			"tintColor": "#f96636",
-			"brandHintColor": "#35ffffff",
+			"brandHintColor": "#45ffffff",
 			"inactiveColor": "#50b3b3b3",
 			"inactiveBackgroundColor": "#80b3b3b3",
 			"negativeColor": "#ff0000"
