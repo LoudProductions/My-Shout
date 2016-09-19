@@ -121,8 +121,7 @@ function mapMateListItem(oMate, iSectionIndex, template) {
         mateColor = Alloy.CFG.colors.inactiveColor;
         // mateBackgroundColor = Alloy.CFG.colors.inactiveBackgroundColor;
     } else if (oMate.hasShout) {
-        mateColor = Alloy.CFG.colors.backgroundColor;
-        mateBackgroundColor = Alloy.CFG.colors.tintColor;
+        mateColor = Alloy.CFG.colors.tintColor;
     }
 
     return {
@@ -155,6 +154,7 @@ function mapMateListItem(oMate, iSectionIndex, template) {
         mate_price: {
             // text: oMate.price,
             attributedString: getAttributedPriceText(oMate.price, oMate.hasShout),
+            color: mateColor,
         },
         mate_price_edit: {
             value: oMate.price,
@@ -162,6 +162,7 @@ function mapMateListItem(oMate, iSectionIndex, template) {
         mate_balance: {
             // text : oMate.balance,
             attributedString: getAttributedBalanceText(oMate.balance, oMate.hasShout),
+            color: mateColor,
         },
         mate_has_shout: {
             color: mateColor,
@@ -214,15 +215,6 @@ function getAttributedPriceText(price, hasShout) {
         },
         range: [0, 1]
     });
-    if (hasShout) {
-        // change color if mate has the shout
-        oAttributedString.addAttribute({
-            type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
-            value: Alloy.CFG.colors.backgroundColor,
-            range: [0, oAttributedString.text.length]
-        });
-
-    }
     return oAttributedString;
 }
 
@@ -242,14 +234,13 @@ function getAttributedBalanceText(balance, hasShout) {
         },
         range: [0, 1]
     });
-    if (hasShout || balance < 0) {
-        // change color if balance is negative or mate has the shout
+    if (balance < 0) {
+        // change color if balance is negative
         oAttributedString.addAttribute({
             type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
-            value: (hasShout ? Alloy.CFG.colors.backgroundColor : Alloy.CFG.colors.negativeColor),
+            value: Alloy.CFG.colors.negativeColor,
             range: [0, oAttributedString.text.length]
         });
-
     }
     return oAttributedString;
 }
