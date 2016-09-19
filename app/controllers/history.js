@@ -154,6 +154,7 @@ function mapMateListItem(oMate, iSectionIndex, template) {
         mate_price: {
             // text: oMate.price,
             attributedString: getAttributedPriceText(oMate.price, oMate.hasShout),
+            color: mateColor,
         },
         mate_price_edit: {
             value: oMate.price,
@@ -161,6 +162,7 @@ function mapMateListItem(oMate, iSectionIndex, template) {
         mate_balance: {
             // text : oMate.balance,
             attributedString: getAttributedBalanceText(oMate.balance, oMate.hasShout),
+            color: mateColor,
         },
         mate_has_shout: {
             color: mateColor,
@@ -239,7 +241,6 @@ function getAttributedBalanceText(balance, hasShout) {
             value: Alloy.CFG.colors.negativeColor,
             range: [0, oAttributedString.text.length]
         });
-
     }
     return oAttributedString;
 }
