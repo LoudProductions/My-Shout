@@ -101,7 +101,7 @@
 	/*borderColor: 'green',*/
 	height: 40,
 	layout: 'horizontal',
-	backgroundColor: Alloy.CFG.colors.inactiveColor,
+	backgroundColor: Alloy.CFG.colors.shoutBackgroundColor,
 	color: Alloy.CFG.colors.backgroundColor,
 }
 
