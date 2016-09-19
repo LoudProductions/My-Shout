@@ -47,8 +47,8 @@
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
-		fontSize: 14,
-    	fontFamily: 'OpenSans-Light',
+		fontSize: 16,
+    	fontFamily: 'OpenSans-BoldItalic',
 	},
 }
 

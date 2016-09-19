@@ -46,7 +46,7 @@
 '.favShoutImage': {
 	backgroundImage: '/images/shout.png',
 	width: 290,
-	height: 290, 
+	height: 290,  
 }
 
 '.favShoutWhereTop': {
