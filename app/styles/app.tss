@@ -24,6 +24,7 @@
 	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUND,
 	borderRadius: 25,
 	height: 50,
+	width: 200,
 }
 ".appGradient" : {
 	backgroundGradient: {

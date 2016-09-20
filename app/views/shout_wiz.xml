@@ -21,6 +21,7 @@
 				<Label class="wizSubtitle appTextStyleBody" text="L('shout_wiz_where_will_you_be_shouting')"/>
 				<View class="appVSpacer"/>
 				<TextField class="shoutPlace appTextStyleBody" hintText="L('shout_wiz_place_optional')" value="{$.mShout.place}" onChange="onShoutPlaceChange" onReturn="wizDone"/>
+				<View class="appVSpacer"/>
 			</ScrollView>
 		</ScrollableView>
 		<ActivityIndicator id="activity_indicator"/>

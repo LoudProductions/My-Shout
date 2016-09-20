@@ -11,7 +11,7 @@
 			<MenuItem title="L('app_done')" onClick="onDone" showAsAction="Ti.Android.SHOW_AS_ACTION_ALWAYS" />
 		</Menu>
 
-		<View id="mate_container" class="appCanvas">
+		<ScrollView id="mate_container" class="appCanvas">
 			<Label class="mateIntro appTextStyleBody" text="L('mate_tell_us_about_your_mate')" />
 			<View class="appVSpacer" />
 			<TextField class="mateName appTextStyleHeadline autoNext" value="{$.mMate.name}" hintText="L('shout_wiz_mates_name')" returnKeyType="Titanium.UI.RETURNKEY_NEXT" onChange="onChangeName" onReturn="onAutoNextFieldReturn" />
@@ -20,7 +20,7 @@
 			<View class="appCompositeView">
 				<Button id="deleteButton" visible="false" class="appButtonDestructive bottomButton" onClick="onDeleteButtonClick" title="L('mate_remove_mate')" />
 			</View>
-		</View>
+		</ScrollView>
 
 	</Window>
 </Alloy>

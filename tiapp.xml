@@ -17,7 +17,7 @@
     <ios>
         <min-ios-ver>8.4</min-ios-ver>
         <enable-launch-screen-storyboard>true</enable-launch-screen-storyboard>
-        <default-background-color>#C7172C</default-background-color>
+        <default-background-color>#fff</default-background-color>
         <plist>
             <dict>
                 <key>UISupportedInterfaceOrientations~iphone</key>
