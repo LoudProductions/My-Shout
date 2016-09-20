@@ -1,18 +1,3 @@
-"Window" : {
- backgroundGradient: {
- type: 'linear',
- colors: [ '#f09273', '#6a6a7d' ]
- }
-}
-
-'Label[platform=android]': {
-	color: Alloy.CFG.colors.backgroundColor, // All platforms except Android default to black, correcting that here
-}
-
-'TextField': {
-	color: Alloy.CFG.colors.backgroundColor,
-}
-
 '.wizWelcome': {
 	layout: 'vertical'
 }

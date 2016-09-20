@@ -1,6 +1,6 @@
 <Alloy>
 	<Model src="shouts" instance="true" id="mShout" />
-	<Window id="window" title="L('shouts_add_shout')">
+	<Window class="appGradient" id="window" title="L('shouts_add_shout')">
 		<ScrollableView id="wiz_pages" class="appCanvas appTransparent" onScrollend="onWizPageChange" showPagingControl="true">
 			<ScrollView class="wizWelcome appVScrollView">
 				<Label class="wizTitle" text="L('shout_wiz_welcome')" />

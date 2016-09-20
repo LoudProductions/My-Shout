@@ -1,16 +1,5 @@
-"Window" : {
- backgroundGradient: {
- type: 'linear',
- colors: [ '#f09273', '#6a6a7d' ]
- }
-}
-
-'Label[platform=android]': {
-	color: Alloy.CFG.colors.backgroundColor, // All platforms except Android default to black, correcting that here
-}
-
 'Window': {
-	backgroundColor: Alloy.CFG.colors.backgroundColor, // White background instead of default transparent
+	backgroundColor: Alloy.CFG.colors.backgroundColor,
 }
 
 // On iOS7+ the window starts behind the statusBar, allowing us to set the backgroundColor here
@@ -18,18 +7,43 @@
 	tintColor: Alloy.CFG.colors.tintColor,
 }
 
+'Label': {
+	color: Alloy.CFG.colors.backgroundColor,
+}
+
 'PickerRow': {
 	color: Alloy.CFG.colors.backgroundColor,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-
 }
 
 'TextField': {
-	color: Alloy.CFG.colors.tintColor,
+	color: Alloy.CFG.colors.backgroundColor,
 	hintTextColor: Alloy.CFG.colors.brandHintColor,
 	backgroundColor: Alloy.CFG.colors.bgColorTransparent,
   borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUND,
 	borderRadius: 25,
+}
+
+'.appGradient': {
+	backgroundGradient: {
+		type: 'linear',
+		colors: [
+			Alloy.CFG.colors.appGradientTop,
+			Alloy.CFG.colors.appGradientBottom
+		],
+	},
+	backgroundColor: Alloy.CFG.colors.backgroundColor,
+}
+
+'.altGradient': {
+	backgroundGradient: {
+		type: 'linear',
+		colors: [
+			Alloy.CFG.colors.altGradientTop,
+			Alloy.CFG.colors.altGradientBottom
+		],
+	},
+	backgroundColor: Alloy.CFG.colors.backgroundColor,
 }
 
 '.appCanvas': {

@@ -1,24 +1,5 @@
-"Window" : {
- backgroundGradient: {
- type: 'linear',
- colors: [ '#222238', '#6a6a7d' ]
- }
-}
-
-/*"Window" : {
- backgroundGradient: {
- type: 'linear',
- colors: [ '#f09273', '#6a6a7d' ]
- }
-}*/
-
-'Label[platform=android]': {
+'Label': {
 	color: Alloy.CFG.colors.textColor, // All platforms except Android default to black, correcting that here
-}
-
-'Window[platform=android]': {
-	// must use SOFT_INPUT_ADJUST_PAN to support TextField inside ListView
-	windowSoftInputMode: Ti.UI.Android.SOFT_INPUT_ADJUST_PAN,
 }
 
 '.navAddShoutIcon': {
@@ -115,17 +96,17 @@
 }
 
 '.shoutsList': {
-	/*top: '20%',*/
 }
 
 '.shoutsList[platform=ios]': {
-	separatorStyle: Ti.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE,
 	allowsSelection: false,
+	separatorStyle: Ti.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE,
 }
 
 '.favShoutsListItem': {
 	height: 290,
 	layout: 'vertical',
+	selectedBackgroundColor: "transparent",
 }
 
 '.otherShoutsListItem': {

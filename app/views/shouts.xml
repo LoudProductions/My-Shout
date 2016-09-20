@@ -1,6 +1,6 @@
 <Alloy>
 	<!-- iOS: The window will start behind the statusBar -->
-	<Window id="window" title="L('app_my_shout')">
+	<Window class="altGradient" id="window" title="L('app_my_shout')">
 
 		<RightNavButtons platform="ios">
 			<!-- <Button title="L('shouts_history')" onClick="goHistory"/>

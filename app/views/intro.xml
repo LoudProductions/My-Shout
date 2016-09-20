@@ -1,11 +1,12 @@
 <Alloy>
-	<Window id="window">
-		<View id="my_shout_circle" class="myShoutCirc1">
+	<Window class="appGradient" id="window">
+		<View class="favShoutImage" id="my_shout_circle" elevation="8"/>
+		<!-- <View id="my_shout_circle" class="myShoutCirc1">
 			<View class="myShoutCirc2">
 				<Label class="myShoutIcon"/>
 				<Label class="myShoutWho" text="L('app_my_shout')"/>
 			</View>
-		</View>
+		</View> -->
 		<ActivityIndicator id="activity_indicator" />
 	</Window>
 </Alloy>

@@ -1,9 +1,5 @@
 '.noHistory' : {
 	layout: "vertical",
-	backgroundGradient: {
-		type: 'linear',
-		colors: ['#f09273', '#6a6a7d'],
-	}
 }
 '.historyTitle' : {
 	top: 40,

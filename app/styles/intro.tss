@@ -1,8 +1,7 @@
-"Window" : {
- backgroundGradient: {
- type: 'linear',
- colors: [ '#f09273', '#6a6a7d' ]
- }
+'.favShoutImage': {
+	backgroundImage: '/images/shout.png',
+	width: 290,
+	height: 290,
 }
 
 '.myShoutCirc1': {

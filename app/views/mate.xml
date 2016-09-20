@@ -1,7 +1,7 @@
 <Alloy>
 	<Model src="mates" instance="true" id="mMate" />
 
-	<Window id="window" title="L('mate_add_mate')">
+	<Window class="appGradient" id="window" title="L('mate_add_mate')">
 
 		<RightNavButtons platform="ios">
 			<Button title="L('app_done')" onClick="onDone" />
