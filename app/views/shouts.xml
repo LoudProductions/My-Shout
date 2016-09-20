@@ -13,13 +13,13 @@
 		<!-- Android: Add MenuItem with ActionView for search -->
 		<!-- <Menu platform="android"> -->
 
-			<!-- We give it an id so we can collapse the ActionView in the controller -->
-			<!-- <MenuItem id="searchMenu">
+		<!-- We give it an id so we can collapse the ActionView in the controller -->
+		<!-- <MenuItem id="searchMenu">
 			<ActionView>
 			<SearchView ns="Ti.UI.Android" hintText="Search..." onSubmit="doSomething" />
 			</ActionView>
 			</MenuItem> -->
-			<!-- <MenuItem title="L('shouts_fav_shout')" onClick="doFavShout"/>
+		<!-- <MenuItem title="L('shouts_fav_shout')" onClick="doFavShout"/>
 			<MenuItem title="L('shouts_add_shout')" onClick="goShoutWiz"/>
 			<MenuItem title="L('shouts_add_mate')" onClick="goAddMate"/> -->
 		<!-- </Menu> -->
@@ -32,16 +32,16 @@
 			<!-- TODO: add placeholder view with instructions to add a shout for in case the user backs out of wizard
 		 						 this view is to be hidden upon $.animateIn() -->
 
-			<ListView class="shoutsList" id="shouts_listview" onEditaction="onEditAction">
+			<ListView class="shoutsList" id="shouts_listview" onEditaction="onEditAction" onItemclick="onShoutsListClick">
 				<HeaderView>
 					<View class="pageIndicators">
-						<View class="pageIndicatorIcons" id="page_indicator_icons_view" />
+						<View class="pageIndicatorIcons" id="page_indicator_icons_view"/>
 					</View>
 				</HeaderView>
 				<Templates>
 					<ItemTemplate name="fav_shout_template" class="favShoutsListItem">
 						<Label class="favShoutWhereTop appTextStyleTitle1" bindId="shout_where" touchEnabled="false"/>
-						<View onSwipe="onFavShoutSwipe" onClick="onFavShoutClick">
+						<View onSwipe="onFavShoutSwipe">
 							<View class="favShoutImage" touchEnabled="false" elevation="8"/>
 							<!-- <View class="favShoutCirc1" touchEnabled="false" elevation="8">
 								<View class="favShoutCirc2" touchEnabled="false">
@@ -53,7 +53,7 @@
 						</View>
 					</ItemTemplate>
 					<ItemTemplate name="shout_mates_template" class="matesListItem">
-						<View bindId="mate_bg_view" onSwipe="onMateSwipe" onClick="onMateClick">
+						<View bindId="mate_bg_view" onSwipe="onMateSwipe">
 							<View class="matesListItemLeftThird">
 								<View class="appHalfHeight">
 									<Label class="listItemTitle appTextStyleCaption1" bindId="mate_name"/>
@@ -77,7 +77,7 @@
 					</ItemTemplate>
 					<ItemTemplate name="edit_mate_template" class="matesListItem">
 						<View bindId="mate_bg_view">
-							<View class="matesListItemLeft" onClick="onMateClick">
+							<View class="matesListItemLeft">
 								<View class="appHalfHeight">
 									<Label class="listItemTitle appTextStyleCaption1" bindId="mate_name"/>
 								</View>
@@ -105,6 +105,8 @@
 				</ListSection>
 			</ListView>
 		</View>
+
+		<Label class="listItemHandPointerIcon" id="hand_icon" />
 
 		<ActivityIndicator id="activity_indicator"/>
 

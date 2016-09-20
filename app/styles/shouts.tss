@@ -67,7 +67,7 @@
 	backgroundColor: "transparent"
 }
 ".shoutsList[platform=ios]" : {
-	allowsSelection: false,
+	allowsSelection: true,
 	separatorStyle: Ti.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE
 }
 ".favShoutsListItem" : {
@@ -149,10 +149,19 @@
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
 }
 ".listItemSwitch" : {}
+".listItemHandPointerIcon" : {
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	font: Alloy.CFG.fonts.faIconXXL,
+	color: Alloy.CFG.colors.inactiveColor,
+	text: Alloy.Globals.FAIcons.hand_o_up,
+	opacity: 0,
+	top: "80%",
+	left: "80%",
+}
 ".listItemDisclosureIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: Alloy.CFG.fonts.faIcon,
-	color: Alloy.CFG.colors.inactive,
+	color: Alloy.CFG.colors.inactiveColor,
 	text: Alloy.Globals.FAIcons.angle_right
 }
 ".listItemEllipsisIcon" : {

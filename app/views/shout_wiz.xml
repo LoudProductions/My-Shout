@@ -3,6 +3,7 @@
 	<Window class="appGradient" id="window" title="L('shouts_add_shout')">
 		<ScrollableView id="wiz_pages" class="appCanvas appTransparent" onScrollend="onWizPageChange" showPagingControl="true">
 			<ScrollView class="wizWelcome appVScrollView">
+				<View class="appVSpacer"/>
 				<Label class="wizTitle appTextStyleTitle1" text="L('shout_wiz_welcome')"/>
 				<Label class="wizSubtitle appTextStyleBody" text="L('shout_wiz_lets_get_you_started')"/>
 			</ScrollView>

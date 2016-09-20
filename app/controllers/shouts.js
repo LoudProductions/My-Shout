@@ -464,7 +464,7 @@ function mapMateListItem(oMate, template) {
             layout: "horizontal",
             horizontalWrap: false,
             color: mateColor,
-            backgroundColor: mateBackgroundColor
+            backgroundColor: mateBackgroundColor,
         },
     };
     if (OS_IOS) {
@@ -780,8 +780,31 @@ function onFavShoutDelete(e) {
 function onMateClick(e) {
     "use strict";
 
+    var logContext = "shouts.js > onMateClick()";
+
     if (OS_IOS) {
-        // we use editactions on ios
+        if (e.bubbles) {
+            e.cancelBubble = true;
+        }
+        // we use editactions on ios, so animate a swipe action
+        // to hint that editactions are available
+        Log.debug("animating swipe to show edit actions...", logContext);
+        var oAnimateSwipeIn = Ti.UI.createAnimation({
+            left: "70%",
+            opacity: 1.0,
+            duration: 500,
+            curve: Ti.UI.ANIMATION_CURVE_EASE_IN,
+        });
+        var oAnimateSwipeOut = Ti.UI.createAnimation({
+            left: "60%",
+            opacity: 0.0,
+            duration: 500,
+            curve: Ti.UI.ANIMATION_CURVE_EASE_OUT,
+        });
+        Alloy.Globals.Animation.chainAnimate($.hand_icon, [oAnimateSwipeIn, oAnimateSwipeOut], function() {
+            $.hand_icon.top = "80%";
+            $.hand_icon.left = "80%";
+        });
         return false;
     }
 
@@ -1097,5 +1120,32 @@ function onEditAction(e){
 
         default:
 
+    }
+}
+
+function onShoutsListClick(e){
+    "use strict";
+
+    var logContext = "shouts.js > onShoutsListClick()";
+    Log.debug("onShoutsListClick:", logContext);
+    Log.debug(e, logContext);
+
+    switch (e.section) {
+        case $.fav_shout_listsection:
+            onFavShoutClick(e);
+            break;
+
+        case $.shout_mates_listsection:
+            switch (e.bindId) {
+                case "mate_your_shout_icon":
+                case "mate_is_inactive":
+                case "mate_edit_icon":
+                    // these have their own event handlers
+                    break;
+                default:
+                    onMateClick(e);
+            }
+            break;
+        default:
     }
 }
