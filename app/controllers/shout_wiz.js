@@ -1,5 +1,4 @@
 var CONST = require("constants");
-var dialogs = require("alloy/dialogs");
 
 var _bCanSkipWelcome = false;
 var _bNoAnimateInOnOpen = false;
@@ -42,7 +41,7 @@ function init() {
     // initialise shout model
     $.mShout.set("type", L("shout_wiz_coffee"));
 
-    log.trace("raising $.loaded event...", logContext);
+    Log.trace("raising $.loaded event...", logContext);
     $.trigger("loaded");
 }
 
@@ -73,7 +72,7 @@ function onWindowOpen() {
         animateIn();
     }
 
-    log.trace("raising $.open event...", logContext);
+    Log.trace("raising $.open event...", logContext);
     $.trigger("open");
 }
 
@@ -285,7 +284,7 @@ function onShoutPlaceChange(e){
 //             attributedString : getAttributedPriceText(oMate.price)
 //         },
 //         mate_has_shout : {
-//             text : oMate.hasShout ? Alloy.Globals.fa_icons.bullhorn : null
+//             text : oMate.hasShout ? Alloy.Globals.FAIcons.bullhorn : null
 //         }
 //     };
 // }
@@ -301,7 +300,7 @@ function onShoutPlaceChange(e){
 //     // };
 //     //
 //     // if (!oMate.name || !oMate.poison || !oMate.price) {
-//     //     return toast.show(L("app_please_provide_missing_input"));
+//     //     return Toast.show(L("app_please_provide_missing_input"));
 //     // }
 //
 //     $.mShout.addMate(oMate);
@@ -345,7 +344,7 @@ function onShoutPlaceChange(e){
 //     if the next page will be the last but we have no mates yet, warn the user
 //     var iPageToCheck = bIsCheckBeforePageChange ? $.wiz_pages.currentPage + 1 : $.wiz_pages.currentPage;
 //     if (iPageToCheck === ($.wiz_pages.views.length - 1) && $.mShout.getMates().length === 0) {
-//         toast.show(L("shout_wiz_you_did_not_add_any_mates"));
+//         Toast.show(L("shout_wiz_you_did_not_add_any_mates"));
 //         return false;
 //     } else {
 //         return true;
@@ -372,10 +371,10 @@ function wizDone(e) {
     // if ($.mShout.getMates().length === 0) {
     //     // check that we have at least one shout set up, else we can't exit the wizard
     //     if (Alloy.Collections.instance("shouts").length === 0) {
-    //         return toast.show(L("shout_wiz_you_need_at_least_one_shout"));
+    //         return Toast.show(L("shout_wiz_you_need_at_least_one_shout"));
     //     } else {
     //         // otherwise we prompt if the user wants to exit without saving
-    //         dialogs.confirm({
+    //         Alloy.Globals.Dialogs.confirm({
     //             message : L("shout_wiz_you_did_not_add_any_mates"),
     //             callback : function() {
     //                 // exit without saving
@@ -391,8 +390,8 @@ function wizDone(e) {
             merge : true
         });
         // raise "done" event on controller, supplying new shout model to subscribers
-        log.trace("raising $.done event...", logContext);
-        log.trace($.mShout, logContext);
+        Log.trace("raising $.done event...", logContext);
+        Log.trace($.mShout, logContext);
         $.trigger("done", {
             mShout: $.mShout
         });

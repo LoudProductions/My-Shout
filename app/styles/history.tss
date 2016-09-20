@@ -84,7 +84,7 @@
 		fontFamily: "FontAwesome",
 	},
 	/*color will be dynamically bound...*/
-	text: Alloy.Globals.fa_icons.undo,
+	text: Alloy.Globals.FAIcons.undo,
 }
 ".listHeader" : {
 	/*borderColor: "green",*/
@@ -115,5 +115,5 @@
 		fontFamily: "FontAwesome",
 	},
 	color: Alloy.CFG.colors.backgroundColor,
-	text: Alloy.Globals.fa_icons.undo,
+	text: Alloy.Globals.FAIcons.undo,
 }

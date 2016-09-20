@@ -33,7 +33,7 @@ exports.definition = {
 
 				var mShout = Alloy.Collections.instance("shouts").get(this.get("shoutId"));
 				if (!mShout) {
-						log.error(String.format("Shout with id %s not found!", this.get("shoutId")), logContext);
+						Log.error(String.format("Shout with id %s not found!", this.get("shoutId")), logContext);
 						throw new Error(L("history_could_not_find_shout"));
 				}
 
@@ -63,8 +63,8 @@ exports.definition = {
 				oArchivedShout.mates = _.map(oArchivedShout.mates, function(oMate) {
 					return _.clone(oMate);
 				});
-				log.debug("archiving shout:", logContext);
-				log.debug(oArchivedShout, logContext);
+				Log.debug("archiving shout:", logContext);
+				Log.debug(oArchivedShout, logContext);
 
 				// add shout to history
 				var mHistory = this.add(oArchivedShout);

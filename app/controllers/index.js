@@ -1,5 +1,5 @@
 // DEPENDENCIES
-var permissions = require("permissions");
+var Permissions = require("permissions");
 
 var _oIntroController;
 var _oShoutsController;
@@ -47,20 +47,20 @@ function init() {
     var logContext = "index.js > init()";
 
     // create main controller with navigation window
-    log.trace("creating shouts controller...", logContext);
+    Log.trace("creating shouts controller...", logContext);
     _oShoutsController = Alloy.createController("shouts", {
         bMustDelayInit: true
     });
     _oShoutsController.once("open", function() {
         // _bDidShoutsOpen = true;
         // if (_bDidIntroEnd) {
-            log.trace("animating in shouts controller...", logContext);
+            Log.trace("animating in shouts controller...", logContext);
             _oShoutsController.animateIn();
         // }
     });
-    log.trace("shouts controller created", logContext);
+    Log.trace("shouts controller created", logContext);
 
-    log.trace("initialising navigation...", logContext);
+    Log.trace("initialising navigation...", logContext);
     if (OS_IOS) {
         var navWindow = Ti.UI.iOS.createNavigationWindow({
             window : _oShoutsController.window
@@ -72,33 +72,33 @@ function init() {
         Alloy.Globals.initNavigation();
         Alloy.Globals.Navigator.push(_oShoutsController);
     }
-    log.trace("navigation initialised", logContext);
+    Log.trace("navigation initialised", logContext);
 
     // open intro controller as "modal" window to provide startup animation while app loads
-    // log.trace("creating modal intro controller...", logContext);
+    // Log.trace("creating modal intro controller...", logContext);
     // _oIntroController = Alloy.Globals.Navigator.openModal("intro");
-    // log.trace("intro controller created", logContext);
+    // Log.trace("intro controller created", logContext);
 
     _.defer(function() {
-        log.trace("fetching shouts collection...", logContext);
+        Log.trace("fetching shouts collection...", logContext);
         var cShouts = Alloy.Collections.instance("shouts");
         cShouts.fetch();
-        log.debug("shouts collection fetched... model count: " + cShouts.length, logContext);
-        log.debug(cShouts.models, logContext);
-        log.trace("calling shouts controller delayedInit()...", logContext);
+        Log.debug("shouts collection fetched... model count: " + cShouts.length, logContext);
+        Log.debug(cShouts.models, logContext);
+        Log.trace("calling shouts controller delayedInit()...", logContext);
         _oShoutsController.delayedInit();
         if (cShouts.length === 0) {
             // no shouts yet: load shout wizard controller after ending intro
-            // log.trace("calling intro controller endIntro()...", logContext);
+            // Log.trace("calling intro controller endIntro()...", logContext);
             // _oIntroController.endIntro();
             // _oIntroController.once("ended", function() {
-            //     log.trace("intro controller ended event received", logContext);
+            //     Log.trace("intro controller ended event received", logContext);
             //     _bDidIntroEnd = true;
-            //     log.trace("closing modal intro controller...", logContext);
+            //     Log.trace("closing modal intro controller...", logContext);
             //     Alloy.Globals.Navigator.closeModal(_oIntroController);
-                log.trace("creating shout_wiz controller...", logContext);
+                Log.trace("creating shout_wiz controller...", logContext);
                 _oShoutWizController = Alloy.Globals.Navigator.push("shout_wiz");
-                log.trace("shout_wiz controller created", logContext);
+                Log.trace("shout_wiz controller created", logContext);
 
                 // subsribe shouts controller to handle wizard done event
                 _oShoutWizController.once("done", function(e) {
@@ -109,14 +109,14 @@ function init() {
         } else {
             // // shouts found: close modal intro controller after ending intro
             // // and animate in shouts controller
-            // log.trace("calling intro controller endIntro()...", logContext);
+            // Log.trace("calling intro controller endIntro()...", logContext);
             // _oIntroController.endIntro();
             // _oIntroController.once("ended", function() {
-            //     log.trace("intro controller ended event received", logContext);
+            //     Log.trace("intro controller ended event received", logContext);
             //     _bDidIntroEnd = true;
-            //     log.trace("closing modal intro controller...", logContext);
+            //     Log.trace("closing modal intro controller...", logContext);
             //     Alloy.Globals.Navigator.closeModal(_oIntroController);
-            //     log.trace("modal intro controller closed", logContext);
+            //     Log.trace("modal intro controller closed", logContext);
             //     if (_bDidShoutsOpen) {
             //         _oShoutsController.animateIn();
             //     }

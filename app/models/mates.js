@@ -14,8 +14,8 @@ exports.definition = {
 
 				// check all keys actually exist
 				var oMate = this.toJSON();
-				log.debug("validating mate model:", logContext);
-				log.debug(oMate, logContext);
+				Log.debug("validating mate model:", logContext);
+				Log.debug(oMate, logContext);
 
 				var bDidChange = false;
 				if (!_.has(oMate, "name")) {
@@ -44,7 +44,7 @@ exports.definition = {
 				}
 				// now check that we have acceptable values for each
 				if (!oMate.name) {
-					log.error(L("mate_name_is_required"), logContext);
+					Log.error(L("mate_name_is_required"), logContext);
 					throw new Error(L("mate_name_is_required"));
 				}
 				// check/format price
@@ -54,8 +54,8 @@ exports.definition = {
 					oMate.price = sPrice;
 				}
 				if (!bNoFix && bDidChange) {
-					log.debug("model changed as a result of validation:", logContext);
-					log.debug(oMate, logContext);
+					Log.debug("model changed as a result of validation:", logContext);
+					Log.debug(oMate, logContext);
 					this.set(oMate);
 				}
 			},
@@ -66,8 +66,8 @@ exports.definition = {
 					this.validate();
 
 					options = options ? _.clone(options) : {};
-					log.debug("saving..." + (options ? " with options: " + JSON.stringify(options) : ""), logContext);
-					log.debug(this, logContext);
+					Log.debug("saving..." + (options ? " with options: " + JSON.stringify(options) : ""), logContext);
+					Log.debug(this, logContext);
 					return Backbone.Model.prototype.save.call(this, options);
 			},
 		});

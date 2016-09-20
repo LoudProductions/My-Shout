@@ -95,7 +95,7 @@ function onWindowOpen() {
     //     };
     // }
 
-    log.trace("raising $.open event...", logContext);
+    Log.trace("raising $.open event...", logContext);
     $.trigger("open");
 }
 
@@ -143,7 +143,7 @@ function onDone(e) {
 
         Alloy.Globals.Navigator.pop();
     } catch (oErr) {
-        toast.show(oErr.message || oErr);
+        Toast.show(oErr.message || oErr);
     } finally {
 
     }

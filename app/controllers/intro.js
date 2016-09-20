@@ -55,12 +55,12 @@ function init() {
 // ####################
 
 
-    var animation = Ti.UI.createAnimation({
+    var oAnimation = Ti.UI.createAnimation({
         backgroundColor: Alloy.CFG.colors.backgroundColor,
         duration : 100
     });
-    animation.addEventListener("complete", function(e) {
-        var animation = Ti.UI.createAnimation({
+    oAnimation.addEventListener("complete", function(e) {
+        var oAnimation = Ti.UI.createAnimation({
             transform: Ti.UI.create2DMatrix({rotate: -160}),
             // transform : Ti.UI.create2DMatrix({
                 // rotate : -160,
@@ -72,14 +72,14 @@ function init() {
             curve : Ti.UI.ANIMATION_CURVE_EASE_IN,
             duration : 1000
         });
-        animation.addEventListener("complete", function(e) {
-            var animation = Ti.UI.createAnimation({
+        oAnimation.addEventListener("complete", function(e) {
+            var oAnimation = Ti.UI.createAnimation({
                 transform : Ti.UI.create2DMatrix({
                     rotate : 11.3
                 }),
                 duration : 200
             });
-            animation.addEventListener("complete", function(e) {
+            oAnimation.addEventListener("complete", function(e) {
                 _bAnimationComplete = true;
                 if (_bAnimateOutOnComplete) {
                     animateOut();
@@ -87,11 +87,11 @@ function init() {
                     $.activity_indicator.show();
                 }
             });
-            $.my_shout_circle.animate(animation);
+            $.my_shout_circle.animate(oAnimation);
         });
-        $.my_shout_circle.animate(animation);
+        $.my_shout_circle.animate(oAnimation);
     });
-    $.window.animate(animation);
+    $.window.animate(oAnimation);
 
 }
 
@@ -105,16 +105,16 @@ function animateOut() {
 
     $.activity_indicator.hide();
 
-    var animation = Ti.UI.createAnimation({
+    var oAnimation = Ti.UI.createAnimation({
         transform : Ti.UI.create2DMatrix({
             scale : 0.7
         }),
         opacity : 0,
         duration : 1000
     });
-    animation.addEventListener("complete", function() {
-        log.trace("raising $.ended event...", logContext);
+    oAnimation.addEventListener("complete", function() {
+        Log.trace("raising $.ended event...", logContext);
         $.trigger("ended");
     });
-    $.my_shout_circle.animate(animation);
+    $.my_shout_circle.animate(oAnimation);
 }

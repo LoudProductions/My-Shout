@@ -25,7 +25,7 @@
 		fontFamily: "FontAwesome"
 	},
 	color: Alloy.CFG.colors.backgroundColor,
-	text: Alloy.Globals.fa_icons.bullhorn
+	text: Alloy.Globals.FAIcons.bullhorn
 }
 ".myShoutWho" : {
 	top: 160,

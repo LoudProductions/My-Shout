@@ -3,7 +3,6 @@
  */
 
 // DEPENDENCIES
-var dialogs = require("alloy/dialogs");
 
 // PUBLIC INTERFACE
 
@@ -40,7 +39,7 @@ function requestLocationPermissions(authorizationType, callback) {
 
     } else if (Ti.Geolocation.locationServicesAuthorization === Ti.Geolocation.AUTHORIZATION_DENIED) {
 
-      dialogs.confirm({
+      Alloy.Globals.Dialogs.confirm({
         title: "You denied permission before",
         message: "Tap Yes to open the Settings app to restore permissions, then try again.",
         callback: function() {

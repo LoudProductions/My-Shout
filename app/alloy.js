@@ -16,11 +16,13 @@
 (function (global) {
 	// We pass `this` so you could use `global.foo` to force a global variable.
 
-    global.toast = require("toast");
-    global.log = require("logger");
-    log.info("Loading Alloy globals...", "alloy.js");
+    global.Toast = require("toast");
+    global.Log = require("logger");
+    Log.info("Loading Alloy globals...", "alloy.js");
 
-    Alloy.Globals.fa_icons = require("fa_icons");
+    Alloy.Globals.Animation = require("alloy/animation");
+    Alloy.Globals.Dialogs = require("alloy/dialogs");
+    Alloy.Globals.FAIcons = require("fa_icons");
 
     ///////////////////////////////////////////////////////////////////////////////
     //

@@ -1,5 +1,4 @@
-var dialogs = require("alloy/dialogs");
-var moment = require("alloy/moment");
+var Moment = require("alloy/moment");
 
 var _mShout;
 var _aSortedShoutHistory = [];
@@ -31,19 +30,19 @@ function init() {
     "use strict";
 
     var logContext = "history.js > init()";
-    log.trace("initialising...", logContext);
+    Log.trace("initialising...", logContext);
 
     // fetch history collection if not done yet
     var cHistory = Alloy.Collections.instance("history");
     if (cHistory.length === 0) {
         cHistory.fetch();
     }
-    log.debug("history collection fetched... model count: " + cHistory.length, logContext);
+    Log.debug("history collection fetched... model count: " + cHistory.length, logContext);
 
     // read history for shout
     var aShoutHistory = cHistory.getShoutHistory(_mShout.id);
-    log.debug("history for shout:", logContext);
-    log.debug(aShoutHistory, logContext);
+    Log.debug("history for shout:", logContext);
+    Log.debug(aShoutHistory, logContext);
 
     if (aShoutHistory.length > 0) {
         $.no_history_view.setVisible(false);
@@ -55,7 +54,7 @@ function init() {
         buildHistoryList(_aSortedShoutHistory);
     }
 
-    log.trace("raising $.loaded event...", logContext);
+    Log.trace("raising $.loaded event...", logContext);
     $.trigger("loaded");
 }
 
@@ -67,7 +66,7 @@ function buildHistoryList(aShoutHistory) {
     _.each(aShoutHistory, function(mHistory) {
         var oHistory = mHistory.transform();
         // var oShoutSection = Ti.UI.createListSection({
-        //     headerTitle: oHistory.uiWho + ", " + moment(oHistory.shoutAt).fromNow()
+        //     headerTitle: oHistory.uiWho + ", " + Moment(oHistory.shoutAt).fromNow()
         // });
         var oShoutSection = Ti.UI.createListSection({
             headerView: buildHistorySectionHeader(oHistory, i)
@@ -91,7 +90,7 @@ function buildHistorySectionHeader(oHistory, iSectionIndex) {
 
     // add label with section title
     var oHeaderTitle = Ti.UI.createLabel({
-        text : oHistory.uiWho + ", " + moment(oHistory.shoutAt).fromNow(),
+        text : oHistory.uiWho + ", " + Moment(oHistory.shoutAt).fromNow(),
     });
     $.addClass(oHeaderTitle, "listHeaderTitle");
     oHeaderView.add(oHeaderTitle);
@@ -166,7 +165,7 @@ function mapMateListItem(oMate, iSectionIndex, template) {
         },
         mate_has_shout: {
             color: mateColor,
-            text: (oMate.hasShout ? Alloy.Globals.fa_icons.bullhorn : null),
+            text: (oMate.hasShout ? Alloy.Globals.FAIcons.bullhorn : null),
         },
         mate_is_inactive: {
             value: (oMate.isInactive ? false : true),
@@ -307,9 +306,9 @@ function onUndoShout(e){
 
     var iSectionIndex = (e && e.source && _.has(e.source, "_app_iSectionIndex") ? e.source._app_iSectionIndex : -1);
     if (iSectionIndex === -1) {
-        log.error("unable to determine sectionIndex for shout!", logContext);
-        log.debug(e, logContext);
-        toast.show(L("history_could_not_find_shout"));
+        Log.error("unable to determine sectionIndex for shout!", logContext);
+        Log.debug(e, logContext);
+        Toast.show(L("history_could_not_find_shout"));
     }
 
     var mHistory = _aSortedShoutHistory[iSectionIndex];
@@ -318,11 +317,11 @@ function onUndoShout(e){
         mHistory.undoShout();
         mHistory.destroy();
 
-        log.trace("raising $.undo event...", logContext);
+        Log.trace("raising $.undo event...", logContext);
         $.trigger("undo");
 
         // let the user know and navigate back
-        toast.show(L("history_shout_has_been_reversed"));
+        Toast.show(L("history_shout_has_been_reversed"));
         Alloy.Globals.Navigator.pop();
     }
 }

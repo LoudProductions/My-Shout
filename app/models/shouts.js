@@ -60,7 +60,7 @@ exports.definition = {
                 var aMates = this.getMates();
                 // check we have a valid mate
                 if (!oMate || (oMate && !oMate.mateId)) {
-                    log.error("updateMate called without a valid oMate!", logContext);
+                    Log.error("updateMate called without a valid oMate!", logContext);
                     throw new Error(L("shouts_could_not_find_mate"));
                 }
                 if (bReplaceCurrentMate) {
@@ -129,7 +129,7 @@ exports.definition = {
                     mateId: mateId
                 });
                 if (!oMate) {
-                    log.error(String.format("Mate with id %s not found!", mateId), logContext);
+                    Log.error(String.format("Mate with id %s not found!", mateId), logContext);
                     throw new Error(L("shouts_could_not_find_mate"));
                 } else {
                     return oMate;
@@ -144,7 +144,7 @@ exports.definition = {
                     hasShout: true
                 });
                 if (!oMate) {
-                    log.error(L("shouts_could_not_find_shouter"), logContext);
+                    Log.error(L("shouts_could_not_find_shouter"), logContext);
                     throw new Error(L("shouts_could_not_find_shouter"));
                 } else {
                     return oMate;
@@ -158,7 +158,7 @@ exports.definition = {
                 var oNewShouter = this.getMate(mateId, aMates);
                 // if the mate already has the shout there is nothing for us to do here
                 if (oNewShouter.hasShout) {
-                    log.debug("new shouter already has the shout: " + oNewShouter.name, logContext);
+                    Log.debug("new shouter already has the shout: " + oNewShouter.name, logContext);
                     return oNewShouter;
                 }
 
@@ -169,15 +169,15 @@ exports.definition = {
                 oOldShouter.hasShout = false;
                 oNewShouter.hasShout = true;
                 oNewShouter.isInactive = false; // automatically activate mate if giving the shout
-                log.debug("unmarked previous shouter: " + oOldShouter.name, logContext);
-                log.debug("marked new shouter: " + oNewShouter.name, logContext);
+                Log.debug("unmarked previous shouter: " + oOldShouter.name, logContext);
+                Log.debug("marked new shouter: " + oNewShouter.name, logContext);
 
                 // update the model
                 this.set("mates", aMates);
                 // set the shout name based on the new shouter
                 this.set("name", oNewShouter.name);
-                log.debug("model after switching shouts:", logContext);
-                log.debug(this.toJSON(), logContext);
+                Log.debug("model after switching shouts:", logContext);
+                Log.debug(this.toJSON(), logContext);
 
                 return oOldShouter;
             },
@@ -204,12 +204,12 @@ exports.definition = {
                 // add cost to shouters balance
                 var oShouter = this.getShouter(aMates);
                 oShouter.balance = (Number(oShouter.balance) || 0) + shoutCost;
-                log.debug("crediting " + oShouter.name + ": " + shoutCost, logContext);
+                Log.debug("crediting " + oShouter.name + ": " + shoutCost, logContext);
                 // subtract price from each mates balance
                 _.each(aMates, function(oMate) {
                     if (!oMate.isInactive && oMate !== oShouter) {
                         oMate.balance = (Number(oMate.balance) || 0) - Number(oMate.price);
-                        log.debug("debiting " + oMate.name + ": " + oMate.price, logContext);
+                        Log.debug("debiting " + oMate.name + ": " + oMate.price, logContext);
                     }
                 });
                 // find next to shout and swap the shout
@@ -236,8 +236,8 @@ exports.definition = {
                 var oUndoShouter = _.findWhere(aUndoMates, {
                     hasShout : true
                 });
-                log.debug("original shouter: " + oUndoShouter.name, logContext);
-                log.debug("cost to be debited: " + undoCost, logContext);
+                Log.debug("original shouter: " + oUndoShouter.name, logContext);
+                Log.debug("cost to be debited: " + undoCost, logContext);
                 var oPreviousShouter = this.getMate(oUndoShouter.mateId, aMates);
                 oPreviousShouter.balance = (Number(oPreviousShouter.balance) || 0) - undoCost;
                 // add price of original poison to each mate's balance
@@ -245,14 +245,14 @@ exports.definition = {
                     var oMate = this.getMate(oUndoMate.mateId, aMates);
                     if (oMate && !oUndoMate.isInactive && oUndoMate !== oUndoShouter) {
                         oMate.balance = (Number(oMate.balance) || 0) + Number(oUndoMate.price);
-                        log.debug("crediting " + oUndoMate.name + ": " + oUndoMate.price, logContext);
+                        Log.debug("crediting " + oUndoMate.name + ": " + oUndoMate.price, logContext);
                     }
                 }, this);
                 // find next to shout and swap the shout
                 var oNextToShout = _.min(aMates, function(oMate) {
                     return (Number(oMate.balance) || 0);
                 });
-                log.debug("giving the next shout to " + oNextToShout.name, logContext);
+                Log.debug("giving the next shout to " + oNextToShout.name, logContext);
                 this.giveMateTheShout(oNextToShout.mateId, aMates);
                 this.save();
 			},
@@ -261,8 +261,8 @@ exports.definition = {
 
 				// check all keys actually exist
 				var oShout = this.toJSON();
-				log.debug("validating model:", logContext);
-				log.debug(oShout, logContext);
+				Log.debug("validating model:", logContext);
+				Log.debug(oShout, logContext);
 
                 var bDidChange = false;
 				if (!_.has(oShout, "name")) {
@@ -287,12 +287,12 @@ exports.definition = {
 				}
 				// now check that we have acceptable values for each
 				// if (!oShout.name) {
-				// 	log.error(L(""), logContext);
+				// 	Log.error(L(""), logContext);
 				// 	throw new Error(L("mate_name_is_required"));
 				// }
 				if (!bNoFix && bDidChange) {
-                    log.debug("model changed as a result of validation:", logContext);
-    				log.debug(oShout, logContext);
+                    Log.debug("model changed as a result of validation:", logContext);
+    				Log.debug(oShout, logContext);
 					this.set(oShout);
 				}
 			},
@@ -303,7 +303,7 @@ exports.definition = {
                 this.validate();
 
                 options = options ? _.clone(options) : {};
-                log.debug("saving..." + (options ? " with options: " + JSON.stringify(options) : ""), logContext);
+                Log.debug("saving..." + (options ? " with options: " + JSON.stringify(options) : ""), logContext);
 
                 return Backbone.Model.prototype.save.call(this, options);
             },
@@ -330,12 +330,12 @@ exports.definition = {
                 // mark the new model as favourite and unmark all others
                 _.each(this.models, function(mShout) {
                     if (mShout.id === mFavShout.id && mShout.get("isFav") === false) {
-                        log.debug("marking shout as favourite...", logContext);
+                        Log.debug("marking shout as favourite...", logContext);
                         mShout.set("isFav", true);
                         mShout.save();
                     }
                     if (mShout.id !== mFavShout.id && mShout.get("isFav") === true) {
-                        log.debug("unmarking shout as favourite...", logContext);
+                        Log.debug("unmarking shout as favourite...", logContext);
                         mShout.set("isFav", false);
                         mShout.save();
                     }
