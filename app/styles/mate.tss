@@ -4,10 +4,43 @@
 ".mateIntro" : {
 	top: 40,
 }
+".inputContainer" : {
+	layout: "composite",
+	height: Ti.UI.SIZE,
+}
 ".mateName" : {
 	autocorrect: false,
 	top: 20,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+}
+".mateNameIcon" : {
+	top: 20,
+	width: 180,
+	height: 50,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	font: Alloy.CFG.fonts.faIcon,
+	color: Alloy.CFG.colors.brandHintColor,
+	text: Alloy.Globals.FAIcons.user
+}
+".matePoisonIcon" : {
+	top: 20,
+	width: 180,
+	height: 50,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+	font: Alloy.CFG.fonts.faIcon,
+	color: Alloy.CFG.colors.brandHintColor,
+	text: Alloy.Globals.FAIcons.coffee
+}
+".matePriceIcon" : {
+	top: 20,
+	width: 180,
+	height: 50,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
+	font: Alloy.CFG.fonts.faIcon,
+	color: Alloy.CFG.colors.brandHintColor,
+	text: Alloy.Globals.FAIcons.money
 }
 ".autoNext" : {}
 ".autoNext[platform=ios]" : {
