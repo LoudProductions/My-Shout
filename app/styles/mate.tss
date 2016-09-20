@@ -7,7 +7,7 @@
 ".mateName" : {
 	autocorrect: false,
 	top: 20,
-	width: Titanium.UI.FILL,
+	width: 180,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 }
 ".autoNext" : {}
@@ -16,12 +16,12 @@
 }
 ".matePoison" : {
 	top: 20,
-	width: Titanium.UI.FILL,
+	width: 180,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 }
 ".matePrice" : {
 	top: 20,
-	width: Titanium.UI.FILL,
+	width: 180,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	keyboardType: Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD
 }

@@ -1,6 +1,7 @@
 var CONST = require("constants");
 
 var _mShout;
+var _bIsSwipingFavShout = false;
 var _bIsEditingMate = false;
 var _iIsEditingIndex = 0;
 var _oIsEditingMate;
@@ -185,6 +186,7 @@ function onFavShoutSwipe(e) {
         }
         return false;
     }
+    _bIsSwipingFavShout = true;
 
     switch (e.direction) {
         // case "up":
@@ -727,6 +729,13 @@ function onMateYourShoutClick(e) {
 function onFavShoutClick(e) {
     "use strict";
 
+    if (_bIsSwipingFavShout) {
+        if (e.bubbles) {
+            e.cancelBubble = true;
+        }
+        _bIsSwipingFavShout = false;
+        return false;
+    }
     switch (e.section) {
         case $.fav_shout_listsection:
             doFavShout();
@@ -1132,7 +1141,9 @@ function onShoutsListClick(e){
 
     switch (e.section) {
         case $.fav_shout_listsection:
-            onFavShoutClick(e);
+            _.defer(function() {
+                onFavShoutClick(e);
+            });
             break;
 
         case $.shout_mates_listsection:
