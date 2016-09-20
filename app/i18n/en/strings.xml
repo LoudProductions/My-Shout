@@ -7,6 +7,7 @@
     <string name="app_next">Next</string>
     <string name="app_done">Done</string>
     <string name="app_edit">Edit</string>
+    <string name="app_delete">Delete</string>
     <string name="app_are_you_sure">This action cannot be undone. Are you sure?</string>
     <string name="app_please_provide_missing_input">Please provide missing input!</string>
     <string name="shouts_other_shouts">Other Shouts</string>
@@ -29,6 +30,8 @@
     <string name="shouts_your_shout">Your Shout</string>
     <string name="shouts_deactivate">Deactivate</string>
     <string name="shouts_activate">Activate</string>
+    <string name="shouts_delete_the_shout_are_you_sure">This will delete the shout and all history! Are you sure?</string>
+    <string name="shouts_shout_has_been_deleted">The shout has been deleted, including history...</string>
     <string name="shout_wiz_welcome">Welcome</string>
     <string name="shout_wiz_lets_get_you_started">Let's get you started!</string>
     <string name="shout_wiz_choose_shout">Choose Shout</string>

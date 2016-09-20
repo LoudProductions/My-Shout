@@ -257,9 +257,25 @@ function onFavShoutSwipe(e) {
     animation.chainAnimate(oView, aAnimations, onAnimationComplete);
 }
 
+function resetShoutList() {
+    if ($.fav_shout_listsection.items.length) {
+        $.fav_shout_listsection.deleteItemsAt(0, $.fav_shout_listsection.items.length, {
+            animated: true
+        });
+    }
+    if ($.shout_mates_listsection.items.length) {
+        $.shout_mates_listsection.deleteItemsAt(0, $.shout_mates_listsection.items.length, {
+            animated: true
+        });
+    }
+}
+
 function updateFavShoutSection() {
     'use strict';
 
+    if (!_mShout) {
+        return false;
+    }
     if ($.fav_shout_listsection.items.length) {
         $.fav_shout_listsection.updateItemAt(0, mapShoutListItem(_mShout, 'fav_shout_template'), {
             animated: true
@@ -729,6 +745,46 @@ function onFavShoutClick(e) {
     }
 }
 
+function onFavShoutDelete(e) {
+    'use strict';
+
+    dialogs.confirm({
+        message: L('shouts_delete_the_shout_are_you_sure'),
+        callback: function() {
+            // find and destroy history for the shout
+            var aHistory = Alloy.Collections.instance('history').getShoutHistory(_mShout.id);
+            _.each(aHistory, function(mHistory) {
+                Alloy.Collections.instance('history').remove(mHistory);
+                mHistory.destroy();
+            });
+            // destroy the shout itself
+            Alloy.Collections.instance('shouts').remove(_mShout);
+            _mShout.destroy();
+            _mShout = null;
+            toast.show(L('shouts_shout_has_been_deleted'));
+
+            // select the first remaining shout as new favourite
+            _mShout = Alloy.Collections.instance('shouts').first();
+            if (_mShout && _mShout.id) {
+                Alloy.Collections.instance('shouts').markAsFav(_mShout);
+                updateFavShoutSection();
+                fillShoutMatesSection();
+            } else {
+                // if no shouts left, clear list and navigate to add shout wizard
+                goShoutWiz();
+                _.defer(function() {
+                    resetShoutList();
+                });
+            }
+
+            // update list
+            fillPageIndicatorIcons();
+
+            changeMenu();
+        }
+    });
+}
+
 function onMateClick(e) {
     'use strict';
 
@@ -855,7 +911,7 @@ function doFavShout(e) {
                 // the last shout becomes the favourite
                 Alloy.Collections.instance('shouts').markAsFav(_mShout);
 
-                // let the user now who's next up
+                // let the user know who's next up
                 toast.show(String.format(L('shouts_next_shout_is_on'), oNextToShout.name));
 
                 // update list
@@ -939,6 +995,14 @@ function createAndroidMenu(menu) {
             visible: false, // hide until shout is loaded
         });
         menuItemHistory.addEventListener('click', goHistory);
+
+        var menuItemDelete = menu.add({
+            itemId: CONST.MENU.SHOUTS_DELETE,
+            title: L('app_delete'),
+            showAsAction: Ti.Android.SHOW_AS_ACTION_NEVER,
+            visible: false, // hide until shout is loaded
+        });
+        menuItemDelete.addEventListener('click', onFavShoutDelete);
     }
 }
 
@@ -949,6 +1013,7 @@ function prepareAndroidMenu(menu) {
         // var menuItemDoFavShout = menu.findItem(CONST.MENU.SHOUTS_DO_FAV_SHOUT);
         // var menuItemAddMate = menu.findItem(CONST.MENU.SHOUTS_ADD_MATE);
         var menuItemHistory = menu.findItem(CONST.MENU.SHOUTS_HISTORY);
+        var menuItemDelete = menu.findItem(CONST.MENU.SHOUTS_DELETE);
         // show/hide menuitems depending on if we have a current shout
         if (_mShout && _mShout.id) {
             // if (menuItemDoFavShout) {
@@ -959,6 +1024,9 @@ function prepareAndroidMenu(menu) {
             // }
             if (menuItemHistory) {
                 menuItemHistory.setVisible(true);
+            }
+            if (menuItemDelete) {
+                menuItemDelete.setVisible(true);
             }
         }
     }

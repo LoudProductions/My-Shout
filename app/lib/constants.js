@@ -8,6 +8,7 @@ exports.MENU = {
     SHOUTS_ADD_SHOUT : 4,
     SHOUTS_ADD_MATE : 5,
     SHOUTS_HISTORY : 6,
+    SHOUTS_DELETE : 7,
 };
 exports.ACTIONS = {
     YOUR_SHOUT : L('shouts_your_shout'),

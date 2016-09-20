@@ -43,10 +43,21 @@
 	text: Alloy.Globals.fa_icons.history,
 }
 
+'.navDeleteIcon': {
+	width: 40,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT,
+	font: {
+		fontSize: 24,
+    	fontFamily: 'FontAwesome',
+	},
+	color: Alloy.CFG.colors.tintColor,
+	text: Alloy.Globals.fa_icons.trash,
+}
+
 '.favShoutImage': {
 	backgroundImage: '/images/shout.png',
 	width: 290,
-	height: 290, 
+	height: 290,
 }
 
 '.favShoutWhereTop': {

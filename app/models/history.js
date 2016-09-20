@@ -72,6 +72,9 @@ exports.definition = {
 				return mHistory;
 			},
 			getShoutHistory: function(shoutId, since) {
+				if (this.length === 0) {
+						this.fetch();
+				}
 				if (since) {
 					return this.filter(function(oHistory) {
 						return oHistory.shoutId === shoutId && shoutAt >= since;

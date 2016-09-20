@@ -120,8 +120,8 @@ function mapMateListItem(oMate, iSectionIndex, template) {
     if (oMate.isInactive) {
         mateColor = Alloy.CFG.colors.inactiveColor;
         // mateBackgroundColor = Alloy.CFG.colors.inactiveBackgroundColor;
-    } else if (oMate.hasShout) {
-        mateColor = Alloy.CFG.colors.tintColor;
+    // } else if (oMate.hasShout) {
+    //     mateColor = Alloy.CFG.colors.tintColor;
     }
 
     return {

@@ -1,45 +1,43 @@
-'.historyTitle': {
+'.noHistory' : {
+	layout: "vertical",
+	backgroundGradient: {
+		type: 'linear',
+		colors: ['#f09273', '#6a6a7d'],
+	}
+}
+'.historyTitle' : {
 	top: 40,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'OpenSans-Bold',
+		fontFamily: 'OpenSans-Bold'
 	},
 }
-
-'.historySubtitle': {
+'.historySubtitle' : {
 	font: {
 		fontSize: 14,
-    	fontFamily: 'OpenSans-Light',
-	},
+		fontFamily: 'OpenSans-Light'
+	}
 }
-
-'.historyList': {
-
+'.historyList' : {}
+'.historyList[platform=ios]' : {
+	allowsSelection: false
 }
-
-'.historyList[platform=ios]': {
-	allowsSelection: false,
-}
-
-'.matesListItem': {
+'.matesListItem' : {
 	height: 50,
 	layout: 'horizontal',
-	horizontalWrap: false,
+	horizontalWrap: false
 }
-
-'.matesListItemLeft': {
+'.matesListItemLeft' : {
 	/*borderColor: 'red',*/
 	width: '33%',
-	layout: 'vertical',
+	layout: 'vertical'
 }
-
-'.matesListItemMiddle': {
+'.matesListItemMiddle' : {
 	/*borderColor: 'green',*/
 	width: '33%',
-	layout: 'vertical',
+	layout: 'vertical'
 }
-
-'.listItemTitle': {
+'.listItemTitle' : {
 	left: 16,
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
@@ -47,11 +45,10 @@
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 	font: {
 		fontSize: 16,
-    	fontFamily: 'OpenSans-Bold',
-	},
+		fontFamily: 'OpenSans-Bold'
+	}
 }
-
-'.listItemSubtitle': {
+'.listItemSubtitle' : {
 	left: 16,
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
@@ -59,11 +56,10 @@
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 	font: {
 		fontSize: 12,
-    	fontFamily: 'OpenSans-Light',
-	},
+		fontFamily: 'OpenSans-Light'
+	}
 }
-
-'.listItemPoison': {
+'.listItemPoison' : {
 	/*bottom: 15,*/
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
@@ -71,11 +67,10 @@
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 12,
-    	fontFamily: 'OpenSans-Light',
-	},
+		fontFamily: 'OpenSans-Light'
+	}
 }
-
-'.listItemPrice': {
+'.listItemPrice' : {
 	/*top: 15,*/
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
@@ -83,29 +78,26 @@
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 14,
-    	fontFamily: 'OpenSans-BoldItalic',
-	},
+		fontFamily: 'OpenSans-BoldItalic'
+	}
 }
-
-'.listItemUndoIcon': {
+'.listItemUndoIcon' : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'FontAwesome',
+		fontFamily: 'FontAwesome'
 	},
 	/*color will be dynamically bound...*/
-	text: Alloy.Globals.fa_icons.undo,
+	text: Alloy.Globals.fa_icons.undo
 }
-
-'.listHeader': {
+'.listHeader' : {
 	/*borderColor: 'green',*/
 	height: 40,
 	layout: 'horizontal',
 	backgroundColor: Alloy.CFG.colors.shoutBackgroundColor,
-	color: Alloy.CFG.colors.backgroundColor,
+	color: Alloy.CFG.colors.backgroundColor
 }
-
-'.listHeaderTitle': {
+'.listHeaderTitle' : {
 	/*borderColor: 'cyan',*/
 	left: 16,
 	height: Ti.UI.FILL,
@@ -113,20 +105,19 @@
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 16,
-    	fontFamily: 'OpenSans-Regular',
+		fontFamily: 'OpenSans-Regular'
 	},
-	color: Alloy.CFG.colors.backgroundColor,
+	color: Alloy.CFG.colors.backgroundColor
 }
-
-'.listHeaderUndoIcon': {
+'.listHeaderUndoIcon' : {
 	/*borderColor: 'pink',*/
 	height: Ti.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'FontAwesome',
+		fontFamily: 'FontAwesome'
 	},
 	color: Alloy.CFG.colors.backgroundColor,
-	text: Alloy.Globals.fa_icons.undo,
+	text: Alloy.Globals.fa_icons.undo
 }
