@@ -11,8 +11,8 @@ exports.MENU = {
     SHOUTS_DELETE : 7,
 };
 exports.ACTIONS = {
-    YOUR_SHOUT : L('shouts_your_shout'),
-    ACTIVATE : L('shouts_activate'),
-    DEACTIVATE : L('shouts_deactivate'),
-    EDIT : L('app_edit'),
+    YOUR_SHOUT : L("shouts_your_shout"),
+    ACTIVATE : L("shouts_activate"),
+    DEACTIVATE : L("shouts_deactivate"),
+    EDIT : L("app_edit"),
 };

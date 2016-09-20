@@ -10,7 +10,7 @@ var _bAnimationComplete = false;
     // Use strict mode for this function scope. We can't do this for all of the
     // controller because after Alloy has compiled all of this file is wrapped.
     // FIXME: https://jira.appcelerator.org/browse/ALOY-1263
-    'use strict';
+    "use strict";
 
     /**
      * End intro once animation has completed
@@ -21,7 +21,7 @@ var _bAnimationComplete = false;
 // ################
 // temp: skip intro
 // ################
-// $.trigger('ended');
+// $.trigger("ended");
 // return;
 // ################
 
@@ -36,7 +36,7 @@ var _bAnimationComplete = false;
     /**
      * window open
      */
-    $.window.addEventListener('open', init);
+    $.window.addEventListener("open", init);
 
 })(arguments[0] || {});
 
@@ -44,9 +44,9 @@ var _bAnimationComplete = false;
  * Init, called on window open event
  */
 function init() {
-    'use strict';
+    "use strict";
 
-    $.window.removeEventListener('open', init);
+    $.window.removeEventListener("open", init);
 
 // ####################
 // temp: skip animation
@@ -59,7 +59,7 @@ function init() {
         backgroundColor: Alloy.CFG.colors.backgroundColor,
         duration : 100
     });
-    animation.addEventListener('complete', function(e) {
+    animation.addEventListener("complete", function(e) {
         var animation = Ti.UI.createAnimation({
             transform: Ti.UI.create2DMatrix({rotate: -160}),
             // transform : Ti.UI.create2DMatrix({
@@ -72,14 +72,14 @@ function init() {
             curve : Ti.UI.ANIMATION_CURVE_EASE_IN,
             duration : 1000
         });
-        animation.addEventListener('complete', function(e) {
+        animation.addEventListener("complete", function(e) {
             var animation = Ti.UI.createAnimation({
                 transform : Ti.UI.create2DMatrix({
                     rotate : 11.3
                 }),
                 duration : 200
             });
-            animation.addEventListener('complete', function(e) {
+            animation.addEventListener("complete", function(e) {
                 _bAnimationComplete = true;
                 if (_bAnimateOutOnComplete) {
                     animateOut();
@@ -99,9 +99,9 @@ function init() {
  * Animate out content and callback
  */
 function animateOut() {
-    'use strict';
+    "use strict";
 
-    var logContext = 'intro.js > animateOut()';
+    var logContext = "intro.js > animateOut()";
 
     $.activity_indicator.hide();
 
@@ -112,9 +112,9 @@ function animateOut() {
         opacity : 0,
         duration : 1000
     });
-    animation.addEventListener('complete', function() {
-        log.trace('raising $.ended event...', logContext);
-        $.trigger('ended');
+    animation.addEventListener("complete", function() {
+        log.trace("raising $.ended event...", logContext);
+        $.trigger("ended");
     });
     $.my_shout_circle.animate(animation);
 }

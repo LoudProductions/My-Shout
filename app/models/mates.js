@@ -10,42 +10,42 @@ exports.definition = {
 		_.extend(Model.prototype, {
 			// extended functions and properties go here
 			validate : function(bNoFix) {
-				var logContext = 'models/mates.js > validate()';
+				var logContext = "models/mates.js > validate()";
 
 				// check all keys actually exist
 				var oMate = this.toJSON();
-				log.debug('validating mate model:', logContext);
+				log.debug("validating mate model:", logContext);
 				log.debug(oMate, logContext);
 
 				var bDidChange = false;
-				if (!_.has(oMate, 'name')) {
+				if (!_.has(oMate, "name")) {
 					bDidChange = true;
-					oMate.name = '';
+					oMate.name = "";
 				}
-				if (!_.has(oMate, 'poison')) {
+				if (!_.has(oMate, "poison")) {
 					bDidChange = true;
-					oMate.poison = '';
+					oMate.poison = "";
 				}
-				if (!_.has(oMate, 'price')) {
+				if (!_.has(oMate, "price")) {
 					bDidChange = true;
 					oMate.price = 0;
 				}
-				if (!_.has(oMate, 'balance')) {
+				if (!_.has(oMate, "balance")) {
 					bDidChange = true;
 					oMate.balance = 0;
 				}
-				if (!_.has(oMate, 'hasShout')) {
+				if (!_.has(oMate, "hasShout")) {
 					bDidChange = true;
 					oMate.hasShout = false;
 				}
-				if (!_.has(oMate, 'isInactive')) {
+				if (!_.has(oMate, "isInactive")) {
 					bDidChange = true;
 					oMate.isInactive = false;
 				}
 				// now check that we have acceptable values for each
 				if (!oMate.name) {
-					log.error(L('mate_name_is_required'), logContext);
-					throw new Error(L('mate_name_is_required'));
+					log.error(L("mate_name_is_required"), logContext);
+					throw new Error(L("mate_name_is_required"));
 				}
 				// check/format price
 				var sPrice = isNaN(oMate.price) ? Number(0).toFixed(2) : Number(oMate.price).toFixed(2);
@@ -54,19 +54,19 @@ exports.definition = {
 					oMate.price = sPrice;
 				}
 				if (!bNoFix && bDidChange) {
-					log.debug('model changed as a result of validation:', logContext);
+					log.debug("model changed as a result of validation:", logContext);
 					log.debug(oMate, logContext);
 					this.set(oMate);
 				}
 			},
 			save : function(options) {
-					var logContext = 'models/mate.js > save()';
+					var logContext = "models/mate.js > save()";
 
 					// validate model first
 					this.validate();
 
 					options = options ? _.clone(options) : {};
-					log.debug('saving...' + (options ? ' with options: ' + JSON.stringify(options) : ''), logContext);
+					log.debug("saving..." + (options ? " with options: " + JSON.stringify(options) : ""), logContext);
 					log.debug(this, logContext);
 					return Backbone.Model.prototype.save.call(this, options);
 			},

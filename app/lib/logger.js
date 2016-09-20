@@ -1,13 +1,13 @@
 function formatForLogging(thingToLog) {
-    var formattedThing = '';
+    var formattedThing = "";
     if (_.isUndefined(thingToLog)) {
-        return 'Undefined thingToLog!';
+        return "Undefined thingToLog!";
     }
     // first try to convert the thing to log into a string
     try {
         if (_.isObject(thingToLog)) {
             if (_.isFunction(thingToLog)) {
-                formattedThing = thingToLog.name ? thingToLog.name : '';
+                formattedThing = thingToLog.name ? thingToLog.name : "";
             } else {
                 // if we have an object or an array, JSON can serialize it OK
                 formattedThing = JSON.stringify(thingToLog);
@@ -16,7 +16,7 @@ function formatForLogging(thingToLog) {
             formattedThing = String(thingToLog);
         }
     } catch(error) {
-        formattedThing = 'Ooh, thingToLog cannot be converted to a string!';
+        formattedThing = "Ooh, thingToLog cannot be converted to a string!";
     }
     return formattedThing;
 }
@@ -27,10 +27,10 @@ function formatForLogging(thingToLog) {
 function contextualiseLogMessage(logMessage, callingContext) {
     if (Alloy.CFG.logging && Alloy.CFG.logging.mustShowCallingContext && callingContext) {
         var formattedContext = formatForLogging(callingContext);
-        logMessage = ( formattedContext ? formattedContext + ': ' : '') + logMessage;
+        logMessage = ( formattedContext ? formattedContext + ": " : "") + logMessage;
     }
     if (Alloy.CFG.logging && Alloy.CFG.logging.mustShowDate) {
-        logMessage = new Date() + ': ' + logMessage;
+        logMessage = new Date() + ": " + logMessage;
     }
     return logMessage;
 }

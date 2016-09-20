@@ -1,19 +1,17 @@
-'.favShoutImage': {
-	backgroundImage: '/images/shout.png',
+".favShoutImage" : {
+	backgroundImage: "/images/shout.png",
 	width: 290,
-	height: 290,
+	height: 290
 }
-
-'.myShoutCirc1': {
-	top: '15%',
+".myShoutCirc1" : {
+	top: "15%",
 	width: 250,
 	height: 250,
 	borderRadius: 125,
 	backgroundColor: Alloy.CFG.colors.tintColor,
 	borderWidth: 0
 }
-
-'.myShoutCirc2': {
+".myShoutCirc2" : {
 	width: 240,
 	height: 240,
 	borderRadius: 120,
@@ -21,21 +19,19 @@
 	borderColor: Alloy.CFG.colors.backgroundColor,
 	borderWidth: 5
 }
-
-'.myShoutIcon': {
+".myShoutIcon" : {
 	font: {
 		fontSize: 100,
-    	fontFamily: 'FontAwesome'
+		fontFamily: "FontAwesome"
 	},
 	color: Alloy.CFG.colors.backgroundColor,
 	text: Alloy.Globals.fa_icons.bullhorn
 }
-
-'.myShoutWho': {
+".myShoutWho" : {
 	top: 160,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'OpenSans-Bold'
+		fontFamily: "OpenSans-Bold"
 	},
 	color: Alloy.CFG.colors.backgroundColor
 }

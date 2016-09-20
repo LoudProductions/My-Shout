@@ -1,165 +1,142 @@
-'Label': {
-	color: Alloy.CFG.colors.textColor, // All platforms except Android default to black, correcting that here
+"Label" : {
+	color: Alloy.CFG.colors.textColor
 }
-
-'.navAddShoutIcon': {
+".navAddShoutIcon" : {
 	width: 40,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
 		fontSize: 24,
-    	fontFamily: 'FontAwesome',
+		fontFamily: "FontAwesome"
 	},
 	color: Alloy.CFG.colors.tintColor,
-	text: Alloy.Globals.fa_icons.plus,
+	text: Alloy.Globals.fa_icons.plus
 }
-
-'.navHistoryIcon': {
+".navHistoryIcon" : {
 	width: 40,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
 		fontSize: 24,
-    	fontFamily: 'FontAwesome',
+		fontFamily: "FontAwesome"
 	},
 	color: Alloy.CFG.colors.tintColor,
-	text: Alloy.Globals.fa_icons.history,
+	text: Alloy.Globals.fa_icons.history
 }
-
-'.navDeleteIcon': {
+".navDeleteIcon" : {
 	width: 40,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
 		fontSize: 24,
-    	fontFamily: 'FontAwesome',
+		fontFamily: "FontAwesome"
 	},
 	color: Alloy.CFG.colors.tintColor,
-	text: Alloy.Globals.fa_icons.trash,
+	text: Alloy.Globals.fa_icons.trash
 }
-
-'.favShoutImage': {
-	backgroundImage: '/images/shout.png',
+".favShoutImage" : {
+	backgroundImage: "/images/shout.png",
 	width: 290,
-	height: 290,
+	height: 290
 }
-
-'.favShoutWhereTop': {
+".favShoutWhereTop" : {
 	top: 10,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'OpenSans-Light',
+		fontFamily: "OpenSans-Light"
 	},
-	color: Alloy.CFG.colors.backgroundColor,
+	color: Alloy.CFG.colors.backgroundColor
 }
-
-'.favShoutCirc1': {
-	top: '15%',
+".favShoutCirc1" : {
+	top: "15%",
 	width: 250,
 	height: 250,
 	borderRadius: 125,
 	backgroundColor: Alloy.CFG.colors.tintColor,
-	borderWidth: 0,
+	borderWidth: 0
 }
-
-'.favShoutCirc2': {
+".favShoutCirc2" : {
 	width: 240,
 	height: 240,
 	borderRadius: 120,
 	backgroundColor: Alloy.CFG.colors.tintColor,
 	borderColor: Alloy.CFG.colors.backgroundColor,
-	borderWidth: 5,
+	borderWidth: 5
 }
-
-'.favShoutIcon': {
+".favShoutIcon" : {
 	font: {
 		fontSize: 100,
-    	fontFamily: 'FontAwesome',
+		fontFamily: "FontAwesome"
 	},
 	color: Alloy.CFG.colors.backgroundColor,
-	text: Alloy.Globals.fa_icons.bullhorn,
+	text: Alloy.Globals.fa_icons.bullhorn
 }
-
-'.favShoutWho': {
+".favShoutWho" : {
 	top: 160,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'OpenSans-Bold',
+		fontFamily: "OpenSans-Bold"
 	},
-	color: Alloy.CFG.colors.backgroundColor,
+	color: Alloy.CFG.colors.backgroundColor
 }
-
-'.favShoutWhere': {
+".favShoutWhere" : {
 	top: 185,
 	font: {
 		fontSize: 12,
-    	fontFamily: 'OpenSans-Light',
+		fontFamily: "OpenSans-Light"
 	},
-	color: Alloy.CFG.colors.backgroundColor,
+	color: Alloy.CFG.colors.backgroundColor
 }
-
-'.shoutsList': {
-}
-
-'.shoutsList[platform=ios]': {
+".shoutsList" : {}
+".shoutsList[platform=ios]" : {
 	allowsSelection: false,
-	separatorStyle: Ti.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE,
+	separatorStyle: Ti.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE
 }
-
-'.favShoutsListItem': {
+".favShoutsListItem" : {
 	height: 290,
-	layout: 'vertical',
-	selectedBackgroundColor: "transparent",
+	layout: "vertical",
+	selectedBackgroundColor: "transparent"
 }
-
-'.otherShoutsListItem': {
+".otherShoutsListItem" : {
 	height: 40,
 	left: 16,
-	layout: 'vertical',
+	layout: "vertical"
 }
-
-'.matesListItem': {
+".matesListItem" : {
 	height: 50,
-	layout: 'horizontal',
-	horizontalWrap: false,
+	layout: "horizontal",
+	horizontalWrap: false
 }
-
-'.matesListItemLeft': {
-	/*borderColor: 'red',*/
-	width: '50%',
-	layout: 'vertical',
+".matesListItemLeft" : {
+	/*borderColor: "red",*/
+	width: "50%",
+	layout: "vertical"
 }
-
-'.matesListItemLeftThird': {
-	/*borderColor: 'red',*/
-	width: '33%',
-	layout: 'vertical',
+".matesListItemLeftThird" : {
+	/*borderColor: "red",*/
+	width: "33%",
+	layout: "vertical"
 }
-
-'.matesListItemMiddleThird': {
-	/*borderColor: 'green',*/
-	width: '33%',
-	layout: 'vertical',
+".matesListItemMiddleThird" : {
+	/*borderColor: "green",*/
+	width: "33%",
+	layout: "vertical"
 }
-
-'.matesListItemSpacer': {
-	/*borderColor: 'blue',*/
-	width: 40,
+".matesListItemSpacer" : {
+	/*borderColor: "blue",*/
+	width: 40
 }
-
-'.matesListItemRight': {
-	/*borderColor: 'green',*/
+".matesListItemRight" : {
+	/*borderColor: "green",*/
 	right: 16,
-	width: '50%',
-	layout: 'vertical',
+	width: "50%",
+	layout: "vertical"
 }
-
-'.matesPoisonCirc': {
+".matesPoisonCirc" : {
 	width: 66,
 	height: 66,
 	borderRadius: 33,
 	borderColor: Alloy.CFG.colors.textColor,
-	borderWidth: 3,
+	borderWidth: 3
 }
-
-'.listItemTitle': {
+".listItemTitle" : {
 	left: 16,
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
@@ -167,11 +144,10 @@
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 	font: {
 		fontSize: 16,
-    	fontFamily: 'OpenSans-Bold',
-	},
+		fontFamily: "OpenSans-Bold"
+	}
 }
-
-'.listItemSubtitle': {
+".listItemSubtitle" : {
 	left: 16,
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
@@ -179,11 +155,10 @@
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 	font: {
 		fontSize: 12,
-    	fontFamily: 'OpenSans-Light',
-	},
+		fontFamily: "OpenSans-Light"
+	}
 }
-
-'.listItemPoison': {
+".listItemPoison" : {
 	/*bottom: 15,*/
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
@@ -191,11 +166,10 @@
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 12,
-    	fontFamily: 'OpenSans-Light',
-	},
+		fontFamily: "OpenSans-Light"
+	}
 }
-
-'.listItemPrice': {
+".listItemPrice" : {
 	/*top: 15,*/
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
@@ -203,145 +177,129 @@
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 14,
-    	fontFamily: 'OpenSans-BoldItalic',
-	},
+		fontFamily: "OpenSans-BoldItalic"
+	}
 }
-
-'.listItemPriceEdit': {
+".listItemPriceEdit" : {
 	top: 5,
 	height: 30,
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 16,
-    	fontFamily: 'OpenSans-BoldItalic',
-	},
+		fontFamily: "OpenSans-BoldItalic"
+	}
 }
-
-'.listItemPoisonEdit': {
+".listItemPoisonEdit" : {
 	top: 40,
 	height: 30,
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 12,
-    	fontFamily: 'OpenSans-Light',
-	},
+		fontFamily: "OpenSans-Light"
+	}
 }
-
-'.listItemSwitch': {
-}
-
-'.listItemDisclosureIcon': {
+".listItemSwitch" : {}
+".listItemDisclosureIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'FontAwesome',
+		fontFamily: "FontAwesome"
 	},
 	color: Alloy.CFG.colors.inactive,
-	text: Alloy.Globals.fa_icons.angle_right,
+	text: Alloy.Globals.fa_icons.angle_right
 }
-
-'.listItemEllipsisIcon': {
+".listItemEllipsisIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'FontAwesome',
+		fontFamily: "FontAwesome"
 	},
 	/*color will be dynamically bound...*/
-	text: Alloy.Globals.fa_icons.ellipsis_h,
+	text: Alloy.Globals.fa_icons.ellipsis_h
 }
-
-'.listItemEditIcon': {
+".listItemEditIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'FontAwesome',
+		fontFamily: "FontAwesome"
 	},
 	/*color will be dynamically bound...*/
-	text: Alloy.Globals.fa_icons.pencil,
+	text: Alloy.Globals.fa_icons.pencil
 }
-
-'.listItemShoutIcon': {
+".listItemShoutIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'FontAwesome',
+		fontFamily: "FontAwesome"
 	},
 	/*color will be dynamically bound...*/
-	text: Alloy.Globals.fa_icons.bullhorn,
+	text: Alloy.Globals.fa_icons.bullhorn
 }
-
-'.listItemYourShoutIcon': {
+".listItemYourShoutIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'FontAwesome',
+		fontFamily: "FontAwesome"
 	},
 	/*color will be dynamically bound...*/
-	text: Alloy.Globals.fa_icons.hand_o_left,
+	text: Alloy.Globals.fa_icons.hand_o_left
 }
-
-'.listItemIsInactiveIcon': {
+".listItemIsInactiveIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'FontAwesome',
+		fontFamily: "FontAwesome"
 	},
 	/*color will be dynamically bound...*/
-	text: Alloy.Globals.fa_icons.toggle_off,
+	text: Alloy.Globals.fa_icons.toggle_off
 }
-
-'.listItemSaveIcon': {
+".listItemSaveIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'FontAwesome',
+		fontFamily: "FontAwesome"
 	},
 	/*color will be dynamically bound...*/
-	text: Alloy.Globals.fa_icons.save,
+	text: Alloy.Globals.fa_icons.save
 }
-
-'.listHeaderAddIcon': {
+".listHeaderAddIcon" : {
 	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 30,
-    	fontFamily: 'FontAwesome',
+		fontFamily: "FontAwesome"
 	},
 	color: Alloy.CFG.colors.tintColor,
-	text: Alloy.Globals.fa_icons.plus,
+	text: Alloy.Globals.fa_icons.plus
 }
-
-'.currentPageIndicatorIcon': {
+".currentPageIndicatorIcon" : {
 	width: 10,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 8,
-    	fontFamily: 'FontAwesome',
+		fontFamily: "FontAwesome"
 	},
 	color: Alloy.CFG.colors.brandHintColor,
-	text: Alloy.Globals.fa_icons.dot_circle_o,
+	text: Alloy.Globals.fa_icons.dot_circle_o
 }
-
-'.otherPageIndicatorIcon': {
+".otherPageIndicatorIcon" : {
 	width: 10,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 8,
-    	fontFamily: 'FontAwesome',
+		fontFamily: "FontAwesome"
 	},
 	color: Alloy.CFG.colors.inactiveBackgroundColor,
-	text: Alloy.Globals.fa_icons.circle,
+	text: Alloy.Globals.fa_icons.circle
 }
-
-'.pageIndicators': {
+".pageIndicators" : {
 	top: 8,
 	height: Ti.UI.SIZE,
-	width: Ti.UI.FILL,
+	width: Ti.UI.FILL
 }
-
-'.pageIndicatorIcons': {
+".pageIndicatorIcons" : {
 	height: Ti.UI.SIZE,
 	width: Ti.UI.SIZE,
-	layout: 'horizontal',
+	layout: "horizontal"
 }

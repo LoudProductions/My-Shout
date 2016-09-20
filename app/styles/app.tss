@@ -1,129 +1,99 @@
-'Window': {
-	backgroundColor: Alloy.CFG.colors.backgroundColor,
+"Window" : {
+	backgroundColor: Alloy.CFG.colors.backgroundColor
 }
-
 // On iOS7+ the window starts behind the statusBar, allowing us to set the backgroundColor here
-'Window[platform=ios]': {
-	tintColor: Alloy.CFG.colors.tintColor,
+"Window[platform=ios]" : {
+	tintColor: Alloy.CFG.colors.tintColor
 }
-
-'Label': {
+"Label" : {
+	color: Alloy.CFG.colors.backgroundColor
+}
+"PickerRow" : {
 	color: Alloy.CFG.colors.backgroundColor,
+	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER
 }
-
-'PickerRow': {
-	color: Alloy.CFG.colors.backgroundColor,
-	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-}
-
-'TextField': {
+"TextField" : {
 	color: Alloy.CFG.colors.backgroundColor,
 	hintTextColor: Alloy.CFG.colors.brandHintColor,
 	backgroundColor: Alloy.CFG.colors.bgColorTransparent,
-  borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUND,
-	borderRadius: 25,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUND,
+	borderRadius: 25
 }
-
-'.appGradient': {
+".appGradient" : {
 	backgroundGradient: {
-		type: 'linear',
-		colors: [
-			Alloy.CFG.colors.appGradientTop,
-			Alloy.CFG.colors.appGradientBottom
-		],
+		type: "linear",
+		colors: [Alloy.CFG.colors.appGradientTop, Alloy.CFG.colors.appGradientBottom]
 	},
-	backgroundColor: Alloy.CFG.colors.backgroundColor,
+	backgroundColor: Alloy.CFG.colors.backgroundColor
 }
-
-'.altGradient': {
+".altGradient" : {
 	backgroundGradient: {
-		type: 'linear',
-		colors: [
-			Alloy.CFG.colors.altGradientTop,
-			Alloy.CFG.colors.altGradientBottom
-		],
+		type: "linear",
+		colors: [Alloy.CFG.colors.altGradientTop, Alloy.CFG.colors.altGradientBottom]
 	},
-	backgroundColor: Alloy.CFG.colors.backgroundColor,
+	backgroundColor: Alloy.CFG.colors.backgroundColor
 }
-
-'.appCanvas': {
-	layout: 'vertical',
+".appCanvas" : {
+	layout: "vertical"
 }
-
-'.appCanvas[platform=ios]': {
-	backgroundColor: Alloy.CFG.colors.backgroundColor,
+".appCanvas[platform=ios]" : {
+	backgroundColor: Alloy.CFG.colors.backgroundColor
 }
-
-'.appVScrollView': {
+".appVScrollView" : {}
+".appVScrollView[platform=android]" : {
+	scrollType: "vertical"
 }
-
-'.appVScrollView[platform=android]': {
-	scrollType: 'vertical',
+".appTransparent" : {
+	opacity: 0
 }
-
-'.appTransparent': {
-	opacity: 0,
+".appListItemRightIcon1" : {
+	right: 16
 }
-
-'.appListItemRightIcon1': {
-	right: 16,
+".appListItemRightIcon2" : {
+	right: 60
 }
-
-'.appListItemRightIcon2': {
-	right: 60,
+".appListItemRightIcon3" : {
+	right: 104
 }
-
-'.appListItemRightIcon3': {
-	right: 104,
-}
-
-'.appCompositeView': {
-	layout: 'composite',
+".appCompositeView" : {
+	layout: "composite",
 	width: Ti.UI.FILL,
-	height: Ti.UI.FILL,
+	height: Ti.UI.FILL
 }
-
-'.appHalfWidth': {
-	width: '50%'
+".appHalfWidth" : {
+	width: "50%"
 }
-
-'.appHalfHeight': {
-	height: '50%'
+".appHalfHeight" : {
+	height: "50%"
 }
-
-'.appTitle': {
+".appTitle" : {
 	top: 40,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'OpenSans-Bold'
+		fontFamily: "OpenSans-Bold"
 	}
 }
-
-'.appSubtitle': {
+".appSubtitle" : {
 	font: {
 		fontSize: 14,
-    	fontFamily: 'OpenSans-Light'
+		fontFamily: "OpenSans-Light"
 	}
 }
-
-'.appVSpacer': {
+".appVSpacer" : {
 	height: 40
 }
-
-'.appHSpacer': {
+".appHSpacer" : {
 	width: 40
 }
-
-'.appWideButton': {
+".appWideButton" : {
 	width: 200,
 	color: Alloy.CFG.colors.backgroundColor,
-	backgroundColor: Alloy.CFG.colors.tintColor,
+	backgroundColor: Alloy.CFG.colors.tintColor
 }
-
-'.appDestructiveButton': {
+".appDestructiveButton" : {
 	width: 180,
 	color: Alloy.CFG.colors.backgroundColor,
 	backgroundColor: Alloy.CFG.colors.tintColor,
 	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-	borderRadius: 25,
+	borderRadius: 25
 }

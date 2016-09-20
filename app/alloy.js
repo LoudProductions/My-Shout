@@ -16,11 +16,11 @@
 (function (global) {
 	// We pass `this` so you could use `global.foo` to force a global variable.
 
-    global.toast = require('toast');
-    global.log = require('logger');
-    log.info('Loading Alloy globals...', 'alloy.js');
+    global.toast = require("toast");
+    global.log = require("logger");
+    log.info("Loading Alloy globals...", "alloy.js");
 
-    Alloy.Globals.fa_icons = require('fa_icons');
+    Alloy.Globals.fa_icons = require("fa_icons");
 
     ///////////////////////////////////////////////////////////////////////////////
     //
@@ -39,7 +39,7 @@
      * Called from index controller once intro animation is complete
      */
     Alloy.Globals.initNavigation = function() {
-        'use strict';
+        "use strict";
         // Require in the navigation module
         Alloy.Globals.Navigator = require("navigation")({
             parent : Alloy.Globals.navigationWindow || null

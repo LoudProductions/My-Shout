@@ -3,7 +3,7 @@
  */
 
 // DEPENDENCIES
-var dialogs = require('alloy/dialogs');
+var dialogs = require("alloy/dialogs");
 
 // PUBLIC INTERFACE
 
@@ -18,7 +18,7 @@ function requestLocationPermissions(authorizationType, callback) {
   if (OS_IOS && !Ti.Geolocation.locationServicesEnabled) {
     return callback({
       success: false,
-      error: 'Location Services Disabled'
+      error: "Location Services Disabled"
     });
   }
 
@@ -35,14 +35,14 @@ function requestLocationPermissions(authorizationType, callback) {
     if (Ti.Geolocation.locationServicesAuthorization === Ti.Geolocation.AUTHORIZATION_RESTRICTED) {
       return callback({
         success: false,
-        error: 'Your device policy does not allow Geolocation'
+        error: "Your device policy does not allow Geolocation"
       });
 
     } else if (Ti.Geolocation.locationServicesAuthorization === Ti.Geolocation.AUTHORIZATION_DENIED) {
 
       dialogs.confirm({
-        title: 'You denied permission before',
-        message: 'Tap Yes to open the Settings app to restore permissions, then try again.',
+        title: "You denied permission before",
+        message: "Tap Yes to open the Settings app to restore permissions, then try again.",
         callback: function() {
           Ti.Platform.openURL(Ti.App.iOS.applicationOpenSettingsURL);
         }
@@ -61,7 +61,7 @@ function requestLocationPermissions(authorizationType, callback) {
     if (!e.success) {
       return callback({
         success: false,
-        error: e.error || 'Failed to request Location Permissions'
+        error: e.error || "Failed to request Location Permissions"
       });
     }
 

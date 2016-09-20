@@ -1,145 +1,123 @@
-'.wizWelcome': {
-	layout: 'vertical'
+".wizWelcome" : {
+	layout: "vertical"
 }
-
-'.wizTitle': {
+".wizTitle" : {
 	font: {
 		fontSize: 20,
-    	fontFamily: 'OpenSans-Bold',
-	},
-}
-
-'.wizTitle[platform=android]': {
-	top: 20,
-}
-
-'.wizSubtitle': {
-	font: {
-		fontSize: 14,
-    	fontFamily: 'OpenSans-Light'
+		fontFamily: "OpenSans-Bold"
 	}
 }
-
-'.wizInput': {
+".wizTitle[platform=android]" : {
+	top: 20
+}
+".wizSubtitle" : {
+	font: {
+		fontSize: 14,
+		fontFamily: "OpenSans-Light"
+	}
+}
+".wizInput" : {
 	top: 40
 }
-
-'.wizInput2': {
+".wizInput2" : {
 	top: 10
 }
-
-'.shoutType': {
+".shoutType" : {
 	width: 110,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	textStyle: Ti.UI.TEXT_STYLE_HEADLINE,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'OpenSans-Bold',
+		fontFamily: "OpenSans-Bold"
 	},
 	backgroundColor: Alloy.CFG.colors.bgColorTransparent,
 	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUND,
-	borderRadius: 25,
+	borderRadius: 25
 }
-
-'.shoutPlace': {
+".shoutPlace" : {
 	width: 180,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 16,
-    	fontFamily: 'OpenSans-Regular',
-	},
+		fontFamily: "OpenSans-Regular"
+	}
 }
-
-'.priceInput': {
+".priceInput" : {
 	keyboardType: Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD,
 	maxLength: 4
 }
-
-'.wizButton': {
+".wizButton" : {
 	top: 20
 }
-
-'.matesList': {
+".matesList" : {
 	top: 40
 }
-
-'.matesListItem': {
+".matesListItem" : {
 	height: 40,
 	// left: 10,
 	// right: 10,
-	layout: 'horizontal',
+	layout: "horizontal",
 	horizontalWrap: false
 }
-
-'.matesListItemLeft': {
-	// borderColor: 'red',
+".matesListItemLeft" : {
+	// borderColor: "red",
 	// borderWidth: 1,
-	width: '50%',
-	layout: 'vertical',
+	width: "50%",
+	layout: "vertical"
 }
-
-'.matesListItemLeft[platform=ios]': {
+".matesListItemLeft[platform=ios]" : {
 	left: 0
 }
-
-'.matesListItemSpacer': {
-	// borderColor: 'blue',
+".matesListItemSpacer" : {
+	// borderColor: "blue",
 	// borderWidth: 1,
 	width: 40
 }
-
-'.matesListItemRight': {
-	// borderColor: 'green',
+".matesListItemRight" : {
+	// borderColor: "green",
 	// borderWidth: 1,
-	width: '50%',
-	layout: 'vertical'
+	width: "50%",
+	layout: "vertical"
 }
-
-'.matesListItemRight[platform=ios]': {
+".matesListItemRight[platform=ios]" : {
 	right: 0
 }
-
-'.listItemTitle': {
+".listItemTitle" : {
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
 		fontSize: 16,
-    	fontFamily: 'OpenSans-Bold'
+		fontFamily: "OpenSans-Bold"
 	}
 }
-
-'.listItemSubtitle': {
+".listItemSubtitle" : {
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: {
 		fontSize: 12,
-    	fontFamily: 'OpenSans-Light'
+		fontFamily: "OpenSans-Light"
 	}
 }
-
-'.listItemPrice': {
+".listItemPrice" : {
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'OpenSans-BoldItalic'
+		fontFamily: "OpenSans-BoldItalic"
 	}
 }
-
-'.listItemHasShout': {
+".listItemHasShout" : {
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 	font: {
 		fontSize: 20,
-    	fontFamily: 'FontAwesome'
+		fontFamily: "FontAwesome"
 	},
 	color: Alloy.CFG.colors.tintColor
 }
-
-'.wizForm': {
-	layout: 'vertical',
+".wizForm" : {
+	layout: "vertical"
 }
-
-'.wizForm[platform=android]': {
-	width: '50%'
+".wizForm[platform=android]" : {
+	width: "50%"
 }

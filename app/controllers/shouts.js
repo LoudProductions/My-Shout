@@ -1,6 +1,6 @@
-var CONST = require('constants');
-var animation = require('alloy/animation');
-var dialogs = require('alloy/dialogs');
+var CONST = require("constants");
+var animation = require("alloy/animation");
+var dialogs = require("alloy/dialogs");
 
 var _mShout;
 var _bIsEditingMate = false;
@@ -14,22 +14,22 @@ if (OS_IOS) {
     var _oEditActions = {
         oYourShout : {
             identifier : CONST.ACTIONS.YOUR_SHOUT,
-            title : L('shouts_your_shout'),
+            title : L("shouts_your_shout"),
             style : Ti.UI.iOS.ROW_ACTION_STYLE_NORMAL,
         },
         oActivate : {
             identifier : CONST.ACTIONS.ACTIVATE,
-            title : L('shouts_activate'),
+            title : L("shouts_activate"),
             style : Ti.UI.iOS.ROW_ACTION_STYLE_DEFAULT,
         },
         oDeactivate : {
             identifier : CONST.ACTIONS.DEACTIVATE,
-            title : L('shouts_deactivate'),
+            title : L("shouts_deactivate"),
             style : Ti.UI.iOS.ROW_ACTION_STYLE_DESTRUCTIVE,
         },
         oEdit : {
             identifier : CONST.ACTIONS.EDIT,
-            title : L('app_edit'),
+            title : L("app_edit"),
             style : Ti.UI.iOS.ROW_ACTION_STYLE_NORMAL,
         },
     };
@@ -43,7 +43,7 @@ if (OS_IOS) {
     // Use strict mode for this function scope. We can't do this for all of the
     // controller because after Alloy has compiled all of this file is wrapped.
     // FIXME: https://jira.appcelerator.org/browse/ALOY-1263
-    'use strict';
+    "use strict";
 
     if (!args.bMustDelayInit) {
         // even if we're not asked to delay init, we throw it onto the stack
@@ -60,8 +60,8 @@ if (OS_IOS) {
     };
 
     $.animateIn = function() {
-        var logContext = 'shouts.js > $.animateIn()';
-        log.trace('running animateIn...', logContext);
+        var logContext = "shouts.js > $.animateIn()";
+        log.trace("running animateIn...", logContext);
 
         $.activity_indicator.hide();
 
@@ -77,84 +77,84 @@ if (OS_IOS) {
     /**
      * window open/close
      */
-    $.window.addEventListener('open', onWindowOpen);
-    $.window.addEventListener('close', onWindowClose);
+    $.window.addEventListener("open", onWindowOpen);
+    $.window.addEventListener("close", onWindowClose);
 
 })(arguments[0] || {});
 
 function init() {
-    'use strict';
-    var logContext = 'shouts.js > init()';
-    log.trace('running init...', logContext);
+    "use strict";
+    var logContext = "shouts.js > init()";
+    log.trace("running init...", logContext);
 
     fetchFavShout();
     fillPageIndicatorIcons();
     fillFavShoutSection();
     fillShoutMatesSection();
 
-    log.trace('raising $.loaded event...', logContext);
-    $.trigger('loaded');
+    log.trace("raising $.loaded event...", logContext);
+    $.trigger("loaded");
 }
 
 function fetchFavShout() {
-    'use strict';
+    "use strict";
 
-    var logContext = 'shouts.js > fetchFavShout()';
+    var logContext = "shouts.js > fetchFavShout()";
 
     // find the first shout model marked as favourite
-    var cShouts = Alloy.Collections.instance('shouts');
+    var cShouts = Alloy.Collections.instance("shouts");
     _mShout = cShouts.findWhere({
         isFav: true
     });
 
     if (!_mShout) {
         _mShout = cShouts.first();
-        log.debug('fav shout not found; selecting first model:', logContext);
+        log.debug("fav shout not found; selecting first model:", logContext);
     }
 
     if (_mShout) {
-        log.debug('fav shout:', logContext);
+        log.debug("fav shout:", logContext);
         log.debug(_mShout, logContext);
     } else {
-        log.debug('fav shout not found!', logContext);
+        log.debug("fav shout not found!", logContext);
     }
 }
 
 function fillPageIndicatorIcons() {
-    'use strict';
+    "use strict";
 
     $.page_indicator_icons_view.removeAllChildren();
-    Alloy.Collections.instance('shouts').each(function(mShout) {
+    Alloy.Collections.instance("shouts").each(function(mShout) {
         var oPageIndicatorIcon = Ti.UI.createLabel();
         if (_mShout && _mShout.id === mShout.id) {
-            $.addClass(oPageIndicatorIcon, 'currentPageIndicatorIcon');
+            $.addClass(oPageIndicatorIcon, "currentPageIndicatorIcon");
         } else {
-            $.addClass(oPageIndicatorIcon, 'otherPageIndicatorIcon');
+            $.addClass(oPageIndicatorIcon, "otherPageIndicatorIcon");
         }
         $.page_indicator_icons_view.add(oPageIndicatorIcon);
     });
 }
 
 function updatePageIndicatorIcons() {
-    'use strict';
+    "use strict";
 
-    var iCurrentPageIndex = Alloy.Collections.instance('shouts').indexOf(_mShout);
+    var iCurrentPageIndex = Alloy.Collections.instance("shouts").indexOf(_mShout);
     for (var i = 0; i < $.page_indicator_icons_view.children.length; i++) {
         if (i === iCurrentPageIndex) {
-            $.resetClass($.page_indicator_icons_view.children[i], 'currentPageIndicatorIcon');
+            $.resetClass($.page_indicator_icons_view.children[i], "currentPageIndicatorIcon");
         } else {
-            $.resetClass($.page_indicator_icons_view.children[i], 'otherPageIndicatorIcon');
+            $.resetClass($.page_indicator_icons_view.children[i], "otherPageIndicatorIcon");
         }
     }
 }
 
 function fetchShoutIndex(iOffset) {
-    'use strict';
+    "use strict";
 
     iOffset = iOffset || 1;
 
     // find the index of the current model
-    var cShouts = Alloy.Collections.instance('shouts');
+    var cShouts = Alloy.Collections.instance("shouts");
     var iCurrent = -1;
     for (var i = 0; i < cShouts.models.length; i++) {
         if (cShouts.models[i].id === _mShout.id) {
@@ -179,9 +179,9 @@ function fetchShoutIndex(iOffset) {
 }
 
 function onFavShoutSwipe(e) {
-    'use strict';
+    "use strict";
 
-    if (e.direction === 'up' || e.direction === 'down') {
+    if (e.direction === "up" || e.direction === "down") {
         if (e.bubbles) {
             e.cancelBubble = true;
         }
@@ -189,13 +189,13 @@ function onFavShoutSwipe(e) {
     }
 
     switch (e.direction) {
-        // case 'up':
-        case 'left':
+        // case "up":
+        case "left":
             fetchShoutIndex(1);
             break;
 
-            // case 'down':
-        case 'right':
+            // case "down":
+        case "right":
             fetchShoutIndex(-1);
             break;
 
@@ -210,7 +210,7 @@ function onFavShoutSwipe(e) {
         fillShoutMatesSection();
     };
 
-    // repeat a series of 'scale horizontally to zero and back' animations,
+    // repeat a series of "scale horizontally to zero and back" animations,
     // to create the impression of a spinning coin (slowing down to the end)
     var oView = e.source;
     var aAnimations = [];
@@ -271,13 +271,13 @@ function resetShoutList() {
 }
 
 function updateFavShoutSection() {
-    'use strict';
+    "use strict";
 
     if (!_mShout) {
         return false;
     }
     if ($.fav_shout_listsection.items.length) {
-        $.fav_shout_listsection.updateItemAt(0, mapShoutListItem(_mShout, 'fav_shout_template'), {
+        $.fav_shout_listsection.updateItemAt(0, mapShoutListItem(_mShout, "fav_shout_template"), {
             animated: true
         });
     }
@@ -286,20 +286,20 @@ function updateFavShoutSection() {
 }
 
 function fillFavShoutSection() {
-    'use strict';
+    "use strict";
 
     if (!_mShout) {
         return false;
     }
     // add favourite shout to list
-    var aFavListItem = [mapShoutListItem(_mShout, 'fav_shout_template')];
+    var aFavListItem = [mapShoutListItem(_mShout, "fav_shout_template")];
     $.fav_shout_listsection.appendItems(aFavListItem, {
         animated: true
     });
     // // add other shouts to list
-    // var cShouts = Alloy.Collections.instance('shouts');
+    // var cShouts = Alloy.Collections.instance("shouts");
     // var aListItems = _.map(cShouts.models, function(mShout) {
-    // 'use strict';
+    // "use strict";
     //
     // return mapShoutListItem(mShout);
     // });
@@ -312,7 +312,7 @@ function fillFavShoutSection() {
 }
 
 function fillShoutMatesSection() {
-    'use strict';
+    "use strict";
 
     if (!_mShout) {
         return false;
@@ -342,14 +342,14 @@ function fillShoutMatesSection() {
 }
 
 function mapShoutListItem(mShout, template, bIsSwiping) {
-    'use strict';
+    "use strict";
 
     var oShout = mShout.transform();
 
     return {
-        template: template || 'other_shouts_template',
+        template: template || "other_shouts_template",
         properties: {
-            accessoryType: template == 'fav_shout_template' ? Ti.UI.LIST_ACCESSORY_TYPE_NONE : Ti.UI.LIST_ACCESSORY_TYPE_DISCLOSURE,
+            accessoryType: template == "fav_shout_template" ? Ti.UI.LIST_ACCESSORY_TYPE_NONE : Ti.UI.LIST_ACCESSORY_TYPE_DISCLOSURE,
             searchableText: oShout.name + oShout.type + oShout.place,
             itemId: mShout.id
                 // if using built-in item templates for iOS, uncomment these
@@ -369,7 +369,7 @@ function mapShoutListItem(mShout, template, bIsSwiping) {
 }
 
 function mapMateListItem(oMate, template) {
-    'use strict';
+    "use strict";
     // set mate's background color
     var circColor = Alloy.CFG.colors.textColor;
     var circBorderColor = Alloy.CFG.colors.textColor;
@@ -394,7 +394,7 @@ function mapMateListItem(oMate, template) {
         mateBackgroundColor = Alloy.CFG.colors.shoutBackgroundColor;
     }
     var oMateListItem = {
-        template: template || 'shout_mates_template',
+        template: template || "shout_mates_template",
         properties: {
             accessoryType: Ti.UI.LIST_ACCESSORY_TYPE_NONE,
             searchableText: oMate.name + oMate.poison + oMate.price,
@@ -462,8 +462,8 @@ function mapMateListItem(oMate, template) {
         // if binding to a view then the associated class is overridden
         // and all styling properties must be supplied here
         mate_bg_view: {
-            width: '100%',
-            layout: 'horizontal',
+            width: "100%",
+            layout: "horizontal",
             horizontalWrap: false,
             color: mateColor,
             backgroundColor: mateBackgroundColor
@@ -478,7 +478,7 @@ function mapMateListItem(oMate, template) {
 }
 
 function setupMateEditActions(oMate) {
-    'use strict';
+    "use strict";
 
     var aEditActions = [];
     aEditActions.push(_oEditActions.oEdit);
@@ -495,17 +495,17 @@ function setupMateEditActions(oMate) {
 }
 
 function getAttributedPriceText(price, hasShout, isInactive) {
-    'use strict';
+    "use strict";
 
     price = isNaN(price) ? 0 : price;
     var oAttributedString = Ti.UI.createAttributedString({
-        text: '$' + Number(price).toFixed(2),
+        text: "$" + Number(price).toFixed(2),
     });
     oAttributedString.addAttribute({
         type: Ti.UI.ATTRIBUTE_FONT,
         value: {
             fontSize: 12,
-            fontFamily: 'OpenSans-Bold'
+            fontFamily: "OpenSans-Bold"
         },
         range: [0, 1]
     });
@@ -529,18 +529,18 @@ function getAttributedPriceText(price, hasShout, isInactive) {
 }
 
 function getAttributedBalanceText(balance, hasShout, isInactive) {
-    'use strict';
+    "use strict";
 
     balance = isNaN(balance) ? 0 : balance;
-    var sign = (balance < 0 ? '-' : '');
+    var sign = (balance < 0 ? "-" : "");
     var oAttributedString = Ti.UI.createAttributedString({
-        text: sign + '$' + Number(Math.abs(balance)).toFixed(2),
+        text: sign + "$" + Number(Math.abs(balance)).toFixed(2),
     });
     oAttributedString.addAttribute({
         type: Ti.UI.ATTRIBUTE_FONT,
         value: {
             fontSize: 8,
-            fontFamily: 'OpenSans-Light'
+            fontFamily: "OpenSans-Light"
         },
         range: [0, 1]
     });
@@ -565,12 +565,12 @@ function getAttributedBalanceText(balance, hasShout, isInactive) {
 }
 
 function onShoutWizDone(e) {
-    'use strict';
+    "use strict";
 
-    var logContext = 'shouts.js > onShoutWizDone()';
-    log.debug('_mShout currently bound to view', logContext);
+    var logContext = "shouts.js > onShoutWizDone()";
+    log.debug("_mShout currently bound to view", logContext);
     log.debug(_mShout, logContext);
-    log.debug('new mShout model received from shout_wiz:', logContext);
+    log.debug("new mShout model received from shout_wiz:", logContext);
     log.debug(e.mShout, logContext);
 
     _oShoutWizController = null;
@@ -580,7 +580,7 @@ function onShoutWizDone(e) {
         var bIsFirstShout = _mShout ? false : true;
 
         _mShout = e.mShout;
-        Alloy.Collections.instance('shouts').markAsFav(_mShout);
+        Alloy.Collections.instance("shouts").markAsFav(_mShout);
 
         // reconfigure menus
         changeMenu();
@@ -605,24 +605,24 @@ function onShoutWizDone(e) {
 }
 
 function showAddSomeMatesToast(message) {
-    'use strict';
+    "use strict";
 
-    toast.show(message || L('shouts_add_some_mates'));
+    toast.show(message || L("shouts_add_some_mates"));
     animation.shake($.go_add_mate_icon, 2000);
 }
 
 function goShoutWiz() {
-    'use strict';
+    "use strict";
 
-    _oShoutWizController = Alloy.Globals.Navigator.push('shout_wiz', {
+    _oShoutWizController = Alloy.Globals.Navigator.push("shout_wiz", {
         bCanSkipWelcome: true,
     });
-    // register with wizard 'done' event
-    _oShoutWizController.once('done', onShoutWizDone);
+    // register with wizard "done" event
+    _oShoutWizController.once("done", onShoutWizDone);
 }
 
 function saveEditingMateChanges() {
-    'use strict';
+    "use strict";
 
     // save changes, if any
     var oMate = _mShout.getMate(_oIsEditingMate.mateId);
@@ -633,14 +633,14 @@ function saveEditingMateChanges() {
 }
 
 function toggleMateEditing(mateId, itemIndex) {
-    'use strict';
+    "use strict";
 
     if (!_bIsEditingMate) {
         // set up a clone of the selected mate for editing
         _oIsEditingMate = _.clone(_mShout.getMate(mateId));
 
         // render shout mate item with editing template
-        $.shout_mates_listsection.updateItemAt(itemIndex, mapMateListItem(_oIsEditingMate, 'edit_mate_template'), {
+        $.shout_mates_listsection.updateItemAt(itemIndex, mapMateListItem(_oIsEditingMate, "edit_mate_template"), {
             animated: true
         });
 
@@ -660,19 +660,19 @@ function toggleMateEditing(mateId, itemIndex) {
 }
 
 function onMateInactiveIconClick(e) {
-    'use strict';
+    "use strict";
 
     onMateInactiveSwitchClick(e, _oIsEditingMate.isInactive);
 }
 
 function onMateInactiveSwitchClick(e, bActive) {
-    'use strict';
+    "use strict";
 
     bActive = (bActive !== undefined ? bActive : e.value);
 
     // check that the mate does not currently have the shout before deactivating!
     if (_oIsEditingMate.hasShout && bActive === false) {
-        toast.show(L('shouts_give_the_next_shout_to_someone_else_first'));
+        toast.show(L("shouts_give_the_next_shout_to_someone_else_first"));
     } else {
         _oIsEditingMate.isInactive = bActive ? false : true;
 
@@ -682,20 +682,20 @@ function onMateInactiveSwitchClick(e, bActive) {
 }
 
 function onMateEditClick(e) {
-    'use strict';
+    "use strict";
 
     goEditMate(e.itemId);
 }
 
 function giveMateTheShout(e) {
-    'use strict';
+    "use strict";
 
-    var logContext = 'shouts.js > giveMateTheShout()';
+    var logContext = "shouts.js > giveMateTheShout()";
 
     var oOldShoutMate = _mShout.giveMateTheShout(e.itemId);
     _mShout.save();
 
-    log.debug('old shouter after giving new mate the shout:', logContext);
+    log.debug("old shouter after giving new mate the shout:", logContext);
     log.debug(oOldShoutMate, logContext);
 
     // merge the update shouter details into the editing clone
@@ -721,7 +721,7 @@ function giveMateTheShout(e) {
 }
 
 function onMateYourShoutClick(e) {
-    'use strict';
+    "use strict";
 
     try {
         giveMateTheShout(e);
@@ -733,7 +733,7 @@ function onMateYourShoutClick(e) {
 }
 
 function onFavShoutClick(e) {
-    'use strict';
+    "use strict";
 
     switch (e.section) {
         case $.fav_shout_listsection:
@@ -746,27 +746,27 @@ function onFavShoutClick(e) {
 }
 
 function onFavShoutDelete(e) {
-    'use strict';
+    "use strict";
 
     dialogs.confirm({
-        message: L('shouts_delete_the_shout_are_you_sure'),
+        message: L("shouts_delete_the_shout_are_you_sure"),
         callback: function() {
             // find and destroy history for the shout
-            var aHistory = Alloy.Collections.instance('history').getShoutHistory(_mShout.id);
+            var aHistory = Alloy.Collections.instance("history").getShoutHistory(_mShout.id);
             _.each(aHistory, function(mHistory) {
-                Alloy.Collections.instance('history').remove(mHistory);
+                Alloy.Collections.instance("history").remove(mHistory);
                 mHistory.destroy();
             });
             // destroy the shout itself
-            Alloy.Collections.instance('shouts').remove(_mShout);
+            Alloy.Collections.instance("shouts").remove(_mShout);
             _mShout.destroy();
             _mShout = null;
-            toast.show(L('shouts_shout_has_been_deleted'));
+            toast.show(L("shouts_shout_has_been_deleted"));
 
             // select the first remaining shout as new favourite
-            _mShout = Alloy.Collections.instance('shouts').first();
+            _mShout = Alloy.Collections.instance("shouts").first();
             if (_mShout && _mShout.id) {
-                Alloy.Collections.instance('shouts').markAsFav(_mShout);
+                Alloy.Collections.instance("shouts").markAsFav(_mShout);
                 updateFavShoutSection();
                 fillShoutMatesSection();
             } else {
@@ -786,7 +786,7 @@ function onFavShoutDelete(e) {
 }
 
 function onMateClick(e) {
-    'use strict';
+    "use strict";
 
     if (OS_IOS) {
         // we use editactions on ios
@@ -805,7 +805,7 @@ function onMateClick(e) {
 }
 
 function onMateSwipe(e) {
-    'use strict';
+    "use strict";
 
     if (OS_IOS) {
         // we use editactions on ios
@@ -823,15 +823,15 @@ function onMateSwipe(e) {
 }
 
 function onGoEditMateDone(e) {
-    'use strict';
+    "use strict";
 
-    var logContext = 'shouts.js > onGoEditMateDone()';
+    var logContext = "shouts.js > onGoEditMateDone()";
     _oMateController = null;
 
     if (e.oMate) {
-        log.trace('received changed mate from editing:', logContext);
+        log.trace("received changed mate from editing:", logContext);
         log.trace(e.oMate, logContext);
-        log.trace('current mate before editing:', logContext);
+        log.trace("current mate before editing:", logContext);
         log.trace(_oIsEditingMate, logContext);
         var bMustUpdateFavShoutSection = false;
         if (_oIsEditingMate.hasShout && _oIsEditingMate.name !== e.oMate.name) {
@@ -853,7 +853,7 @@ function onGoEditMateDone(e) {
 }
 
 function onGoEditMateDelete(e) {
-    'use strict';
+    "use strict";
 
     _oMateController = null;
 
@@ -875,17 +875,17 @@ function onGoEditMateDelete(e) {
 }
 
 function goEditMate(mateId) {
-    'use strict';
+    "use strict";
 
     var oMate = _.clone(_mShout.getMate(mateId));
 
-    _oMateController = Alloy.Globals.Navigator.push('mate', {
+    _oMateController = Alloy.Globals.Navigator.push("mate", {
         mShout: _mShout,
         oMate: oMate
     });
-    // register for 'done' and 'delete' events on controller
-    _oMateController.once('done', onGoEditMateDone);
-    _oMateController.once('delete', onGoEditMateDelete);
+    // register for "done" and "delete" events on controller
+    _oMateController.once("done", onGoEditMateDone);
+    _oMateController.once("delete", onGoEditMateDelete);
 }
 
 /**
@@ -893,26 +893,26 @@ function goEditMate(mateId) {
  * @param  {Object} e Event
  */
 function doFavShout(e) {
-    'use strict';
+    "use strict";
 
     if (_mShout.getMates().length === 0) {
-        showAddSomeMatesToast(L('shouts_you_need_to_add_some_mates_first'));
+        showAddSomeMatesToast(L("shouts_you_need_to_add_some_mates_first"));
     } else {
         dialogs.confirm({
-            message: String.format(L('shouts_total_cost'), Number(_mShout.calcShoutCost(true)).toFixed(2)),
+            message: String.format(L("shouts_total_cost"), Number(_mShout.calcShoutCost(true)).toFixed(2)),
             callback: function() {
                 // update shouter balance
                 var oNextToShout = _mShout.updateShouterBalance();
                 // archive shout to history
-                Alloy.Collections.instance('history').archiveShout(_mShout);
+                Alloy.Collections.instance("history").archiveShout(_mShout);
                 // give next mate the shout and save
                 _mShout.giveMateTheShout(oNextToShout.mateId);
                 _mShout.save();
                 // the last shout becomes the favourite
-                Alloy.Collections.instance('shouts').markAsFav(_mShout);
+                Alloy.Collections.instance("shouts").markAsFav(_mShout);
 
                 // let the user know who's next up
-                toast.show(String.format(L('shouts_next_shout_is_on'), oNextToShout.name));
+                toast.show(String.format(L("shouts_next_shout_is_on"), oNextToShout.name));
 
                 // update list
                 updateFavShoutSection();
@@ -925,13 +925,13 @@ function doFavShout(e) {
 }
 
 function goAddMate() {
-    'use strict';
+    "use strict";
 
-    _oMateController = Alloy.Globals.Navigator.push('mate', {
+    _oMateController = Alloy.Globals.Navigator.push("mate", {
         mShout: _mShout
     });
-    // register for 'done' event on controller
-    _oMateController.once('done', function(e) {
+    // register for "done" event on controller
+    _oMateController.once("done", function(e) {
         _oMateController = null;
 
         if (e.oMate) {
@@ -950,64 +950,64 @@ function goAddMate() {
 }
 
 function goHistory() {
-    'use strict';
+    "use strict";
 
-    var oHistoryController = Alloy.Globals.Navigator.push('history', {
+    var oHistoryController = Alloy.Globals.Navigator.push("history", {
         mShout: _mShout
     });
-    oHistoryController.once('undo', function() {
+    oHistoryController.once("undo", function() {
         updateFavShoutSection();
         fillShoutMatesSection();
     });
 }
 
 function createAndroidMenu(menu) {
-    'use strict';
+    "use strict";
 
     if (OS_ANDROID) {
         // var menuItemDoFavShout = menu.add({
         //     itemId : CONST.MENU.SHOUTS_DO_FAV_SHOUT,
-        //     title : L('shouts_fav_shout'),
+        //     title : L("shouts_fav_shout"),
         //     showAsAction : Ti.Android.SHOW_AS_ACTION_IF_ROOM,
         //     visible : false,    // hide until shout is loaded
         // });
-        // menuItemDoFavShout.addEventListener('click', doFavShout);
+        // menuItemDoFavShout.addEventListener("click", doFavShout);
 
         var menuItemAddShout = menu.add({
             itemId: CONST.MENU.SHOUTS_ADD_SHOUT,
-            title: L('shouts_add_shout'),
+            title: L("shouts_add_shout"),
             showAsAction: Ti.Android.SHOW_AS_ACTION_IF_ROOM,
         });
-        menuItemAddShout.addEventListener('click', goShoutWiz);
+        menuItemAddShout.addEventListener("click", goShoutWiz);
 
         // var menuItemAddMate = menu.add({
         //     itemId : CONST.MENU.SHOUTS_ADD_MATE,
-        //     title : L('shout_wiz_add_mate'),
+        //     title : L("shout_wiz_add_mate"),
         //     showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER,
         //     visible : false,    // hide until shout is loaded
         // });
-        // menuItemAddMate.addEventListener('click', goAddMate);
+        // menuItemAddMate.addEventListener("click", goAddMate);
 
         var menuItemHistory = menu.add({
             itemId: CONST.MENU.SHOUTS_HISTORY,
-            title: L('shouts_history'),
+            title: L("shouts_history"),
             showAsAction: Ti.Android.SHOW_AS_ACTION_NEVER,
             visible: false, // hide until shout is loaded
         });
-        menuItemHistory.addEventListener('click', goHistory);
+        menuItemHistory.addEventListener("click", goHistory);
 
         var menuItemDelete = menu.add({
             itemId: CONST.MENU.SHOUTS_DELETE,
-            title: L('app_delete'),
+            title: L("app_delete"),
             showAsAction: Ti.Android.SHOW_AS_ACTION_NEVER,
             visible: false, // hide until shout is loaded
         });
-        menuItemDelete.addEventListener('click', onFavShoutDelete);
+        menuItemDelete.addEventListener("click", onFavShoutDelete);
     }
 }
 
 function prepareAndroidMenu(menu) {
-    'use strict';
+    "use strict";
 
     if (OS_ANDROID) {
         // var menuItemDoFavShout = menu.findItem(CONST.MENU.SHOUTS_DO_FAV_SHOUT);
@@ -1033,7 +1033,7 @@ function prepareAndroidMenu(menu) {
 }
 
 function changeMenu() {
-    'use strict';
+    "use strict";
 
     if (OS_ANDROID) {
         // we have to signal android to invalidate the options menu:
@@ -1046,11 +1046,11 @@ function changeMenu() {
 }
 
 function onWindowOpen() {
-    'use strict';
+    "use strict";
 
-    var logContext = 'shouts.js > onWindowOpen()';
+    var logContext = "shouts.js > onWindowOpen()";
 
-    $.window.removeEventListener('open', onWindowOpen);
+    $.window.removeEventListener("open", onWindowOpen);
 
     // set android menu callbacks
     if (OS_ANDROID) {
@@ -1065,21 +1065,21 @@ function onWindowOpen() {
     // reconfigure menus
     changeMenu();
 
-    log.trace('raising $.open event...', logContext);
-    $.trigger('open');
+    log.trace("raising $.open event...", logContext);
+    $.trigger("open");
 }
 
 function onWindowClose() {
-    'use strict';
+    "use strict";
 
-    $.window.removeEventListener('close', onWindowClose);
+    $.window.removeEventListener("close", onWindowClose);
 
     // destroy alloy data bindings
     $.destroy();
 }
 
 function onEditAction(e){
-    'use strict';
+    "use strict";
 
     _bIsEditingMate = true;
     _iIsEditingIndex = e.itemIndex;

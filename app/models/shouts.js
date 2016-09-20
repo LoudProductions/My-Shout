@@ -7,32 +7,32 @@ exports.definition = {
         }
     },
     extendModel : function(Model) {
-        'use strict';
+        "use strict";
 
         _.extend(Model.prototype, {
             // extended functions and properties go here
             transform : function() {
-                var logContext = 'models/shouts.js > transform()';
+                var logContext = "models/shouts.js > transform()";
 
                 var model = this;
                 var t = this.toJSON();
 
-                Object.defineProperty(t, 'uiWho', {
+                Object.defineProperty(t, "uiWho", {
                     get : function() {
-                        return (t.name && t.name !== L('app_my_shout') ? (t.name + "'s " + L('shouts_shout')) : L('app_my_shout'));
+                        return (t.name && t.name !== L("app_my_shout") ? (t.name + "'s " + L("shouts_shout")) : L("app_my_shout"));
                     }
                 });
 
-                Object.defineProperty(t, 'uiWhere', {
+                Object.defineProperty(t, "uiWhere", {
                     get : function() {
-                        return t.type + ' @ ' + (t.place || L('shouts_some_place'));
+                        return t.type + " @ " + (t.place || L("shouts_some_place"));
                     }
                 });
 
                 return t;
             },
             generateMissingMateIds : function() {
-                var logContext = 'models/shouts.js > generateMissingMateIds()';
+                var logContext = "models/shouts.js > generateMissingMateIds()";
 
                 var aMates = this.getMates();
                 var bDidSetMateIds = false;
@@ -45,23 +45,23 @@ exports.definition = {
                 }, this);
                 if (bDidSetMateIds) {
                     // update the model
-                    this.set('mates', aMates);
+                    this.set("mates", aMates);
                     this.save();
                 }
             },
             getNextMateId : function(aMates) {
                 aMates = _.isArray(aMates) ? aMates : this.getMates();
                 // generate a mate ID from the shout's ID and the mate's index
-                return this.id + '-' + (aMates.length + 1);
+                return this.id + "-" + (aMates.length + 1);
             },
             updateMate : function(oMate, bReplaceCurrentMate) {
-                var logContext = 'models/shouts.js > updateMate()';
+                var logContext = "models/shouts.js > updateMate()";
 
                 var aMates = this.getMates();
                 // check we have a valid mate
                 if (!oMate || (oMate && !oMate.mateId)) {
-                    log.error('updateMate called without a valid oMate!', logContext);
-                    throw new Error(L('shouts_could_not_find_mate'));
+                    log.error("updateMate called without a valid oMate!", logContext);
+                    throw new Error(L("shouts_could_not_find_mate"));
                 }
                 if (bReplaceCurrentMate) {
                     // remove current mate and add new one
@@ -72,15 +72,15 @@ exports.definition = {
                     var oCurrentMate = this.getMate(oMate.mateId, aMates);
                     _.extend(oCurrentMate, oMate);
                     // update the model
-                    this.set('mates', aMates);
+                    this.set("mates", aMates);
                     if (oMate.hasShout) {
                         // set the shout name based on the new shouter
-                        this.set('name', oMate.name);
+                        this.set("name", oMate.name);
                     }
                 }
             },
             removeMate : function(mateId, aMates) {
-                var logContext = 'models/shouts.js > removeMate()';
+                var logContext = "models/shouts.js > removeMate()";
 
                 aMates = _.isArray(aMates) ? aMates : this.getMates();
                 // find the specified mate
@@ -88,28 +88,28 @@ exports.definition = {
                 // check that the mate does not currently have the shout
                 if (oMate.hasShout) {
                     // we throw an error but don't log anything as this is a user error
-                    throw new Error(L('shouts_give_the_next_shout_to_someone_else_first'));
+                    throw new Error(L("shouts_give_the_next_shout_to_someone_else_first"));
                 }
                 // remove mate from model
                 var aMatesWithout = _.without(aMates, oMate);
-                this.set('mates', aMatesWithout);
+                this.set("mates", aMatesWithout);
             },
             addMate : function(oMate, aMates) {
-                var logContext = 'models/shouts.js > addMate()';
+                var logContext = "models/shouts.js > addMate()";
 
                 aMates = _.isArray(aMates) ? aMates : this.getMates();
                 // add to member array keeping track of mates
                 // if this will be the first mate, they have the shout by default
                 if (aMates.length === 0) {
                     oMate.hasShout = true;
-                    this.set('name', oMate.name);
+                    this.set("name", oMate.name);
                 }
                 if (!oMate.mateId) {
                     oMate.mateId = this.getNextMateId(aMates);
                 }
                 aMates.push(oMate);
                 // update shout model
-                this.set('mates', aMates);
+                this.set("mates", aMates);
 
                 // check if new mate has the shout
                 if (oMate.hasShout) {
@@ -118,10 +118,10 @@ exports.definition = {
                 return oMate;
             },
             getMates : function() {
-                return this.get('mates') || [];
+                return this.get("mates") || [];
             },
             getMate : function(mateId, aMates) {
-                var logContext = 'models/shouts.js > getMate()';
+                var logContext = "models/shouts.js > getMate()";
 
                 // find the specified mate
                 aMates = _.isArray(aMates) ? aMates : this.getMates();
@@ -129,14 +129,14 @@ exports.definition = {
                     mateId: mateId
                 });
                 if (!oMate) {
-                    log.error(String.format('Mate with id %s not found!', mateId), logContext);
-                    throw new Error(L('shouts_could_not_find_mate'));
+                    log.error(String.format("Mate with id %s not found!", mateId), logContext);
+                    throw new Error(L("shouts_could_not_find_mate"));
                 } else {
                     return oMate;
                 }
             },
             getShouter : function(aMates) {
-                var logContext = 'models/shouts.js > getShouter()';
+                var logContext = "models/shouts.js > getShouter()";
 
                 aMates = _.isArray(aMates) ? aMates : this.getMates();
                 // find the mate that currently has the shout
@@ -144,21 +144,21 @@ exports.definition = {
                     hasShout: true
                 });
                 if (!oMate) {
-                    log.error(L('shouts_could_not_find_shouter'), logContext);
-                    throw new Error(L('shouts_could_not_find_shouter'));
+                    log.error(L("shouts_could_not_find_shouter"), logContext);
+                    throw new Error(L("shouts_could_not_find_shouter"));
                 } else {
                     return oMate;
                 }
             },
             giveMateTheShout : function(mateId, aMates) {
-                var logContext = 'models/shouts.js > giveMateTheShout()';
+                var logContext = "models/shouts.js > giveMateTheShout()";
 
                 aMates = _.isArray(aMates) ? aMates : this.getMates();
                 // find the specified mate
                 var oNewShouter = this.getMate(mateId, aMates);
                 // if the mate already has the shout there is nothing for us to do here
                 if (oNewShouter.hasShout) {
-                    log.debug('new shouter already has the shout: ' + oNewShouter.name, logContext);
+                    log.debug("new shouter already has the shout: " + oNewShouter.name, logContext);
                     return oNewShouter;
                 }
 
@@ -169,20 +169,20 @@ exports.definition = {
                 oOldShouter.hasShout = false;
                 oNewShouter.hasShout = true;
                 oNewShouter.isInactive = false; // automatically activate mate if giving the shout
-                log.debug('unmarked previous shouter: ' + oOldShouter.name, logContext);
-                log.debug('marked new shouter: ' + oNewShouter.name, logContext);
+                log.debug("unmarked previous shouter: " + oOldShouter.name, logContext);
+                log.debug("marked new shouter: " + oNewShouter.name, logContext);
 
                 // update the model
-                this.set('mates', aMates);
+                this.set("mates", aMates);
                 // set the shout name based on the new shouter
-                this.set('name', oNewShouter.name);
-                log.debug('model after switching shouts:', logContext);
+                this.set("name", oNewShouter.name);
+                log.debug("model after switching shouts:", logContext);
                 log.debug(this.toJSON(), logContext);
 
                 return oOldShouter;
             },
             calcShoutCost : function(bIncludeShouter, aMates) {
-                var logContext = 'models/shouts.js > calcShoutCost()';
+                var logContext = "models/shouts.js > calcShoutCost()";
 
                 aMates = _.isArray(aMates) ? aMates : this.getMates();
                 // calculate cost to the shouter
@@ -196,7 +196,7 @@ exports.definition = {
                 }, 0);
             },
             updateShouterBalance : function() {
-                var logContext = 'models/shouts.js > updateShouterBalance()';
+                var logContext = "models/shouts.js > updateShouterBalance()";
 
                 var aMates = this.getMates();
                 // calculate cost to the shouter
@@ -204,12 +204,12 @@ exports.definition = {
                 // add cost to shouters balance
                 var oShouter = this.getShouter(aMates);
                 oShouter.balance = (Number(oShouter.balance) || 0) + shoutCost;
-                log.debug('crediting ' + oShouter.name + ': ' + shoutCost, logContext);
+                log.debug("crediting " + oShouter.name + ": " + shoutCost, logContext);
                 // subtract price from each mates balance
                 _.each(aMates, function(oMate) {
                     if (!oMate.isInactive && oMate !== oShouter) {
                         oMate.balance = (Number(oMate.balance) || 0) - Number(oMate.price);
-                        log.debug('debiting ' + oMate.name + ': ' + oMate.price, logContext);
+                        log.debug("debiting " + oMate.name + ": " + oMate.price, logContext);
                     }
                 });
                 // find next to shout and swap the shout
@@ -219,7 +219,7 @@ exports.definition = {
                 return oNextToShout;
             },
             undoShout: function(aUndoMates) {
-				var logContext = 'models/shouts.js > undoShout()';
+				var logContext = "models/shouts.js > undoShout()";
 
                 var aMates = this.getMates();
                 // calculate cost to the original shouters
@@ -236,8 +236,8 @@ exports.definition = {
                 var oUndoShouter = _.findWhere(aUndoMates, {
                     hasShout : true
                 });
-                log.debug('original shouter: ' + oUndoShouter.name, logContext);
-                log.debug('cost to be debited: ' + undoCost, logContext);
+                log.debug("original shouter: " + oUndoShouter.name, logContext);
+                log.debug("cost to be debited: " + undoCost, logContext);
                 var oPreviousShouter = this.getMate(oUndoShouter.mateId, aMates);
                 oPreviousShouter.balance = (Number(oPreviousShouter.balance) || 0) - undoCost;
                 // add price of original poison to each mate's balance
@@ -245,65 +245,65 @@ exports.definition = {
                     var oMate = this.getMate(oUndoMate.mateId, aMates);
                     if (oMate && !oUndoMate.isInactive && oUndoMate !== oUndoShouter) {
                         oMate.balance = (Number(oMate.balance) || 0) + Number(oUndoMate.price);
-                        log.debug('crediting ' + oUndoMate.name + ': ' + oUndoMate.price, logContext);
+                        log.debug("crediting " + oUndoMate.name + ": " + oUndoMate.price, logContext);
                     }
                 }, this);
                 // find next to shout and swap the shout
                 var oNextToShout = _.min(aMates, function(oMate) {
                     return (Number(oMate.balance) || 0);
                 });
-                log.debug('giving the next shout to ' + oNextToShout.name, logContext);
+                log.debug("giving the next shout to " + oNextToShout.name, logContext);
                 this.giveMateTheShout(oNextToShout.mateId, aMates);
                 this.save();
 			},
             validate : function(bNoFix) {
-				var logContext = 'models/shouts.js > validate()';
+				var logContext = "models/shouts.js > validate()";
 
 				// check all keys actually exist
 				var oShout = this.toJSON();
-				log.debug('validating model:', logContext);
+				log.debug("validating model:", logContext);
 				log.debug(oShout, logContext);
 
                 var bDidChange = false;
-				if (!_.has(oShout, 'name')) {
+				if (!_.has(oShout, "name")) {
                     bDidChange = true;
-					oShout.name = L('app_my_shout');
+					oShout.name = L("app_my_shout");
 				}
-				if (!_.has(oShout, 'type')) {
+				if (!_.has(oShout, "type")) {
                     bDidChange = true;
-					oShout.type = L('shout_wiz_coffee');
+					oShout.type = L("shout_wiz_coffee");
 				}
-				if (!_.has(oShout, 'place')) {
+				if (!_.has(oShout, "place")) {
                     bDidChange = true;
-					oShout.place = L('shouts_some_place');
+					oShout.place = L("shouts_some_place");
 				}
-				if (!_.has(oShout, 'mates')) {
+				if (!_.has(oShout, "mates")) {
                     bDidChange = true;
 					oShout.mates = [];
 				}
-				if (!_.has(oShout, 'isFav')) {
+				if (!_.has(oShout, "isFav")) {
                     bDidChange = true;
 					oShout.isFav = false;
 				}
 				// now check that we have acceptable values for each
 				// if (!oShout.name) {
-				// 	log.error(L(''), logContext);
-				// 	throw new Error(L('mate_name_is_required'));
+				// 	log.error(L(""), logContext);
+				// 	throw new Error(L("mate_name_is_required"));
 				// }
 				if (!bNoFix && bDidChange) {
-                    log.debug('model changed as a result of validation:', logContext);
+                    log.debug("model changed as a result of validation:", logContext);
     				log.debug(oShout, logContext);
 					this.set(oShout);
 				}
 			},
             save : function(options) {
-                var logContext = 'models/shouts.js > save()';
+                var logContext = "models/shouts.js > save()";
 
                 // validate model first
                 this.validate();
 
                 options = options ? _.clone(options) : {};
-                log.debug('saving...' + (options ? ' with options: ' + JSON.stringify(options) : ''), logContext);
+                log.debug("saving..." + (options ? " with options: " + JSON.stringify(options) : ""), logContext);
 
                 return Backbone.Model.prototype.save.call(this, options);
             },
@@ -312,7 +312,7 @@ exports.definition = {
         return Model;
     },
     extendCollection : function(Collection) {
-        'use strict';
+        "use strict";
 
         _.extend(Collection.prototype, {
             // extended functions and properties go here
@@ -325,18 +325,18 @@ exports.definition = {
                 return Backbone.Collection.prototype.fetch.call(this, options);
             },
             markAsFav : function(mFavShout) {
-                var logContext = 'models/shouts.js > markAsFav()';
+                var logContext = "models/shouts.js > markAsFav()";
 
                 // mark the new model as favourite and unmark all others
                 _.each(this.models, function(mShout) {
-                    if (mShout.id === mFavShout.id && mShout.get('isFav') === false) {
-                        log.debug('marking shout as favourite...', logContext);
-                        mShout.set('isFav', true);
+                    if (mShout.id === mFavShout.id && mShout.get("isFav") === false) {
+                        log.debug("marking shout as favourite...", logContext);
+                        mShout.set("isFav", true);
                         mShout.save();
                     }
-                    if (mShout.id !== mFavShout.id && mShout.get('isFav') === true) {
-                        log.debug('unmarking shout as favourite...', logContext);
-                        mShout.set('isFav', false);
+                    if (mShout.id !== mFavShout.id && mShout.get("isFav") === true) {
+                        log.debug("unmarking shout as favourite...", logContext);
+                        mShout.set("isFav", false);
                         mShout.save();
                     }
                 }, this);

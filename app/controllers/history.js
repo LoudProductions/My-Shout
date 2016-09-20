@@ -1,5 +1,5 @@
-var dialogs = require('alloy/dialogs');
-var moment = require('alloy/moment');
+var dialogs = require("alloy/dialogs");
+var moment = require("alloy/moment");
 
 var _mShout;
 var _aSortedShoutHistory = [];
@@ -13,7 +13,7 @@ var _aSortedShoutHistory = [];
     // Use strict mode for this function scope. We can't do this for all of the
     // controller because after Alloy has compiled all of this file is wrapped.
     // FIXME: https://jira.appcelerator.org/browse/ALOY-1263
-    'use strict';
+    "use strict";
 
     _mShout = args.mShout;
 
@@ -22,27 +22,27 @@ var _aSortedShoutHistory = [];
     /**
      * window open/close
      */
-    $.window.addEventListener('open', onWindowOpen);
-    $.window.addEventListener('close', onWindowClose);
+    $.window.addEventListener("open", onWindowOpen);
+    $.window.addEventListener("close", onWindowClose);
 
 })(arguments[0] || {});
 
 function init() {
-    'use strict';
+    "use strict";
 
-    var logContext = 'history.js > init()';
-    log.trace('initialising...', logContext);
+    var logContext = "history.js > init()";
+    log.trace("initialising...", logContext);
 
     // fetch history collection if not done yet
-    var cHistory = Alloy.Collections.instance('history');
+    var cHistory = Alloy.Collections.instance("history");
     if (cHistory.length === 0) {
         cHistory.fetch();
     }
-    log.debug('history collection fetched... model count: ' + cHistory.length, logContext);
+    log.debug("history collection fetched... model count: " + cHistory.length, logContext);
 
     // read history for shout
     var aShoutHistory = cHistory.getShoutHistory(_mShout.id);
-    log.debug('history for shout:', logContext);
+    log.debug("history for shout:", logContext);
     log.debug(aShoutHistory, logContext);
 
     if (aShoutHistory.length > 0) {
@@ -50,24 +50,24 @@ function init() {
         $.history_listview.setVisible(true);
 
         _aSortedShoutHistory = _.sortBy(aShoutHistory, function(mHistory) {
-            return mHistory.get('shoutAt');
+            return mHistory.get("shoutAt");
         }).reverse();
         buildHistoryList(_aSortedShoutHistory);
     }
 
-    log.trace('raising $.loaded event...', logContext);
-    $.trigger('loaded');
+    log.trace("raising $.loaded event...", logContext);
+    $.trigger("loaded");
 }
 
 function buildHistoryList(aShoutHistory) {
-    'use strict';
+    "use strict";
 
     // create a section for each shout
     var i = 0;
     _.each(aShoutHistory, function(mHistory) {
         var oHistory = mHistory.transform();
         // var oShoutSection = Ti.UI.createListSection({
-        //     headerTitle: oHistory.uiWho + ', ' + moment(oHistory.shoutAt).fromNow()
+        //     headerTitle: oHistory.uiWho + ", " + moment(oHistory.shoutAt).fromNow()
         // });
         var oShoutSection = Ti.UI.createListSection({
             headerView: buildHistorySectionHeader(oHistory, i)
@@ -83,27 +83,27 @@ function buildHistoryList(aShoutHistory) {
 }
 
 function buildHistorySectionHeader(oHistory, iSectionIndex) {
-    'use strict';
+    "use strict";
 
     // create section header view
     var oHeaderView = Ti.UI.createView();
-    $.addClass(oHeaderView, 'listHeader');
+    $.addClass(oHeaderView, "listHeader");
 
     // add label with section title
     var oHeaderTitle = Ti.UI.createLabel({
-        text : oHistory.uiWho + ', ' + moment(oHistory.shoutAt).fromNow(),
+        text : oHistory.uiWho + ", " + moment(oHistory.shoutAt).fromNow(),
     });
-    $.addClass(oHeaderTitle, 'listHeaderTitle');
+    $.addClass(oHeaderTitle, "listHeaderTitle");
     oHeaderView.add(oHeaderTitle);
 
     // add view and label for undo icon (to first shout only)
     if (iSectionIndex === 0) {
         var oUndoIconView = Ti.UI.createView();
-        $.addClass(oUndoIconView, 'appCompositeView');
+        $.addClass(oUndoIconView, "appCompositeView");
         var oUndoIconLabel = Ti.UI.createLabel();
-        $.addClass(oUndoIconLabel, 'listHeaderUndoIcon appListItemRightIcon1');
+        $.addClass(oUndoIconLabel, "listHeaderUndoIcon appListItemRightIcon1");
         oUndoIconLabel._app_iSectionIndex = iSectionIndex;
-        oUndoIconLabel.addEventListener('click', onUndoShout);
+        oUndoIconLabel.addEventListener("click", onUndoShout);
         oUndoIconView.add(oUndoIconLabel);
         oHeaderView.add(oUndoIconView);
     }
@@ -112,7 +112,7 @@ function buildHistorySectionHeader(oHistory, iSectionIndex) {
 }
 
 function mapMateListItem(oMate, iSectionIndex, template) {
-    'use strict';
+    "use strict";
 
     // set mate's background color
     var mateColor = Alloy.CFG.colors.textColor;
@@ -125,7 +125,7 @@ function mapMateListItem(oMate, iSectionIndex, template) {
     }
 
     return {
-        template: template || 'shout_mates_template',
+        template: template || "shout_mates_template",
         properties: {
             accessoryType: Ti.UI.LIST_ACCESSORY_TYPE_NONE,
             searchableText: oMate.name + oMate.poison + oMate.price,
@@ -191,8 +191,8 @@ function mapMateListItem(oMate, iSectionIndex, template) {
         // if binding to a view then the associated class is overridden
         // and all styling properties must be supplied here
         mate_bg_view: {
-        	width: '100%',
-        	layout: 'horizontal',
+        	width: "100%",
+        	layout: "horizontal",
         	horizontalWrap: false,
             color: mateColor,
             backgroundColor: mateBackgroundColor
@@ -201,17 +201,17 @@ function mapMateListItem(oMate, iSectionIndex, template) {
 }
 
 function getAttributedPriceText(price, hasShout) {
-    'use strict';
+    "use strict";
 
     price = isNaN(price) ? 0 : price;
     var oAttributedString = Ti.UI.createAttributedString({
-        text: '$' + Number(price).toFixed(2),
+        text: "$" + Number(price).toFixed(2),
     });
     oAttributedString.addAttribute({
         type: Ti.UI.ATTRIBUTE_FONT,
         value: {
             fontSize: 12,
-            fontFamily: 'OpenSans-Bold'
+            fontFamily: "OpenSans-Bold"
         },
         range: [0, 1]
     });
@@ -219,18 +219,18 @@ function getAttributedPriceText(price, hasShout) {
 }
 
 function getAttributedBalanceText(balance, hasShout) {
-    'use strict';
+    "use strict";
 
     balance = isNaN(balance) ? 0 : balance;
-    var sign = (balance < 0 ? '-' : '');
+    var sign = (balance < 0 ? "-" : "");
     var oAttributedString = Ti.UI.createAttributedString({
-        text: sign + '$' + Number(Math.abs(balance)).toFixed(2),
+        text: sign + "$" + Number(Math.abs(balance)).toFixed(2),
     });
     oAttributedString.addAttribute({
         type: Ti.UI.ATTRIBUTE_FONT,
         value: {
             fontSize: 8,
-            fontFamily: 'OpenSans-Light'
+            fontFamily: "OpenSans-Light"
         },
         range: [0, 1]
     });
@@ -246,21 +246,21 @@ function getAttributedBalanceText(balance, hasShout) {
 }
 
 function createAndroidMenu(menu) {
-    'use strict';
+    "use strict";
 
     if (OS_ANDROID) {
     }
 }
 
 function prepareAndroidMenu(menu) {
-    'use strict';
+    "use strict";
 
     if (OS_ANDROID) {
     }
 }
 
 function changeMenu() {
-    'use strict';
+    "use strict";
 
     if (OS_ANDROID) {
         // // we have to signal android to invalidate the options menu:
@@ -273,9 +273,9 @@ function changeMenu() {
 }
 
 function onWindowOpen() {
-    'use strict';
+    "use strict";
 
-    $.window.removeEventListener('open', onWindowOpen);
+    $.window.removeEventListener("open", onWindowOpen);
 
     // set android menu callbacks
     if (OS_ANDROID) {
@@ -292,24 +292,24 @@ function onWindowOpen() {
 }
 
 function onWindowClose() {
-    'use strict';
+    "use strict";
 
-    $.window.removeEventListener('close', onWindowClose);
+    $.window.removeEventListener("close", onWindowClose);
 
     // destroy alloy data bindings
     $.destroy();
 }
 
 function onUndoShout(e){
-    'use strict';
+    "use strict";
 
-    var logContext = 'history.js > onUndoShout()';
+    var logContext = "history.js > onUndoShout()";
 
-    var iSectionIndex = (e && e.source && _.has(e.source, '_app_iSectionIndex') ? e.source._app_iSectionIndex : -1);
+    var iSectionIndex = (e && e.source && _.has(e.source, "_app_iSectionIndex") ? e.source._app_iSectionIndex : -1);
     if (iSectionIndex === -1) {
-        log.error('unable to determine sectionIndex for shout!', logContext);
+        log.error("unable to determine sectionIndex for shout!", logContext);
         log.debug(e, logContext);
-        toast.show(L('history_could_not_find_shout'));
+        toast.show(L("history_could_not_find_shout"));
     }
 
     var mHistory = _aSortedShoutHistory[iSectionIndex];
@@ -318,16 +318,16 @@ function onUndoShout(e){
         mHistory.undoShout();
         mHistory.destroy();
 
-        log.trace('raising $.undo event...', logContext);
-        $.trigger('undo');
+        log.trace("raising $.undo event...", logContext);
+        $.trigger("undo");
 
         // let the user know and navigate back
-        toast.show(L('history_shout_has_been_reversed'));
+        toast.show(L("history_shout_has_been_reversed"));
         Alloy.Globals.Navigator.pop();
     }
 }
 
 function onMateClick(e){
-    'use strict';
+    "use strict";
 
 }

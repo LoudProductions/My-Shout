@@ -1,54 +1,46 @@
-'#mate_container': {
-		/*borderColor: 'pink',*/
+"#mate_container" : {
+	/*borderColor: "pink",*/
 }
-
-'.mateIntro': {
+".mateIntro" : {
 	top: 40,
 	font: {
 		fontSize: 14,
-    	fontFamily: 'OpenSans-Light'
+		fontFamily: "OpenSans-Light"
 	}
 }
-
-'.mateName': {
+".mateName" : {
 	autocorrect: false,
 	top: 20,
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 16,
-    	fontFamily: 'OpenSans-Bold',
-	},
+		fontFamily: "OpenSans-Bold"
+	}
 }
-
-'.autoNext': {
+".autoNext" : {}
+".autoNext[platform=ios]" : {
+	suppressReturn: false
 }
-
-'.autoNext[platform=ios]': {
-	suppressReturn: false,
-}
-
-'.matePoison': {
+".matePoison" : {
 	top: 20,
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 16,
-    	fontFamily: 'OpenSans-BoldItalic',
-	},
+		fontFamily: "OpenSans-BoldItalic"
+	}
 }
-
-'.matePrice': {
+".matePrice" : {
 	top: 20,
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	font: {
 		fontSize: 16,
-    	fontFamily: 'OpenSans-BoldItalic',
+		fontFamily: "OpenSans-BoldItalic"
 	},
-  keyboardType: Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD,
+	keyboardType: Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD
 }
-
-'.bottomButton': {
-	bottom: 40,
+".bottomButton" : {
+	bottom: 40
 }
