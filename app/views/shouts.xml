@@ -40,14 +40,14 @@
 				</HeaderView>
 				<Templates>
 					<ItemTemplate name="fav_shout_template" class="favShoutsListItem">
-						<Label class="favShoutWhereTop" bindId="shout_where" touchEnabled="false"/>
+						<Label class="favShoutWhereTop appTextStyleTitle1" bindId="shout_where" touchEnabled="false"/>
 						<View onSwipe="onFavShoutSwipe" onClick="onFavShoutClick">
 							<View class="favShoutImage" touchEnabled="false" elevation="8"/>
 							<!-- <View class="favShoutCirc1" touchEnabled="false" elevation="8">
 								<View class="favShoutCirc2" touchEnabled="false">
 									<Label class="favShoutIcon" touchEnabled="false"/>
-									<Label class="favShoutWho" bindId="shout_who" touchEnabled="false"/>
-									<Label class="favShoutWhere" bindId="shout_where" touchEnabled="false"/>
+									<Label class="favShoutWho appTextStyleHeadline" bindId="shout_who" touchEnabled="false"/>
+									<Label class="favShoutWhere appTextStyleSubheadline" bindId="shout_where" touchEnabled="false"/>
 								</View>
 							</View> -->
 						</View>
@@ -56,18 +56,18 @@
 						<View bindId="mate_bg_view" onSwipe="onMateSwipe" onClick="onMateClick">
 							<View class="matesListItemLeftThird">
 								<View class="appHalfHeight">
-									<Label class="listItemTitle" bindId="mate_name"/>
+									<Label class="listItemTitle appTextStyleCaption1" bindId="mate_name"/>
 								</View>
 								<View class="appHalfHeight">
-									<Label class="listItemSubtitle" bindId="mate_balance"/>
+									<Label class="listItemSubtitle appTextStyleBody" bindId="mate_balance"/>
 								</View>
 							</View>
 							<View class="matesListItemMiddleThird">
 								<View class="appHalfHeight">
-									<Label class="listItemPoison" bindId="mate_poison"/>
+									<Label class="listItemPoison appTextStyleCallout" bindId="mate_poison"/>
 								</View>
 								<View class="appHalfHeight">
-									<Label class="listItemPrice" bindId="mate_price"/>
+									<Label class="listItemPrice appTextStyleCaption2" bindId="mate_price"/>
 								</View>
 							</View>
 							<View class="appCompositeView">
@@ -79,10 +79,10 @@
 						<View bindId="mate_bg_view">
 							<View class="matesListItemLeft" onClick="onMateClick">
 								<View class="appHalfHeight">
-									<Label class="listItemTitle" bindId="mate_name"/>
+									<Label class="listItemTitle appTextStyleCaption1" bindId="mate_name"/>
 								</View>
 								<View class="appHalfHeight">
-									<Label class="listItemSubtitle" bindId="mate_balance"/>
+									<Label class="listItemSubtitle appTextStyleBody" bindId="mate_balance"/>
 								</View>
 							</View>
 							<View class="appCompositeView">
@@ -103,11 +103,6 @@
 						</View>
 					</HeaderView>
 				</ListSection>
-				<!-- <ListSection>
-					  <HeaderView>
-							<Button class="appWideButton" title="L('shouts_add_mate')" onClick="goAddMate" />
-						</HeaderView>
-				</ListSection> -->
 			</ListView>
 		</View>
 

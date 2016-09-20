@@ -3,20 +3,12 @@
 }
 ".mateIntro" : {
 	top: 40,
-	font: {
-		fontSize: 14,
-		fontFamily: "OpenSans-Light"
-	}
 }
 ".mateName" : {
 	autocorrect: false,
 	top: 20,
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
-	font: {
-		fontSize: 16,
-		fontFamily: "OpenSans-Bold"
-	}
 }
 ".autoNext" : {}
 ".autoNext[platform=ios]" : {
@@ -26,19 +18,11 @@
 	top: 20,
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
-	font: {
-		fontSize: 16,
-		fontFamily: "OpenSans-BoldItalic"
-	}
 }
 ".matePrice" : {
 	top: 20,
 	width: Titanium.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
-	font: {
-		fontSize: 16,
-		fontFamily: "OpenSans-BoldItalic"
-	},
 	keyboardType: Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD
 }
 ".bottomButton" : {

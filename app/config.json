@@ -1,33 +1,95 @@
 {
-	"global": {
-		"logging": {
-			"mustShowCallingContext": true,
-			"mustShowDate": true
-		},
-		"colors": {
-  		"textColor": "#90000000",
-			"backgroundColor": "#ffffff",
-			"bgColorTransparent": "#10ffffff",
-			"appGradientTop": "#f09273",
-			"appGradientBottom": "#6a6a7d",
-			"altGradientTop": "#222238",
-			"altGradientBottom": "#6a6a7d",
-			"shoutBackgroundColor": "#f09273",
-			"tintColor": "#f96636",
-			"brandHintColor": "#45ffffff",
-			"inactiveColor": "#50b3b3b3",
-			"inactiveBackgroundColor": "#80b3b3b3",
-			"negativeColor": "#ff0000"
-		},
-		"minVersion": "1.8.5"
-	},
-	"env:development": {},
-	"env:test": {},
-	"env:production": {},
-	"os:android": {},
-	"os:ios": {},
-	"os:mobileweb": {},
-	"os:windows": {},
-	"dependencies": {},
+    "global": {
+        "logging": {
+            "mustShowCallingContext": true,
+            "mustShowDate": true
+        },
+        "colors": {
+            "textColor": "#90000000",
+            "backgroundColor": "#ffffff",
+            "bgColorTransparent": "#10ffffff",
+            "appGradientTop": "#f09273",
+            "appGradientBottom": "#6a6a7d",
+            "altGradientTop": "#222238",
+            "altGradientBottom": "#6a6a7d",
+            "shoutBackgroundColor": "#f09273",
+            "tintColor": "#f96636",
+            "brandHintColor": "#45ffffff",
+            "inactiveColor": "#50b3b3b3",
+            "inactiveBackgroundColor": "#80b3b3b3",
+            "negativeColor": "#ff0000"
+        },
+        "fonts": {
+            "title1": {
+                "fontSize": 25,
+                "fontFamily": "OpenSans-Light"
+            },
+            "title2": {
+                "fontSize": 18,
+                "fontFamily": "OpenSans-Regular"
+            },
+            "title3": {
+                "fontSize": 16,
+                "fontFamily": "OpenSans-Light"
+            },
+            "headline": {
+                "fontSize": 20,
+                "fontFamily": "OpenSans-Bold"
+            },
+            "subheadline": {
+                "fontSize": 18,
+                "fontFamily": "OpenSans-Light"
+            },
+            "body": {
+                "fontSize": 16,
+                "fontFamily": "OpenSans-Regular"
+            },
+            "footnote": {
+                "fontSize": 12,
+                "fontFamily": "OpenSans-Light"
+            },
+            "caption1": {
+                "fontSize": 16,
+                "fontFamily": "OpenSans-Bold"
+            },
+            "caption2": {
+                "fontSize": 14,
+                "fontFamily": "OpenSans-BoldItalic"
+            },
+            "callout": {
+                "fontSize": 16,
+                "fontFamily": "OpenSans-Light"
+            },
+            "faIcon": {
+                "fontSize": 20,
+                "fontFamily": "FontAwesome"
+            },
+            "faIconNav": {
+                "fontSize": 24,
+                "fontFamily": "FontAwesome"
+            },
+            "faIconListHeader": {
+                "fontSize": 30,
+                "fontFamily": "FontAwesome"
+            },
+            "faIconXS": {
+                "fontSize": 8,
+                "fontFamily": "FontAwesome"
+            },
+            "faIconXXL": {
+                "fontSize": 100,
+                "fontFamily": "FontAwesome"
+            }
+        },
+        "minVersion": "1.8.5"
+    },
+    "env:development": {},
+    "env:test": {},
+    "env:production": {},
+    "os:android": {},
+    "os:ios": {},
+    "os:mobileweb": {},
+    "os:windows": {},
+    "dependencies": {},
     "backbone": "1.1.2"
 }

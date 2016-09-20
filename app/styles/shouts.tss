@@ -4,30 +4,21 @@
 ".navAddShoutIcon" : {
 	width: 40,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT,
-	font: {
-		fontSize: 24,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIconNav,
 	color: Alloy.CFG.colors.tintColor,
 	text: Alloy.Globals.FAIcons.plus
 }
 ".navHistoryIcon" : {
 	width: 40,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT,
-	font: {
-		fontSize: 24,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIconNav,
 	color: Alloy.CFG.colors.tintColor,
 	text: Alloy.Globals.FAIcons.history
 }
 ".navDeleteIcon" : {
 	width: 40,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT,
-	font: {
-		fontSize: 24,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIconNav,
 	color: Alloy.CFG.colors.tintColor,
 	text: Alloy.Globals.FAIcons.trash
 }
@@ -38,10 +29,6 @@
 }
 ".favShoutWhereTop" : {
 	top: 10,
-	font: {
-		fontSize: 20,
-		fontFamily: "OpenSans-Light"
-	},
 	color: Alloy.CFG.colors.backgroundColor
 }
 ".favShoutCirc1" : {
@@ -61,27 +48,16 @@
 	borderWidth: 5
 }
 ".favShoutIcon" : {
-	font: {
-		fontSize: 100,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIconXXL,
 	color: Alloy.CFG.colors.backgroundColor,
 	text: Alloy.Globals.FAIcons.bullhorn
 }
 ".favShoutWho" : {
 	top: 160,
-	font: {
-		fontSize: 20,
-		fontFamily: "OpenSans-Bold"
-	},
 	color: Alloy.CFG.colors.backgroundColor
 }
 ".favShoutWhere" : {
 	top: 185,
-	font: {
-		fontSize: 12,
-		fontFamily: "OpenSans-Light"
-	},
 	color: Alloy.CFG.colors.backgroundColor
 }
 ".shoutsList" : {}
@@ -141,155 +117,89 @@
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM,
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
-	font: {
-		fontSize: 16,
-		fontFamily: "OpenSans-Bold"
-	}
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT
 }
 ".listItemSubtitle" : {
 	left: 16,
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_TOP,
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
-	font: {
-		fontSize: 12,
-		fontFamily: "OpenSans-Light"
-	}
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT
 }
 ".listItemPoison" : {
 	/*bottom: 15,*/
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM,
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
-	font: {
-		fontSize: 12,
-		fontFamily: "OpenSans-Light"
-	}
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
 }
 ".listItemPrice" : {
 	/*top: 15,*/
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_TOP,
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
-	font: {
-		fontSize: 14,
-		fontFamily: "OpenSans-BoldItalic"
-	}
-}
-".listItemPriceEdit" : {
-	top: 5,
-	height: 30,
-	width: Titanium.UI.FILL,
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
-	font: {
-		fontSize: 16,
-		fontFamily: "OpenSans-BoldItalic"
-	}
-}
-".listItemPoisonEdit" : {
-	top: 40,
-	height: 30,
-	width: Titanium.UI.FILL,
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
-	font: {
-		fontSize: 12,
-		fontFamily: "OpenSans-Light"
-	}
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
 }
 ".listItemSwitch" : {}
 ".listItemDisclosureIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
-	font: {
-		fontSize: 20,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIcon,
 	color: Alloy.CFG.colors.inactive,
 	text: Alloy.Globals.FAIcons.angle_right
 }
 ".listItemEllipsisIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
-	font: {
-		fontSize: 20,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIcon,
 	/*color will be dynamically bound...*/
 	text: Alloy.Globals.FAIcons.ellipsis_h
 }
 ".listItemEditIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
-	font: {
-		fontSize: 20,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIcon,
 	/*color will be dynamically bound...*/
 	text: Alloy.Globals.FAIcons.pencil
 }
 ".listItemShoutIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
-	font: {
-		fontSize: 20,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIcon,
 	/*color will be dynamically bound...*/
 	text: Alloy.Globals.FAIcons.bullhorn
 }
 ".listItemYourShoutIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
-	font: {
-		fontSize: 20,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIcon,
 	/*color will be dynamically bound...*/
 	text: Alloy.Globals.FAIcons.hand_o_left
 }
 ".listItemIsInactiveIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
-	font: {
-		fontSize: 20,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIcon,
 	/*color will be dynamically bound...*/
 	text: Alloy.Globals.FAIcons.toggle_off
 }
 ".listItemSaveIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
-	font: {
-		fontSize: 20,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIcon,
 	/*color will be dynamically bound...*/
 	text: Alloy.Globals.FAIcons.save
 }
 ".listHeaderAddIcon" : {
 	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-	font: {
-		fontSize: 30,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIconListHeader,
 	color: Alloy.CFG.colors.tintColor,
 	text: Alloy.Globals.FAIcons.plus
 }
 ".currentPageIndicatorIcon" : {
 	width: 10,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-	font: {
-		fontSize: 8,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIconXS,
 	color: Alloy.CFG.colors.brandHintColor,
 	text: Alloy.Globals.FAIcons.dot_circle_o
 }
 ".otherPageIndicatorIcon" : {
 	width: 10,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-	font: {
-		fontSize: 8,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIconXS,
 	color: Alloy.CFG.colors.inactiveBackgroundColor,
 	text: Alloy.Globals.FAIcons.circle
 }

@@ -1,8 +1,8 @@
 <Alloy>
 	<Window class="appGradient" id="window" title="L('history_shout_history')">
 		<View class="noHistory" id="no_history_view">
-			<Label class="historyTitle" text="L('history_no_history')" />
-			<Label class="historySubtitle" text="L('history_dont_just_stand_there')" />
+			<Label class="historyTitle appTextStyleTitle1" text="L('history_no_history')" />
+			<Label class="historySubtitle appTextStyleBody" text="L('history_dont_just_stand_there')" />
 		</View>
 		<View class="appCanvas">
 			<ListView class="historyList" id="history_listview" visible="false">
@@ -11,18 +11,18 @@
 						<View bindId="mate_bg_view" onClick="onMateClick">
 							<View class="matesListItemLeft">
 								<View class="appHalfHeight">
-									<Label class="listItemTitle" bindId="mate_name"/>
+									<Label class="listItemTitle appTextStyleCaption1" bindId="mate_name"/>
 								</View>
 								<View class="appHalfHeight">
-									<Label class="listItemSubtitle" bindId="mate_balance"/>
+									<Label class="listItemSubtitle appTextStyleBody" bindId="mate_balance"/>
 								</View>
 							</View>
 							<View class="matesListItemMiddle">
 								<View class="appHalfHeight">
-									<Label class="listItemPoison" bindId="mate_poison"/>
+									<Label class="listItemPoison appTextStyleCallout" bindId="mate_poison"/>
 								</View>
 								<View class="appHalfHeight">
-									<Label class="listItemPrice" bindId="mate_price"/>
+									<Label class="listItemPrice appTextStyleCaption2" bindId="mate_price"/>
 								</View>
 							</View>
 							<View class="appCompositeView">

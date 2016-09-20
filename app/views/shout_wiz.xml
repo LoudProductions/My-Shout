@@ -3,64 +3,24 @@
 	<Window class="appGradient" id="window" title="L('shouts_add_shout')">
 		<ScrollableView id="wiz_pages" class="appCanvas appTransparent" onScrollend="onWizPageChange" showPagingControl="true">
 			<ScrollView class="wizWelcome appVScrollView">
-				<Label class="wizTitle" text="L('shout_wiz_welcome')" />
-				<Label class="wizSubtitle" text="L('shout_wiz_lets_get_you_started')" />
+				<Label class="wizTitle appTextStyleTitle1" text="L('shout_wiz_welcome')" />
+				<Label class="wizSubtitle appTextStyleBody" text="L('shout_wiz_lets_get_you_started')" />
 			</ScrollView>
 			<ScrollView class="appCanvas appVScrollView">
 				<View class="wizForm">
-					<Label class="wizTitle" text="L('shout_wiz_choose_shout')" />
-					<Label class="wizSubtitle" text="L('shout_wiz_what_will_you_be_shouting')" />
+					<Label class="wizTitle appTextStyleTitle1" text="L('shout_wiz_choose_shout')" />
+					<Label class="wizSubtitle appTextStyleBody" text="L('shout_wiz_what_will_you_be_shouting')" />
 					<View platform="android" class="appVSpacer" />
-					<Picker class="shoutType" selectionIndicator="true" onChange="onShoutPickerChange">
+					<Picker class="shoutType appTextStyleHeadline" selectionIndicator="true" onChange="onShoutPickerChange">
 						<PickerRow title="L('shout_wiz_coffee')" />
 						<PickerRow title="L('shout_wiz_beer')" />
 					</Picker>
-					<Label class="wizTitle" text="L('shout_wiz_choose_place')" />
-					<Label class="wizSubtitle" text="L('shout_wiz_where_will_you_be_shouting')" />
+					<Label class="wizTitle appTextStyleTitle1" text="L('shout_wiz_choose_place')" />
+					<Label class="wizSubtitle appTextStyleBody" text="L('shout_wiz_where_will_you_be_shouting')" />
 					<View class="appVSpacer" />
-					<TextField class="shoutPlace" hintText="L('shout_wiz_place_optional')" value="{$.mShout.place}" onChange="onShoutPlaceChange" onReturn="wizDone" />
+					<TextField class="shoutPlace appTextStyleBody" hintText="L('shout_wiz_place_optional')" value="{$.mShout.place}" onChange="onShoutPlaceChange" onReturn="wizDone" />
 				</View>
 			</ScrollView>
-			<!-- <ScrollView class="appCanvas appVScrollView">
-				<Label class="wizTitle" text="L('shout_wiz_choose_mates')" />
-				<Label class="wizSubtitle" text="L('shout_wiz_who_will_you_be_shouting')" />
-				<View class="appVSpacer" />
-				<Button class="appWideButton" title="L('shout_wiz_add_mate')" onClick="goAddMate" />
-				<ListView class="matesList" onItemclick="onMatesListClick" editing="true" onDelete="onMatesListDelete">
-					<Templates>
-						<ItemTemplate name="mates_template" class="matesListItem">
-							<View class="matesListItemLeft">
-								<Label class="listItemTitle" bindId="mate_name" />
-								<Label class="listItemSubtitle" bindId="mate_poison" />
-							</View>
-							<View class="matesListItemSpacer" />
-							<View class="matesListItemRight">
-								<Label class="listItemPrice" bindId="mate_price" />
-							</View>
-						</ItemTemplate>
-					</Templates>
-					<ListSection id="mates_listsection" />
-				</ListView>
-			</ScrollView>
-			<ScrollView class="appCanvas appVScrollView">
-				<Label class="wizTitle" text="L('shout_wiz_first_shout')" />
-				<Label class="wizSubtitle" text="L('shout_wiz_comfirm_first_shout')" />
-				<ListView class="matesList" onItemclick="onFirstShoutListClick">
-					<Templates>
-						<ItemTemplate name="first_shout_template" class="matesListItem">
-							<View class="matesListItemLeft">
-								<Label class="listItemTitle" bindId="mate_name" />
-								<Label class="listItemSubtitle" bindId="mate_poison" />
-							</View>
-							<View class="matesListItemSpacer" />
-							<View class="matesListItemRight">
-								<Label class="listItemHasShout" bindId="mate_has_shout" />
-							</View>
-						</ItemTemplate>
-					</Templates>
-					<ListSection id="first_shout_listsection" />
-				</ListView>
-			</ScrollView> -->
 		</ScrollableView>
   	<ActivityIndicator id="activity_indicator" />
 	</Window>

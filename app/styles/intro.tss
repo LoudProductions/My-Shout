@@ -20,18 +20,11 @@
 	borderWidth: 5
 }
 ".myShoutIcon" : {
-	font: {
-		fontSize: 100,
-		fontFamily: "FontAwesome"
-	},
+	font: Alloy.CFG.fonts.faIconXXL,
 	color: Alloy.CFG.colors.backgroundColor,
 	text: Alloy.Globals.FAIcons.bullhorn
 }
 ".myShoutWho" : {
 	top: 160,
-	font: {
-		fontSize: 20,
-		fontFamily: "OpenSans-Bold"
-	},
 	color: Alloy.CFG.colors.backgroundColor
 }

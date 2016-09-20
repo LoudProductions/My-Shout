@@ -3,16 +3,8 @@
 }
 ".historyTitle" : {
 	top: 40,
-	font: {
-		fontSize: 20,
-		fontFamily: "OpenSans-Bold",
-	},
 }
 ".historySubtitle" : {
-	font: {
-		fontSize: 14,
-		fontFamily: "OpenSans-Light",
-	},
 }
 ".historyList" : {}
 ".historyList[platform=ios]" : {
@@ -39,10 +31,6 @@
 	height: Titanium.UI.FILL,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
-	font: {
-		fontSize: 16,
-		fontFamily: "OpenSans-Bold",
-	},
 }
 ".listItemSubtitle" : {
 	left: 16,
@@ -50,10 +38,6 @@
 	height: Titanium.UI.FILL,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_TOP,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
-	font: {
-		fontSize: 12,
-		fontFamily: "OpenSans-Light",
-	},
 }
 ".listItemPoison" : {
 	/*bottom: 15,*/
@@ -61,10 +45,6 @@
 	height: Titanium.UI.FILL,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
-	font: {
-		fontSize: 12,
-		fontFamily: "OpenSans-Light",
-	},
 }
 ".listItemPrice" : {
 	/*top: 15,*/
@@ -72,17 +52,10 @@
 	height: Titanium.UI.FILL,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_TOP,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
-	font: {
-		fontSize: 14,
-		fontFamily: "OpenSans-BoldItalic",
-	},
 }
 ".listItemUndoIcon" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
-	font: {
-		fontSize: 20,
-		fontFamily: "FontAwesome",
-	},
+	font: Alloy.CFG.fonts.faIcon,
 	/*color will be dynamically bound...*/
 	text: Alloy.Globals.FAIcons.undo,
 }
@@ -97,12 +70,9 @@
 	/*borderColor: "cyan",*/
 	left: 16,
 	height: Ti.UI.FILL,
+	width: "80%",
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-	font: {
-		fontSize: 16,
-		fontFamily: "OpenSans-Regular",
-	},
 	color: Alloy.CFG.colors.backgroundColor,
 }
 ".listHeaderUndoIcon" : {

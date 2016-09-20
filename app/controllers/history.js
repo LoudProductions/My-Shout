@@ -92,7 +92,7 @@ function buildHistorySectionHeader(oHistory, iSectionIndex) {
     var oHeaderTitle = Ti.UI.createLabel({
         text : oHistory.uiWho + ", " + Moment(oHistory.shoutAt).fromNow(),
     });
-    $.addClass(oHeaderTitle, "listHeaderTitle");
+    $.addClass(oHeaderTitle, "listHeaderTitle appTextStyleBody");
     oHeaderView.add(oHeaderTitle);
 
     // add view and label for undo icon (to first shout only)
@@ -208,10 +208,7 @@ function getAttributedPriceText(price, hasShout) {
     });
     oAttributedString.addAttribute({
         type: Ti.UI.ATTRIBUTE_FONT,
-        value: {
-            fontSize: 12,
-            fontFamily: "OpenSans-Bold"
-        },
+        value: Alloy.CFG.fonts.footnote,
         range: [0, 1]
     });
     return oAttributedString;
@@ -227,10 +224,7 @@ function getAttributedBalanceText(balance, hasShout) {
     });
     oAttributedString.addAttribute({
         type: Ti.UI.ATTRIBUTE_FONT,
-        value: {
-            fontSize: 8,
-            fontFamily: "OpenSans-Light"
-        },
+        value: Alloy.CFG.fonts.footnote,
         range: [0, 1]
     });
     if (balance < 0) {

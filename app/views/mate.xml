@@ -12,13 +12,13 @@
 		</Menu>
 
 		<View id="mate_container" class="appCanvas appHalfWidth">
-			<Label class="mateIntro" text="L('mate_tell_us_about_your_mate')" />
+			<Label class="mateIntro appTextStyleBody" text="L('mate_tell_us_about_your_mate')" />
 			<View class="appVSpacer" />
-			<TextField class="mateName autoNext" value="{$.mMate.name}" hintText="L('shout_wiz_mates_name')" returnKeyType="Titanium.UI.RETURNKEY_NEXT" onChange="onChangeName" onReturn="onAutoNextFieldReturn" />
-			<TextField class="matePoison autoNext" value="{$.mMate.poison}" hintText="L('shout_wiz_mates_poison')" returnKeyType="Titanium.UI.RETURNKEY_NEXT" onChange="onChangePoison" onReturn="onAutoNextFieldReturn" />
-			<TextField class="matePrice" value="{$.mMate.price}" hintText="L('shout_wiz_mates_price')" returnKeyType="Titanium.UI.RETURNKEY_DONE" onChange="onChangePrice" onReturn="onDone" />
+			<TextField class="mateName appTextStyleHeadline autoNext" value="{$.mMate.name}" hintText="L('shout_wiz_mates_name')" returnKeyType="Titanium.UI.RETURNKEY_NEXT" onChange="onChangeName" onReturn="onAutoNextFieldReturn" />
+			<TextField class="matePoison appTextStyleCaption2 autoNext" value="{$.mMate.poison}" hintText="L('shout_wiz_mates_poison')" returnKeyType="Titanium.UI.RETURNKEY_NEXT" onChange="onChangePoison" onReturn="onAutoNextFieldReturn" />
+			<TextField class="matePrice appTextStyleCallout" value="{$.mMate.price}" hintText="L('shout_wiz_mates_price')" returnKeyType="Titanium.UI.RETURNKEY_DONE" onChange="onChangePrice" onReturn="onDone" />
 			<View class="appCompositeView">
-				<Button id="deleteButton" visible="false" class="appDestructiveButton bottomButton" onClick="onDeleteButtonClick" title="L('mate_remove_mate')" />
+				<Button id="deleteButton" visible="false" class="appButtonDestructive bottomButton" onClick="onDeleteButtonClick" title="L('mate_remove_mate')" />
 			</View>
 		</View>
 

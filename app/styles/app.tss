@@ -66,18 +66,65 @@
 ".appHalfHeight" : {
 	height: "50%"
 }
-".appTitle" : {
-	top: 40,
-	font: {
-		fontSize: 20,
-		fontFamily: "OpenSans-Bold"
-	}
+".appTextStyleTitle1" : {
+	font: Alloy.CFG.fonts.title1
 }
-".appSubtitle" : {
-	font: {
-		fontSize: 14,
-		fontFamily: "OpenSans-Light"
-	}
+".appTextStyleTitle1[platform=ios]" : {
+	textStyle: Ti.UI.TEXT_STYLE_TITLE1
+}
+".appTextStyleTitle2" : {
+	font: Alloy.CFG.fonts.title2
+}
+".appTextStyleTitle2[platform=ios]" : {
+	textStyle: Ti.UI.TEXT_STYLE_TITLE2
+}
+".appTextStyleTitle3" : {
+	font: Alloy.CFG.fonts.title3
+}
+".appTextStyleTitle3[platform=ios]" : {
+	textStyle: Ti.UI.TEXT_STYLE_TITLE3
+}
+".appTextStyleHeadline" : {
+	font: Alloy.CFG.fonts.headline
+}
+".appTextStyleHeadline[platform=ios]" : {
+	textStyle: Ti.UI.TEXT_STYLE_HEADLINE
+}
+".appTextStyleSubheadline" : {
+	font: Alloy.CFG.fonts.subheadline
+}
+".appTextStyleSubheadline[platform=ios]" : {
+	textStyle: Ti.UI.TEXT_STYLE_SUBHEADLINE
+}
+".appTextStyleBody" : {
+	font: Alloy.CFG.fonts.body
+}
+".appTextStyleBody[platform=ios]" : {
+	textStyle: Ti.UI.TEXT_STYLE_BODY
+}
+".appTextStyleFootnote" : {
+	font: Alloy.CFG.fonts.footnote
+}
+".appTextStyleFootnote[platform=ios]" : {
+	textStyle: Ti.UI.TEXT_STYLE_FOOTNOTE
+}
+".appTextStyleCaption1" : {
+	font: Alloy.CFG.fonts.caption1
+}
+".appTextStyleCaption1[platform=ios]" : {
+	textStyle: Ti.UI.TEXT_STYLE_CAPTION1
+}
+".appTextStyleCaption2" : {
+	font: Alloy.CFG.fonts.caption2
+}
+".appTextStyleCaption2[platform=ios]" : {
+	textStyle: Ti.UI.TEXT_STYLE_CAPTION2
+}
+".appTextStyleCallout" : {
+	font: Alloy.CFG.fonts.callout
+}
+".appTextStyleCaption2[platform=ios]" : {
+	textStyle: Ti.UI.TEXT_STYLE_CALLOUT
 }
 ".appVSpacer" : {
 	height: 40
@@ -85,12 +132,12 @@
 ".appHSpacer" : {
 	width: 40
 }
-".appWideButton" : {
+".appButtonWide" : {
 	width: 200,
 	color: Alloy.CFG.colors.backgroundColor,
 	backgroundColor: Alloy.CFG.colors.tintColor
 }
-".appDestructiveButton" : {
+".appButtonDestructive" : {
 	width: 180,
 	color: Alloy.CFG.colors.backgroundColor,
 	backgroundColor: Alloy.CFG.colors.tintColor,

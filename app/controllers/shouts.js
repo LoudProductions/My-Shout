@@ -501,10 +501,7 @@ function getAttributedPriceText(price, hasShout, isInactive) {
     });
     oAttributedString.addAttribute({
         type: Ti.UI.ATTRIBUTE_FONT,
-        value: {
-            fontSize: 12,
-            fontFamily: "OpenSans-Bold"
-        },
+        value: Alloy.CFG.fonts.footnote,
         range: [0, 1]
     });
     if (hasShout) {
@@ -536,10 +533,7 @@ function getAttributedBalanceText(balance, hasShout, isInactive) {
     });
     oAttributedString.addAttribute({
         type: Ti.UI.ATTRIBUTE_FONT,
-        value: {
-            fontSize: 8,
-            fontFamily: "OpenSans-Light"
-        },
+        value: Alloy.CFG.fonts.footnote,
         range: [0, 1]
     });
     if (hasShout || balance < 0) {
