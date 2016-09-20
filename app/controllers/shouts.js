@@ -371,23 +371,23 @@ function mapMateListItem(oMate, template) {
     // set mate's background color
     var circColor = Alloy.CFG.colors.textColor;
     var circBorderColor = Alloy.CFG.colors.textColor;
-    var circBackgroundColor = Alloy.CFG.colors.backgroundColor;
+    var circBackgroundColor = Alloy.CFG.colors.invertedTextColor;
     if (oMate.isInactive) {
         circColor = Alloy.CFG.colors.inactiveColor;
         circBorderColor = Alloy.CFG.colors.inactiveColor;
     } else if (oMate.hasShout) {
-        circColor = Alloy.CFG.colors.backgroundColor;
+        circColor = Alloy.CFG.colors.invertedTextColor;
         circBorderColor = Alloy.CFG.colors.tintColor;
         // circBackgroundColor = Alloy.CFG.colors.tintColor;
     }
 
     var mateColor = Alloy.CFG.colors.textColor;
-    var mateBackgroundColor = Alloy.CFG.colors.backgroundColor;
+    var mateBackgroundColor = Alloy.CFG.colors.invertedTextColor;
     if (oMate.isInactive) {
         mateColor = Alloy.CFG.colors.inactiveColor;
     //    mateBackgroundColor = Alloy.CFG.colors.inactiveBackgroundColor;
     } else if (oMate.hasShout) {
-        mateColor = Alloy.CFG.colors.backgroundColor;
+        mateColor = Alloy.CFG.colors.invertedTextColor;
         // mateBackgroundColor = Alloy.CFG.colors.tintColor;
         mateBackgroundColor = Alloy.CFG.colors.shoutBackgroundColor;
     }
@@ -508,7 +508,7 @@ function getAttributedPriceText(price, hasShout, isInactive) {
         // change color if mate has the shout
         oAttributedString.addAttribute({
             type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
-            value: Alloy.CFG.colors.backgroundColor,
+            value: Alloy.CFG.colors.invertedTextColor,
             range: [0, oAttributedString.text.length]
         });
     }
@@ -540,7 +540,7 @@ function getAttributedBalanceText(balance, hasShout, isInactive) {
         // change color if balance is negative or mate has the shout
         oAttributedString.addAttribute({
             type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
-            value: (hasShout ? Alloy.CFG.colors.backgroundColor : Alloy.CFG.colors.negativeColor),
+            value: (hasShout ? Alloy.CFG.colors.invertedTextColor : Alloy.CFG.colors.negativeColor),
             range: [0, oAttributedString.text.length]
         });
 

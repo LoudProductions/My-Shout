@@ -6,7 +6,8 @@
         },
         "colors": {
             "textColor": "#90000000",
-            "backgroundColor": "#ffffff",
+            "invertedTextColor": "#fff",
+            "backgroundColor": "transparent",
             "bgColorTransparent": "#10ffffff",
             "appGradientTop": "#f09273",
             "appGradientBottom": "#6a6a7d",

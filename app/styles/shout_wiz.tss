@@ -9,11 +9,14 @@
 ".wizSubtitle" : {
 }
 ".shoutType" : {
-	width: 110,
+	width: 180,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 	backgroundColor: Alloy.CFG.colors.bgColorTransparent,
+}
+".shoutType[platform=android]" : {
 	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUND,
 	borderRadius: 25,
+	height: 50,
 }
 ".shoutPlace" : {
 	width: 180,

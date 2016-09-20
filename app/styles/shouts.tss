@@ -5,21 +5,21 @@
 	width: 40,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT,
 	font: Alloy.CFG.fonts.faIconNav,
-	color: Alloy.CFG.colors.tintColor,
+	color: Alloy.CFG.colors.invertedTextColor,
 	text: Alloy.Globals.FAIcons.plus
 }
 ".navHistoryIcon" : {
 	width: 40,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT,
 	font: Alloy.CFG.fonts.faIconNav,
-	color: Alloy.CFG.colors.tintColor,
+	color: Alloy.CFG.colors.invertedTextColor,
 	text: Alloy.Globals.FAIcons.history
 }
 ".navDeleteIcon" : {
 	width: 40,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_RIGHT,
 	font: Alloy.CFG.fonts.faIconNav,
-	color: Alloy.CFG.colors.tintColor,
+	color: Alloy.CFG.colors.invertedTextColor,
 	text: Alloy.Globals.FAIcons.trash
 }
 ".favShoutImage" : {
@@ -27,9 +27,12 @@
 	width: 290,
 	height: 290
 }
+".favShoutImage[platform=ios]" : {
+	top: 20,
+}
 ".favShoutWhereTop" : {
 	top: 10,
-	color: Alloy.CFG.colors.backgroundColor
+	color: Alloy.CFG.colors.invertedTextColor,
 }
 ".favShoutCirc1" : {
 	top: "15%",
@@ -44,23 +47,25 @@
 	height: 240,
 	borderRadius: 120,
 	backgroundColor: Alloy.CFG.colors.tintColor,
-	borderColor: Alloy.CFG.colors.backgroundColor,
+	borderColor: Alloy.CFG.colors.invertedTextColor,
 	borderWidth: 5
 }
 ".favShoutIcon" : {
 	font: Alloy.CFG.fonts.faIconXXL,
-	color: Alloy.CFG.colors.backgroundColor,
+	color: Alloy.CFG.colors.invertedTextColor,
 	text: Alloy.Globals.FAIcons.bullhorn
 }
 ".favShoutWho" : {
 	top: 160,
-	color: Alloy.CFG.colors.backgroundColor
+	color: Alloy.CFG.colors.invertedTextColor
 }
 ".favShoutWhere" : {
 	top: 185,
-	color: Alloy.CFG.colors.backgroundColor
+	color: Alloy.CFG.colors.invertedTextColor
 }
-".shoutsList" : {}
+".shoutsList" : {
+	backgroundColor: "transparent"
+}
 ".shoutsList[platform=ios]" : {
 	allowsSelection: false,
 	separatorStyle: Ti.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE
@@ -68,7 +73,8 @@
 ".favShoutsListItem" : {
 	height: 290,
 	layout: "vertical",
-	selectedBackgroundColor: "transparent"
+	backgroundColor: "transparent",
+	selectedBackgroundColor: "transparent",
 }
 ".otherShoutsListItem" : {
 	height: 40,
@@ -78,7 +84,7 @@
 ".matesListItem" : {
 	height: 50,
 	layout: "horizontal",
-	horizontalWrap: false
+	horizontalWrap: false,
 }
 ".matesListItemLeft" : {
 	/*borderColor: "red",*/
@@ -117,7 +123,8 @@
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM,
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	ellipsize: Ti.UI.TEXT_ELLIPSIZE_TRUNCATE_END,
 }
 ".listItemSubtitle" : {
 	left: 16,
@@ -131,7 +138,8 @@
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM,
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	ellipsize: Ti.UI.TEXT_ELLIPSIZE_TRUNCATE_END,
 }
 ".listItemPrice" : {
 	/*top: 15,*/

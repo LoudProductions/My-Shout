@@ -6,7 +6,9 @@
 }
 ".historySubtitle" : {
 }
-".historyList" : {}
+".historyList" : {
+	backgroundColor: "transparent"
+}
 ".historyList[platform=ios]" : {
 	allowsSelection: false,
 }
@@ -14,6 +16,8 @@
 	height: 50,
 	layout: "horizontal",
 	horizontalWrap: false,
+	backgroundColor: Alloy.CFG.colors.invertedTextColor,
+	selectedBackgroundColor: Alloy.CFG.colors.invertedTextColor,
 }
 ".matesListItemLeft" : {
 	/*borderColor: "red",*/
@@ -64,7 +68,7 @@
 	height: 40,
 	layout: "horizontal",
 	backgroundColor: Alloy.CFG.colors.shoutBackgroundColor,
-	color: Alloy.CFG.colors.backgroundColor,
+	color: Alloy.CFG.colors.invertedTextColor,
 }
 ".listHeaderTitle" : {
 	/*borderColor: "cyan",*/
@@ -73,7 +77,7 @@
 	width: "80%",
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-	color: Alloy.CFG.colors.backgroundColor,
+	color: Alloy.CFG.colors.invertedTextColor,
 }
 ".listHeaderUndoIcon" : {
 	/*borderColor: "pink",*/
@@ -84,6 +88,6 @@
 		fontSize: 20,
 		fontFamily: "FontAwesome",
 	},
-	color: Alloy.CFG.colors.backgroundColor,
+	color: Alloy.CFG.colors.invertedTextColor,
 	text: Alloy.Globals.FAIcons.undo,
 }
