@@ -1,24 +1,3 @@
-<<<<<<< Updated upstream
-"Window" : {
-	/*backgroundColor: Alloy.CFG.colors.backgroundColor*/
-}
-=======
-//"Window": {
-//   backgroundGradient: {
-//   type: 'linear',
-//   colors: [ '#f09273', '#6a6a7d' ]
-// }
-//}
-
-'Label[platform=android]': {
-	color: Alloy.CFG.colors.backgroundColor, // All platforms except Android default to black, correcting that here
-}
-
-'Window': {
-	backgroundColor: Alloy.CFG.colors.backgroundColor, // White background instead of default transparent
-}
-
->>>>>>> Stashed changes
 // On iOS7+ the window starts behind the statusBar, allowing us to set the backgroundColor here
 "Window[platform=ios]" : {
 	tintColor: Alloy.CFG.colors.tintColor,
