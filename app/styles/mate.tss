@@ -1,5 +1,6 @@
 "#mate_container" : {
 	/*borderColor: "pink",*/
+	contentHeight: Alloy.Globals.Device.heightExcludingNav,
 }
 ".mateIntro" : {
 	top: 40,
@@ -13,33 +14,21 @@
 	top: 20,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 }
-".mateNameIcon" : {
+".mateIcon" : {
 	top: 20,
-	width: 180,
+	width: 170,
 	height: 50,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 	font: Alloy.CFG.fonts.faIcon,
 	color: Alloy.CFG.colors.brandHintColor,
+}
+".mateNameIcon" : {
 	text: Alloy.Globals.FAIcons.user
 }
 ".matePoisonIcon" : {
-	top: 20,
-	width: 180,
-	height: 50,
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
-	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-	font: Alloy.CFG.fonts.faIcon,
-	color: Alloy.CFG.colors.brandHintColor,
-	text: Alloy.Globals.FAIcons.coffee
+	text: Alloy.Globals.FAIcons.flask
 }
 ".matePriceIcon" : {
-	top: 20,
-	width: 180,
-	height: 50,
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
-	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-	font: Alloy.CFG.fonts.faIcon,
-	color: Alloy.CFG.colors.brandHintColor,
 	text: Alloy.Globals.FAIcons.money
 }
 ".autoNext" : {}

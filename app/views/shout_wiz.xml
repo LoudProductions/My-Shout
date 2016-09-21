@@ -12,6 +12,7 @@
 				<Label class="wizTitle appTextStyleTitle1" text="L('shout_wiz_choose_shout')"/>
 				<Label class="wizSubtitle appTextStyleBody" text="L('shout_wiz_what_will_you_be_shouting')"/>
 				<View platform="android" class="appVSpacer"/>
+				<!-- TODO: convert picker to listview with single item that navigates to window with list/tag selections and custom value input -->
 				<Picker class="shoutType appTextStyleHeadline" selectionIndicator="true" onChange="onShoutPickerChange">
 					<PickerRow title="L('shout_wiz_coffee')"/>
 					<PickerRow title="L('shout_wiz_beer')"/>
@@ -20,7 +21,10 @@
 				<Label class="wizTitle appTextStyleTitle1" text="L('shout_wiz_choose_place')"/>
 				<Label class="wizSubtitle appTextStyleBody" text="L('shout_wiz_where_will_you_be_shouting')"/>
 				<View class="appVSpacer"/>
-				<TextField class="shoutPlace appTextStyleBody" hintText="L('shout_wiz_place_optional')" value="{$.mShout.place}" onChange="onShoutPlaceChange" onReturn="wizDone"/>
+				<View class="inputContainer">
+					<Label class="shoutIcon shoutPlaceIcon" />
+					<TextField class="shoutPlace appTextStyleBody" hintText="L('shout_wiz_place_optional')" value="{$.mShout.place}" onChange="onShoutPlaceChange" onReturn="wizDone"/>
+				</View>
 				<View class="appVSpacer"/>
 			</ScrollView>
 		</ScrollableView>

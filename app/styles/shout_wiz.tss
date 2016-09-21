@@ -8,6 +8,10 @@
 }
 ".wizSubtitle" : {
 }
+".inputContainer" : {
+	layout: "composite",
+	height: Ti.UI.SIZE,
+}
 ".shoutType" : {
 	width: 200,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
@@ -20,6 +24,16 @@
 }
 ".shoutPlace" : {
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+}
+".shoutIcon" : {
+	width: 170,
+	height: 50,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	font: Alloy.CFG.fonts.faIcon,
+	color: Alloy.CFG.colors.brandHintColor,
+}
+".shoutPlaceIcon" : {
+	text: Alloy.Globals.FAIcons.map_marker
 }
 ".priceInput" : {
 	keyboardType: Titanium.UI.KEYBOARD_TYPE_DECIMAL_PAD,
