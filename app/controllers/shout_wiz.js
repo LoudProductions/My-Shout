@@ -184,14 +184,6 @@ function onWizPageChange(e) {
     changeMenu();
 }
 
-function onShoutPickerChange(e) {
-    "use strict";
-
-    $.mShout.set("type", e.selectedValue[0], {
-        silent: true
-    });
-}
-
 function onShoutPlaceChange(e) {
     "use strict";
 
@@ -230,4 +222,15 @@ function wizDone(e) {
     });
     // navigate back
     Alloy.Globals.Navigator.pop();
+}
+
+function goChooseShoutType(e){
+    "use strict";
+
+    var oShoutWizTypesController = Alloy.Globals.Navigator.push('shout_wiz_types');
+    oShoutWizTypesController.once('done', function(e) {
+        if (e.sShoutType) {
+            $.mShout.set("type", e.sShoutType);
+        }
+    });
 }

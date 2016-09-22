@@ -1,0 +1,74 @@
+"#shout_types_container" : {
+	/*borderColor: "pink",*/
+	contentHeight: Alloy.Globals.Device.heightExcludingNav,
+	left: 20,
+	right: 20,
+}
+".shoutTypesIntro" : {
+	top: 40,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+}
+".inputContainer" : {
+	layout: "composite",
+	height: Ti.UI.SIZE,
+	width: Ti.UI.SIZE,
+	top: 10,
+	left: 10,
+	right: 10,
+}
+".centeringContainer": {
+	layout: "composite",
+	left: 0,
+	right: 0,
+	height: Ti.UI.SIZE,
+}
+".shoutTypeButtonsContainer": {
+	width: Ti.UI.SIZE,
+	height: Ti.UI.SIZE,
+  layout: "horizontal",
+}
+".shoutType" : {
+	top: 10,
+	width: 170,
+	autocorrect: false,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+}
+".shoutTypeButton" : {
+	width: 170,
+	color: Alloy.CFG.colors.invertedTextColor,
+	backgroundColor: Alloy.CFG.colors.bgColorTransparent,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+	borderRadius: 25,
+	height: 50,
+}
+".shoutTypeIcon" : {
+	top: 10,
+	left: 10,
+	width: 150,
+	height: 50,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	font: Alloy.CFG.fonts.faIcon,
+	color: Alloy.CFG.colors.brandHintColor,
+}
+".shoutTypeButtonIcon" : {
+	width: 150,
+	height: 50,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	font: Alloy.CFG.fonts.faIcon,
+	color: Alloy.CFG.colors.brandHintColor,
+}
+".shoutTypeCoffeeIcon" : {
+	text: Alloy.Globals.FAIcons.coffee
+}
+".shoutTypeBeerIcon" : {
+	text: Alloy.Globals.FAIcons.beer
+}
+".shoutTypeDrinksIcon" : {
+	text: Alloy.Globals.FAIcons.glass
+}
+".shoutTypeFoodIcon" : {
+	text: Alloy.Globals.FAIcons.cutlery
+}
+".shoutTypeYouDecideIcon" : {
+	text: Alloy.Globals.FAIcons.lightbulb_o
+}

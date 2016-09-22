@@ -15,6 +15,7 @@
             "altGradientBottom": "#6a6a7d",
             "shoutBackgroundColor": "#f09273",
             "tintColor": "#f96636",
+            "tintColorTransparent": "#50f96636",
             "brandHintColor": "#45ffffff",
             "inactiveColor": "#50b3b3b3",
             "inactiveBackgroundColor": "#80b3b3b3",

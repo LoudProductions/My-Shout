@@ -36,12 +36,17 @@
     <string name="shout_wiz_lets_get_you_started">Let's get you started!</string>
     <string name="shout_wiz_choose_shout">Choose Shout</string>
     <string name="shout_wiz_what_will_you_be_shouting">What will you be shouting?</string>
+    <string name="shout_wiz_choose_from_some_common_shouts">Choose from some common shouts or define your own!</string>
     <string name="shout_wiz_beer">Beer</string>
     <string name="shout_wiz_coffee">Coffee</string>
+    <string name="shout_wiz_drinks">Drinks</string>
+    <string name="shout_wiz_food">Food</string>
+    <string name="shout_wiz_you_decide">You decide...</string>
     <string name="shout_wiz_choose_place">Choose Place</string>
     <string name="shout_wiz_where_will_you_be_shouting">Where will you be shouting?</string>
     <string name="shout_wiz_place_optional">Place (optional)...</string>
     <string name="shout_wiz_choose_mates">Choose Mates</string>
+    <string name="shout_wiz_choose_type">Choose Type</string>
     <string name="shout_wiz_add_mate">Add Mate</string>
     <string name="shout_wiz_who_will_you_be_shouting">Who will you be shouting?</string>
     <string name="shout_wiz_mates_name">Name...</string>

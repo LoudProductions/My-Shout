@@ -1,0 +1,45 @@
+<Alloy>
+	<Window class="appGradient" id="window" title="L('shout_wiz_choose_type')">
+
+		<RightNavButtons platform="ios">
+			<Button title="L('app_done')" onClick="onDone"/>
+		</RightNavButtons>
+
+		<Menu platform="android">
+			<MenuItem title="L('app_done')" onClick="onDone" showAsAction="Ti.Android.SHOW_AS_ACTION_ALWAYS"/>
+		</Menu>
+
+		<ScrollView id="shout_types_container" class="appCanvas">
+			<Label class="shoutTypesIntro appTextStyleBody" text="L('shout_wiz_choose_from_some_common_shouts')"/>
+			<View class="centeringContainer">
+				<View class="shoutTypeButtonsContainer">
+					<View class="inputContainer">
+						<Button class="shoutTypeButton" onClick="onShoutTypeButtonClick" title="L('shout_wiz_coffee')"/>
+						<Label class="shoutTypeButtonIcon shoutTypeCoffeeIcon" touchEnabled="false"/>
+					</View>
+					<View class="inputContainer">
+						<Button class="shoutTypeButton" onClick="onShoutTypeButtonClick" title="L('shout_wiz_beer')"/>
+						<Label class="shoutTypeButtonIcon shoutTypeBeerIcon" touchEnabled="false"/>
+					</View>
+					<View class="inputContainer">
+						<Button class="shoutTypeButton" onClick="onShoutTypeButtonClick" title="L('shout_wiz_drinks')"/>
+						<Label class="shoutTypeButtonIcon shoutTypeDrinksIcon" touchEnabled="false"/>
+					</View>
+					<View class="inputContainer">
+						<Button class="shoutTypeButton" onClick="onShoutTypeButtonClick" title="L('shout_wiz_food')"/>
+						<Label class="shoutTypeButtonIcon shoutTypeFoodIcon" touchEnabled="false"/>
+					</View>
+				</View>
+			</View>
+			<View class="centeringContainer">
+				<View class="shoutTypeButtonsContainer">
+					<View class="inputContainer">
+						<Label class="shoutTypeIcon shoutTypeYouDecideIcon"/>
+						<TextField class="shoutType appTextStyleCallout" hintText="L('shout_wiz_you_decide')" returnKeyType="Titanium.UI.RETURNKEY_DONE" onChange="onChangeShoutType" onReturn="onDone"/>
+					</View>
+				</View>
+			</View>
+		</ScrollView>
+
+	</Window>
+</Alloy>

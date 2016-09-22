@@ -41,3 +41,21 @@
 ".wizForm" : {
 	layout: "vertical",
 }
+".shoutTypeButton": {
+	width: 170,
+	color: Alloy.CFG.colors.invertedTextColor,
+	backgroundColor: Alloy.CFG.colors.bgColorTransparent,
+	borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
+	borderRadius: 25,
+	height: 50,
+}
+".shoutTypeButtonIcon" : {
+	width: 140,
+	height: 50,
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
+	font: Alloy.CFG.fonts.faIcon,
+	color: Alloy.CFG.colors.brandHintColor,
+}
+".shoutTypeNavIcon" : {
+	text: Alloy.Globals.FAIcons.angle_right
+}
