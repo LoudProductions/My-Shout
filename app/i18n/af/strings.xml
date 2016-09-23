@@ -17,6 +17,7 @@
     <string name="shouts_history">Geskiedenis</string>
     <string name="shouts_my">My</string>
     <string name="shouts_shout">Roep</string>
+    <string name="shouts_so_and_sos_shout">%s se Roep</string>
     <string name="shouts_mates">Roep Maats</string>
     <string name="shouts_delete_shout">Skrap Roep</string>
     <string name="shouts_some_place">Iewers</string>
