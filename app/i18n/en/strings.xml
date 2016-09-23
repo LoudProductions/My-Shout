@@ -17,6 +17,7 @@
     <string name="shouts_history">History</string>
     <string name="shouts_my">My</string>
     <string name="shouts_shout">Shout</string>
+    <string name="shouts_so_and_sos_shout">%s's Shout</string>
     <string name="shouts_mates">Shout Mates</string>
     <string name="shouts_delete_shout">Delete Shout</string>
     <string name="shouts_some_place">Some Place</string>

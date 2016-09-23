@@ -1,5 +1,3 @@
-var Moment = require("alloy/moment");
-
 var _mShout;
 var _aSortedShoutHistory = [];
 
@@ -66,7 +64,7 @@ function buildHistoryList(aShoutHistory) {
     _.each(aShoutHistory, function(mHistory) {
         var oHistory = mHistory.transform();
         // var oShoutSection = Ti.UI.createListSection({
-        //     headerTitle: oHistory.uiWho + ", " + Moment(oHistory.shoutAt).fromNow()
+        //     headerTitle: oHistory.uiWho + ", " + Alloy.Globals.Moment(oHistory.shoutAt).fromNow()
         // });
         var oShoutSection = Ti.UI.createListSection({
             headerView: buildHistorySectionHeader(oHistory, i)
@@ -90,7 +88,7 @@ function buildHistorySectionHeader(oHistory, iSectionIndex) {
 
     // add label with section title
     var oHeaderTitle = Ti.UI.createLabel({
-        text : oHistory.uiWho + ", " + Moment(oHistory.shoutAt).fromNow(),
+        text : oHistory.uiWho + ", " + Alloy.Globals.Moment(oHistory.shoutAt).fromNow(),
     });
     $.addClass(oHeaderTitle, "listHeaderTitle appTextStyleBody");
     oHeaderView.add(oHeaderTitle);

@@ -24,6 +24,9 @@
     Alloy.Globals.Animation = require("alloy/animation");
     Alloy.Globals.Dialogs = require("alloy/dialogs");
     Alloy.Globals.FAIcons = require("fa_icons");
+    Alloy.Globals.Moment = require("moment-with-locales");
+    Alloy.Globals.Moment.locale(Ti.Locale.currentLocale);
+    Log.info("Initialised moment.js with current locale: " + Ti.Locale.currentLocale);
 
     ///////////////////////////////////////////////////////////////////////////////
     //

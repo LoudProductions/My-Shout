@@ -19,7 +19,7 @@ exports.definition = {
 
                 Object.defineProperty(t, "uiWho", {
                     get : function() {
-                        return (t.name && t.name !== L("app_my_shout") ? (t.name + "'s " + L("shouts_shout")) : L("app_my_shout"));
+                        return (t.name && t.name !== L("app_my_shout")) ? String.format(L("shouts_so_and_sos_shout"), t.name) : L("app_my_shout");
                     }
                 });
 
