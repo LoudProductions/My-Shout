@@ -23,7 +23,7 @@
 	text: Alloy.Globals.FAIcons.trash
 }
 ".favShoutImage" : {
-	backgroundImage: "/images/ios/shout.png",
+	backgroundImage: "/images/shout.png",
 	width: 290,
 	height: 290
 }
