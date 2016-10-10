@@ -536,9 +536,10 @@ function getAttributedBalanceText(balance, hasShout, isInactive) {
     oAttributedString.addAttribute({
         type: Ti.UI.ATTRIBUTE_FONT,
         value: Alloy.CFG.fonts.footnote,
-        range: [0, 1]
+        range: (balance < 0 ? [1, 1] : [0, 1]),
     });
-    if (hasShout || balance < 0) {
+    // if (hasShout || balance < 0) {
+    if (hasShout) {
         // change color if balance is negative or mate has the shout
         oAttributedString.addAttribute({
             type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,

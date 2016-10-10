@@ -223,16 +223,16 @@ function getAttributedBalanceText(balance, hasShout) {
     oAttributedString.addAttribute({
         type: Ti.UI.ATTRIBUTE_FONT,
         value: Alloy.CFG.fonts.footnote,
-        range: [0, 1]
+        range: (balance < 0 ? [1, 1] : [0, 1]),
     });
-    if (balance < 0) {
-        // change color if balance is negative
-        oAttributedString.addAttribute({
-            type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
-            value: Alloy.CFG.colors.negativeColor,
-            range: [0, oAttributedString.text.length]
-        });
-    }
+    // if (balance < 0) {
+    //     // change color if balance is negative
+    //     oAttributedString.addAttribute({
+    //         type: Ti.UI.ATTRIBUTE_FOREGROUND_COLOR,
+    //         value: Alloy.CFG.colors.negativeColor,
+    //         range: [0, oAttributedString.text.length]
+    //     });
+    // }
     return oAttributedString;
 }
 
