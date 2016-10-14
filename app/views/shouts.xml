@@ -34,14 +34,18 @@
 
 			<ListView class="shoutsList" id="shouts_listview" onEditaction="onEditAction" onItemclick="onShoutsListClick">
 				<HeaderView>
-					<View class="pageIndicators">
-						<View class="pageIndicatorIcons" id="page_indicator_icons_view"/>
+					<View class="pageIndicators" >
+						<View layout="horizontal">
+							  <View class="appHalfWidth" onClick="swipeFavShoutRight"/>
+							  <View class="appHalfWidth" onClick="swipeFavShoutLeft"/>
+						</View>
+						<View class="pageIndicatorIcons" id="page_indicator_icons_view" touchEnabled="false"/>
 					</View>
 				</HeaderView>
 				<Templates>
 					<ItemTemplate name="fav_shout_template" class="favShoutsListItem">
 						<Label class="favShoutWhereTop appTextStyleTitle1" bindId="shout_where" touchEnabled="false"/>
-						<View onSwipe="onFavShoutSwipe">
+						<View bindId="fav_shout_view" onSwipe="onFavShoutSwipe">
 							<View class="favShoutImage" touchEnabled="false" elevation="8"/>
 							<!-- <View class="favShoutCirc1" touchEnabled="false" elevation="8">
 								<View class="favShoutCirc2" touchEnabled="false">
@@ -71,7 +75,9 @@
 								</View>
 							</View>
 							<View class="appCompositeView">
-								<Label class="listItemEllipsisIcon appListItemRightIcon1" bindId="mate_ellipsis_icon"/>
+								<View class="appIconWrapperRight1" bindId="mate_ellipsis_icon" touchEnabled="false">
+									<Label class="listItemEllipsisIcon" touchEnabled="false" />
+								</View>
 							</View>
 						</View>
 					</ItemTemplate>
@@ -86,10 +92,15 @@
 								</View>
 							</View>
 							<View class="appCompositeView">
-								<Label class="listItemYourShoutIcon appListItemRightIcon3" bindId="mate_your_shout_icon" onClick="onMateYourShoutClick"/>
-								<!-- <Switch class="listItemSwitch appListItemRightIcon1" bindId="mate_is_inactive" onChange="onMateInactiveSwitchClick"/> -->
-								<Label class="listItemIsInactiveIcon appListItemRightIcon2" bindId="mate_is_inactive" onClick="onMateInactiveIconClick"/>
-								<Label class="listItemEditIcon appListItemRightIcon1" bindId="mate_edit_icon" onClick="onMateEditClick"/>
+								<View class="appIconWrapperRight3" bindId="mate_your_shout_icon" onClick="onMateYourShoutClick">
+									<Label class="listItemYourShoutIcon" />
+								</View>
+								<View class="appIconWrapperRight2" bindId="mate_is_inactive" onClick="onMateInactiveIconClick">
+									<Label class="listItemIsInactiveIcon" />
+								</View>
+								<View class="appIconWrapperRight1" bindId="mate_edit_icon" onClick="onMateEditClick">
+									<Label class="listItemEditIcon" />
+								</View>
 							</View>
 						</View>
 					</ItemTemplate>

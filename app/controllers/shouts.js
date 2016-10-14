@@ -122,8 +122,11 @@ function fetchFavShout() {
 function fillPageIndicatorIcons() {
     "use strict";
 
+    var logContext = "shouts.js > fillPageIndicatorIcons()";
+
+    var cShouts = Alloy.Collections.instance("shouts");
     $.page_indicator_icons_view.removeAllChildren();
-    Alloy.Collections.instance("shouts").each(function(mShout) {
+    cShouts.each(function(mShout) {
         var oPageIndicatorIcon = Ti.UI.createLabel();
         if (_mShout && _mShout.id === mShout.id) {
             $.addClass(oPageIndicatorIcon, "currentPageIndicatorIcon");
@@ -177,18 +180,25 @@ function fetchShoutIndex(iOffset) {
     changeMenu();
 }
 
-function onFavShoutSwipe(e) {
+function swipeFavShoutLeft() {
     "use strict";
 
-    if (e.direction === "up" || e.direction === "down") {
-        if (e.bubbles) {
-            e.cancelBubble = true;
-        }
-        return false;
-    }
+    swipeFavShout("left");
+}
+
+function swipeFavShoutRight() {
+    "use strict";
+
+    swipeFavShout("right");
+}
+
+function swipeFavShout(direction, oFavShoutView) {
+    "use strict";
+    var logContext = "shouts.js > fetchFavShout()";
+
     _bIsSwipingFavShout = true;
 
-    switch (e.direction) {
+    switch (direction) {
         // case "up":
         case "left":
             fetchShoutIndex(1);
@@ -210,54 +220,70 @@ function onFavShoutSwipe(e) {
         fillShoutMatesSection();
     };
 
-    // repeat a series of "scale horizontally to zero and back" animations,
-    // to create the impression of a spinning coin (slowing down to the end)
-    var oView = e.source;
-    var aAnimations = [];
-    aAnimations.push(Ti.UI.createAnimation({
-        transform: Ti.UI.create2DMatrix().scale(0.1,1),
-        duration : 10,
-        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
-    }));
-    aAnimations.push(Ti.UI.createAnimation({
-        transform: Ti.UI.create2DMatrix().scale(1,1),
-        duration : 20,
-        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
-    }));
-    aAnimations.push(Ti.UI.createAnimation({
-        transform: Ti.UI.create2DMatrix().scale(0.1,1),
-        duration : 40,
-        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
-    }));
-    aAnimations.push(Ti.UI.createAnimation({
-        transform: Ti.UI.create2DMatrix().scale(1,1),
-        duration : 70,
-        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
-    }));
-    aAnimations.push(Ti.UI.createAnimation({
-        transform: Ti.UI.create2DMatrix().scale(0.1,1),
-        duration : 110,
-        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
-    }));
-    aAnimations.push(Ti.UI.createAnimation({
-        transform: Ti.UI.create2DMatrix().scale(1,1),
-        duration : 160,
-        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
-    }));
-    aAnimations.push(Ti.UI.createAnimation({
-        transform: Ti.UI.create2DMatrix().scale(0.1,1),
-        duration : 220,
-        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
-    }));
-    aAnimations.push(Ti.UI.createAnimation({
-        transform: Ti.UI.create2DMatrix().scale(1,1),
-        duration : 300,
-        curve : Ti.UI.ANIMATION_CURVE_LINEAR,
-    }));
-    Alloy.Globals.Animation.chainAnimate(oView, aAnimations, onAnimationComplete);
+    if (oFavShoutView) {
+        // repeat a series of "scale horizontally to zero and back" animations,
+        // to create the impression of a spinning coin (slowing down to the end)
+        var aAnimations = [];
+        aAnimations.push(Ti.UI.createAnimation({
+            transform: Ti.UI.create2DMatrix().scale(0.1,1),
+            duration : 10,
+            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+        }));
+        aAnimations.push(Ti.UI.createAnimation({
+            transform: Ti.UI.create2DMatrix().scale(1,1),
+            duration : 20,
+            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+        }));
+        aAnimations.push(Ti.UI.createAnimation({
+            transform: Ti.UI.create2DMatrix().scale(0.1,1),
+            duration : 40,
+            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+        }));
+        aAnimations.push(Ti.UI.createAnimation({
+            transform: Ti.UI.create2DMatrix().scale(1,1),
+            duration : 70,
+            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+        }));
+        aAnimations.push(Ti.UI.createAnimation({
+            transform: Ti.UI.create2DMatrix().scale(0.1,1),
+            duration : 110,
+            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+        }));
+        aAnimations.push(Ti.UI.createAnimation({
+            transform: Ti.UI.create2DMatrix().scale(1,1),
+            duration : 160,
+            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+        }));
+        aAnimations.push(Ti.UI.createAnimation({
+            transform: Ti.UI.create2DMatrix().scale(0.1,1),
+            duration : 220,
+            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+        }));
+        aAnimations.push(Ti.UI.createAnimation({
+            transform: Ti.UI.create2DMatrix().scale(1,1),
+            duration : 300,
+            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+        }));
+        Alloy.Globals.Animation.chainAnimate(oFavShoutView, aAnimations, onAnimationComplete);
+    } else {
+        onAnimationComplete();
+    }
+}
+
+function onFavShoutSwipe(e) {
+    "use strict";
+
+    if (e.direction === "up" || e.direction === "down") {
+        if (e.bubbles) {
+            e.cancelBubble = true;
+        }
+        return false;
+    }
+    swipeFavShout(e.direction, e.source);
 }
 
 function resetShoutList() {
+    "use strict";
     if ($.fav_shout_listsection.items.length) {
         $.fav_shout_listsection.deleteItemsAt(0, $.fav_shout_listsection.items.length, {
             animated: true
@@ -802,7 +828,7 @@ function onMateClick(e) {
         var oAnimateSwipeIn = Ti.UI.createAnimation({
             left: "70%",
             opacity: 1.0,
-            duration: 500,
+            duration: 800,
             curve: Ti.UI.ANIMATION_CURVE_EASE_IN,
         });
         var oAnimateSwipeOut = Ti.UI.createAnimation({

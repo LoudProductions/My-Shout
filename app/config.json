@@ -78,6 +78,10 @@
                 "fontSize": 8,
                 "fontFamily": "FontAwesome"
             },
+            "faIconS": {
+                "fontSize": 12,
+                "fontFamily": "FontAwesome"
+            },
             "faIconXXL": {
                 "fontSize": 100,
                 "fontFamily": "FontAwesome"

@@ -163,12 +163,15 @@
 	text: Alloy.Globals.FAIcons.angle_right
 }
 ".listItemEllipsisIcon" : {
+	width: Ti.UI.FILL,
+	/*borderColor: "navy",*/
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: Alloy.CFG.fonts.faIcon,
 	/*color will be dynamically bound...*/
 	text: Alloy.Globals.FAIcons.ellipsis_h
 }
 ".listItemEditIcon" : {
+	width: Ti.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: Alloy.CFG.fonts.faIcon,
 	/*color will be dynamically bound...*/
@@ -181,12 +184,14 @@
 	text: Alloy.Globals.FAIcons.bullhorn
 }
 ".listItemYourShoutIcon" : {
+	width: Ti.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: Alloy.CFG.fonts.faIcon,
 	/*color will be dynamically bound...*/
 	text: Alloy.Globals.FAIcons.hand_o_left
 }
 ".listItemIsInactiveIcon" : {
+	width: Ti.UI.FILL,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: Alloy.CFG.fonts.faIcon,
 	/*color will be dynamically bound...*/
@@ -205,22 +210,24 @@
 	text: Alloy.Globals.FAIcons.plus
 }
 ".currentPageIndicatorIcon" : {
-	width: 10,
+	touchEnabled: false,
+	width: 15,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-	font: Alloy.CFG.fonts.faIconXS,
+	font: Alloy.CFG.fonts.faIconS,
 	color: Alloy.CFG.colors.brandHintColor,
 	text: Alloy.Globals.FAIcons.dot_circle_o
 }
 ".otherPageIndicatorIcon" : {
-	width: 10,
+	touchEnabled: false,
+	width: 15,
 	textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
-	font: Alloy.CFG.fonts.faIconXS,
+	font: Alloy.CFG.fonts.faIconS,
 	color: Alloy.CFG.colors.inactiveBackgroundColor,
 	text: Alloy.Globals.FAIcons.circle
 }
 ".pageIndicators" : {
 	top: 8,
-	height: Ti.UI.SIZE,
+	height: 20,
 	width: Ti.UI.FILL
 }
 ".pageIndicatorIcons" : {

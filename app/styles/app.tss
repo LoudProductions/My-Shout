@@ -48,6 +48,29 @@
 ".appTransparent" : {
 	opacity: 0
 }
+".appIconWrapper": {
+	/*borderColor: "gray",*/
+	height: 44,
+	width: 44,
+}
+".appIconWrapperRight1": {
+	/*borderColor: "gray",*/
+	right: 16,
+	height: 44,
+	width: 44,
+}
+".appIconWrapperRight2": {
+	/*borderColor: "gray",*/
+	right: 60,
+	height: 44,
+	width: 44,
+}
+".appIconWrapperRight3": {
+	/*borderColor: "gray",*/
+	right: 104,
+	height: 44,
+	width: 44,
+}
 ".appListItemRightIcon1" : {
 	right: 16
 }
