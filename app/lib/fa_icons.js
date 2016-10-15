@@ -607,7 +607,7 @@ exports.createIconFile = function(iconName, imgSize, imgColor) {
     imgColor = imgColor || "white";
 
     // e.g. fileName : icon_edit_30_white.png
-    var fileName = "icon_" + iconName + "_" + imgSize + "_" + imgColor;
+    var fileName = "icon_" + iconName + "_" + imgSize + "_" + imgColor.replace("#", "_");
     // if (OS_IOS && Ti.Platform.displayCaps.density == "high") {
         // fileName = "@2x" + fileName;
     // }
@@ -618,10 +618,10 @@ exports.createIconFile = function(iconName, imgSize, imgColor) {
     fileName += ".png";
 
     // do some magic for higher density displays
-    // if (OS_IOS && Ti.Platform.displayCaps.density == "high") {
-        // imgSize = imgSize * 2;
-    // }
-    imgSize = imgSize * Ti.Platform.displayCaps.logicalDensityFactor;
+    if (OS_IOS && Ti.Platform.displayCaps.density == "high") {
+        imgSize = imgSize * Ti.Platform.displayCaps.logicalDensityFactor;
+    }
+    // imgSize = imgSize * Ti.Platform.displayCaps.logicalDensityFactor;
 
     var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fileName);
 

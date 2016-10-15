@@ -480,8 +480,10 @@ function mapMateListItem(oMate, template) {
             color: mateColor,
             backgroundColor: mateBackgroundColor
         },
-        mate_your_shout_icon: {
+        mate_your_shout_icon_wrapper: {
             visible: (oMate.hasShout ? false : true),
+        },
+        mate_your_shout_icon: {
             color: mateColor,
             backgroundColor: mateBackgroundColor
         },
@@ -683,11 +685,17 @@ function toggleMateEditing(mateId, itemIndex) {
 function onMateInactiveIconClick(e) {
     "use strict";
 
+    var logContext = "shouts.js > onMateInactiveIconClick()";
+    Log.debug("running...", logContext);
+
     onMateInactiveSwitchClick(e, _oIsEditingMate.isInactive);
 }
 
 function onMateInactiveSwitchClick(e, bActive) {
     "use strict";
+
+    var logContext = "shouts.js > onMateInactiveSwitchClick()";
+    Log.debug("running...", logContext);
 
     bActive = (bActive !== undefined ? bActive : e.value);
 
@@ -704,6 +712,9 @@ function onMateInactiveSwitchClick(e, bActive) {
 
 function onMateEditClick(e) {
     "use strict";
+
+    var logContext = "shouts.js > onMateEditClick()";
+    Log.debug("running...", logContext);
 
     goEditMate(e.itemId);
 }
@@ -817,6 +828,8 @@ function onMateClick(e) {
     "use strict";
 
     var logContext = "shouts.js > onMateClick()";
+
+    Log.debug("running...", logContext);
 
     if (OS_IOS) {
         if (e.bubbles) {
@@ -1163,8 +1176,9 @@ function onShoutsListClick(e){
     "use strict";
 
     var logContext = "shouts.js > onShoutsListClick()";
-    Log.debug("onShoutsListClick:", logContext);
-    Log.debug(e, logContext);
+    // Log.debug(e, logContext);
+
+    Log.debug("e.section: " + (e.section ? e.section.id : "unknown"), logContext);
 
     switch (e.section) {
         case $.fav_shout_listsection:
@@ -1174,10 +1188,14 @@ function onShoutsListClick(e){
             break;
 
         case $.shout_mates_listsection:
+            Log.debug("e.bindId: " + e.bindId, logContext);
             switch (e.bindId) {
                 case "mate_your_shout_icon":
                 case "mate_is_inactive":
                 case "mate_edit_icon":
+                case "mate_your_shout_icon_wrapper":
+                case "mate_is_inactive_wrapper":
+                case "mate_edit_icon_wrapper":
                     // these have their own event handlers
                     break;
                 default:
