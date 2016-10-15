@@ -74,10 +74,8 @@
 									<Label class="listItemPrice appTextStyleCaption2" bindId="mate_price"/>
 								</View>
 							</View>
-							<View class="appCompositeView" touchEnabled="false" >
-								<View class="appIconWrapperRight1" touchEnabled="false">
-									<Label class="listItemEllipsisIcon" bindId="mate_ellipsis_icon" touchEnabled="false" />
-								</View>
+							<View class="appCompositeView">
+								<Label class="listItemEllipsisIcon appRight1" bindId="mate_ellipsis_icon"/>
 							</View>
 						</View>
 					</ItemTemplate>
@@ -92,15 +90,12 @@
 								</View>
 							</View>
 							<View class="appCompositeView">
-								<View class="appIconWrapperRight3" bindId="mate_your_shout_icon" onClick="onMateYourShoutClick">
-									<Label class="listItemYourShoutIcon" />
-								</View>
-								<View class="appIconWrapperRight2" bindId="mate_is_inactive" onClick="onMateInactiveIconClick">
-									<Label class="listItemIsInactiveIcon" />
-								</View>
-								<View class="appIconWrapperRight1" bindId="mate_edit_icon" onClick="onMateEditClick">
-									<Label class="listItemEditIcon" />
-								</View>
+								<Label class="listItemYourShoutIcon appRight3" bindId="mate_your_shout_icon" />
+								<View class="appIconWrapper appRight3" bindId="mate_your_shout_touch" onClick="onMateYourShoutClick"/>
+								<Label class="listItemIsInactiveIcon appRight2" bindId="mate_is_inactive_icon" />
+								<View class="appIconWrapper appRight2" bindId="mate_is_inactive_touch" onClick="onMateInactiveClick"/>
+								<Label class="listItemEditIcon appRight1" bindId="mate_edit_icon" />
+								<View class="appIconWrapper appRight1" bindId="mate_edit_touch" onClick="onMateEditClick"/>
 							</View>
 						</View>
 					</ItemTemplate>
@@ -117,9 +112,9 @@
 			</ListView>
 		</View>
 
-		<Label class="listItemHandPointerIcon" id="hand_icon" />
+		<Label platform="ios" class="listItemHandPointerIcon" id="hand_icon" touchEnabled="false" />
 
-		<ActivityIndicator id="activity_indicator"/>
+		<ActivityIndicator id="activity_indicator" touchEnabled="false" />
 
 	</Window>
 </Alloy>

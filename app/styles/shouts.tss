@@ -163,7 +163,6 @@
 	text: Alloy.Globals.FAIcons.angle_right
 }
 ".listItemEllipsisIcon" : {
-	width: Ti.UI.FILL,
 	/*borderColor: "navy",*/
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: Alloy.CFG.fonts.faIcon,
@@ -171,7 +170,7 @@
 	text: Alloy.Globals.FAIcons.ellipsis_h
 }
 ".listItemEditIcon" : {
-	width: Ti.UI.FILL,
+	/*borderColor: "aqua",*/
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: Alloy.CFG.fonts.faIcon,
 	/*color will be dynamically bound...*/
@@ -184,14 +183,14 @@
 	text: Alloy.Globals.FAIcons.bullhorn
 }
 ".listItemYourShoutIcon" : {
-	width: Ti.UI.FILL,
+	/*borderColor: "teal",*/
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: Alloy.CFG.fonts.faIcon,
 	/*color will be dynamically bound...*/
 	text: Alloy.Globals.FAIcons.hand_o_left
 }
 ".listItemIsInactiveIcon" : {
-	width: Ti.UI.FILL,
+	/*borderColor: "orange",*/
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
 	font: Alloy.CFG.fonts.faIcon,
 	/*color will be dynamically bound...*/

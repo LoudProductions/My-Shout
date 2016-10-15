@@ -53,23 +53,14 @@
 	height: 44,
 	width: 44,
 }
-".appIconWrapperRight1": {
-	/*borderColor: "gray",*/
+".appRight1": {
 	right: 16,
-	height: 44,
-	width: 44,
 }
-".appIconWrapperRight2": {
-	/*borderColor: "gray",*/
+".appRight2": {
 	right: 60,
-	height: 44,
-	width: 44,
 }
-".appIconWrapperRight3": {
-	/*borderColor: "gray",*/
+".appRight3": {
 	right: 104,
-	height: 44,
-	width: 44,
 }
 ".appListItemRightIcon1" : {
 	right: 16

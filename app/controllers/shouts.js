@@ -8,6 +8,7 @@ var _oIsEditingMate;
 var _oMateController;
 var _oShoutWizController;
 var _bDidAnimateIn = false;
+var _iCountShowiOSEditActions = 0;
 
 if (OS_IOS) {
     var _oEditActions = {
@@ -466,12 +467,6 @@ function mapMateListItem(oMate, template) {
             color: mateColor,
             text: (oMate.hasShout ? Alloy.Globals.FAIcons.bullhorn : null),
         },
-        mate_is_inactive: {
-            // value: (oMate.isInactive ? false : true),
-            text: (oMate.isInactive ? Alloy.Globals.FAIcons.toggle_off : Alloy.Globals.FAIcons.toggle_on),
-            color: mateColor,
-            visible: (oMate.hasShout ? false : true),
-        },
         mate_ellipsis_icon: {
             color: mateColor,
             backgroundColor: mateBackgroundColor
@@ -480,12 +475,23 @@ function mapMateListItem(oMate, template) {
             color: mateColor,
             backgroundColor: mateBackgroundColor
         },
-        mate_your_shout_icon_wrapper: {
+        mate_edit_touch: {
+        },
+        mate_is_inactive_icon: {
+            text: (oMate.isInactive ? Alloy.Globals.FAIcons.toggle_off : Alloy.Globals.FAIcons.toggle_on),
+            color: mateColor,
+            visible: (oMate.hasShout ? false : true),
+        },
+        mate_is_inactive_touch: {
             visible: (oMate.hasShout ? false : true),
         },
         mate_your_shout_icon: {
             color: mateColor,
-            backgroundColor: mateBackgroundColor
+            backgroundColor: mateBackgroundColor,
+            visible: (oMate.hasShout ? false : true),
+        },
+        mate_your_shout_touch: {
+            visible: (oMate.hasShout ? false : true),
         },
         // if binding to a view then the associated class is overridden
         // and all styling properties must be supplied here
@@ -682,13 +688,17 @@ function toggleMateEditing(mateId, itemIndex) {
     }
 }
 
-function onMateInactiveIconClick(e) {
+function onMateInactiveClick(e) {
     "use strict";
 
-    var logContext = "shouts.js > onMateInactiveIconClick()";
+    var logContext = "shouts.js > onMateInactiveClick()";
     Log.debug("running...", logContext);
 
     onMateInactiveSwitchClick(e, _oIsEditingMate.isInactive);
+
+    if (e.bubbles) {
+        e.cancelBubble = true;
+    }
 }
 
 function onMateInactiveSwitchClick(e, bActive) {
@@ -717,6 +727,10 @@ function onMateEditClick(e) {
     Log.debug("running...", logContext);
 
     goEditMate(e.itemId);
+
+    if (e.bubbles) {
+        e.cancelBubble = true;
+    }
 }
 
 function giveMateTheShout(e) {
@@ -761,6 +775,9 @@ function onMateYourShoutClick(e) {
         Toast.show(oErr.message || oErr);
     } finally {
         toggleMateEditing(e.itemId, e.itemIndex);
+        if (e.bubbles) {
+            e.cancelBubble = true;
+        }
     }
 }
 
@@ -831,10 +848,11 @@ function onMateClick(e) {
 
     Log.debug("running...", logContext);
 
-    if (OS_IOS) {
-        if (e.bubbles) {
-            e.cancelBubble = true;
-        }
+    if (OS_IOS && _iCountShowiOSEditActions < 2) {
+        // if (e.bubbles) {
+        //     e.cancelBubble = true;
+        // }
+        _iCountShowiOSEditActions++;
         // we use editactions on ios, so animate a swipe action
         // to hint that editactions are available
         Log.debug("animating swipe to show edit actions...", logContext);
@@ -854,7 +872,7 @@ function onMateClick(e) {
             $.hand_icon.top = "80%";
             $.hand_icon.left = "80%";
         });
-        return false;
+        // return false;
     }
 
     switch (e.section) {
@@ -1178,7 +1196,8 @@ function onShoutsListClick(e){
     var logContext = "shouts.js > onShoutsListClick()";
     // Log.debug(e, logContext);
 
-    Log.debug("e.section: " + (e.section ? e.section.id : "unknown"), logContext);
+    Log.debug("e.section: " + (e.section ? e.section.id : "undefined"), logContext);
+    Log.debug("e.bindId: " + e.bindId, logContext);
 
     switch (e.section) {
         case $.fav_shout_listsection:
@@ -1188,14 +1207,10 @@ function onShoutsListClick(e){
             break;
 
         case $.shout_mates_listsection:
-            Log.debug("e.bindId: " + e.bindId, logContext);
             switch (e.bindId) {
-                case "mate_your_shout_icon":
-                case "mate_is_inactive":
-                case "mate_edit_icon":
-                case "mate_your_shout_icon_wrapper":
-                case "mate_is_inactive_wrapper":
-                case "mate_edit_icon_wrapper":
+                case "mate_your_shout_touch":
+                case "mate_is_inactive_touch":
+                case "mate_edit_touch":
                     // these have their own event handlers
                     break;
                 default:
