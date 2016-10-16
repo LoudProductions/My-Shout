@@ -87,6 +87,7 @@ function init() {
     var logContext = "shouts.js > init()";
     Log.trace("running init...", logContext);
 
+    setButtonImages();
     fetchFavShout();
     fillPageIndicatorIcons();
     fillFavShoutSection();
@@ -94,6 +95,11 @@ function init() {
 
     Log.trace("raising $.loaded event...", logContext);
     $.trigger("loaded");
+}
+
+function setButtonImages() {
+    "use strict";
+    Alloy.Globals.FAIcons.setButtonIcon($.go_add_mate_button, "plus", 32, Alloy.CFG.colors.invertedTextColor);
 }
 
 function fetchFavShout() {
@@ -219,6 +225,7 @@ function swipeFavShout(direction, oFavShoutView) {
         updatePageIndicatorIcons();
         updateFavShoutSection();
         fillShoutMatesSection();
+        _bIsSwipingFavShout = false;
     };
 
     if (oFavShoutView) {
@@ -411,6 +418,7 @@ function mapMateListItem(oMate, template) {
     }
 
     var mateColor = Alloy.CFG.colors.textColor;
+    var mateTintColor = Alloy.CFG.colors.tintColor;
     var mateBackgroundColor = Alloy.CFG.colors.invertedTextColor;
     if (oMate.isInactive) {
         mateColor = Alloy.CFG.colors.inactiveColor;
@@ -418,6 +426,7 @@ function mapMateListItem(oMate, template) {
     } else if (oMate.hasShout) {
         mateColor = Alloy.CFG.colors.invertedTextColor;
         // mateBackgroundColor = Alloy.CFG.colors.tintColor;
+        mateTintColor = mateColor;
         mateBackgroundColor = Alloy.CFG.colors.shoutBackgroundColor;
     }
     var oMateListItem = {
@@ -469,28 +478,23 @@ function mapMateListItem(oMate, template) {
         },
         mate_ellipsis_icon: {
             color: mateColor,
-            backgroundColor: mateBackgroundColor
+            tintColor: mateColor,
         },
-        mate_edit_icon: {
-            color: mateColor,
-            backgroundColor: mateBackgroundColor
+        mate_edit_button: {
+            image: Alloy.Globals.FAIcons.createIconFile("pencil", 24, mateTintColor),
+            color: mateTintColor,
+            tintColor: mateTintColor,
         },
-        mate_edit_touch: {
-        },
-        mate_is_inactive_icon: {
-            text: (oMate.isInactive ? Alloy.Globals.FAIcons.toggle_off : Alloy.Globals.FAIcons.toggle_on),
-            color: mateColor,
+        mate_is_inactive_button: {
+            image: (oMate.isInactive ? Alloy.Globals.FAIcons.createIconFile("toggle_off", 24, mateTintColor) : Alloy.Globals.FAIcons.createIconFile("toggle_on", 24, mateTintColor)),
+            color: mateTintColor,
+            tintColor: mateTintColor,
             visible: (oMate.hasShout ? false : true),
         },
-        mate_is_inactive_touch: {
-            visible: (oMate.hasShout ? false : true),
-        },
-        mate_your_shout_icon: {
-            color: mateColor,
-            backgroundColor: mateBackgroundColor,
-            visible: (oMate.hasShout ? false : true),
-        },
-        mate_your_shout_touch: {
+        mate_your_shout_button: {
+            image: Alloy.Globals.FAIcons.createIconFile("hand_o_left", 24, mateTintColor),
+            color: mateTintColor,
+            tintColor: mateTintColor,
             visible: (oMate.hasShout ? false : true),
         },
         // if binding to a view then the associated class is overridden
@@ -637,7 +641,8 @@ function showAddSomeMatesToast(message) {
     "use strict";
 
     Toast.show(message || L("shouts_add_some_mates"));
-    Alloy.Globals.Animation.shake($.go_add_mate_icon, 2000);
+    // Alloy.Globals.Animation.shake($.go_add_mate_icon, 2000);
+    Alloy.Globals.Animation.shake($.go_add_mate_button, 2000);
 }
 
 function goShoutWiz() {
@@ -1208,9 +1213,9 @@ function onShoutsListClick(e){
 
         case $.shout_mates_listsection:
             switch (e.bindId) {
-                case "mate_your_shout_touch":
-                case "mate_is_inactive_touch":
-                case "mate_edit_touch":
+                case "mate_your_shout_button":
+                case "mate_is_inactive_button":
+                case "mate_edit_button":
                     // these have their own event handlers
                     break;
                 default:

@@ -8,7 +8,7 @@
 			<ListView class="historyList" id="history_listview" visible="false">
 				<Templates>
 					<ItemTemplate name="shout_mates_template" class="matesListItem">
-						<View bindId="mate_bg_view" onClick="onMateClick">
+						<View bindId="mate_bg_view">
 							<View class="matesListItemLeft">
 								<View class="appHalfHeight">
 									<Label class="listItemTitle appTextStyleCaption1" bindId="mate_name"/>
@@ -26,7 +26,7 @@
 								</View>
 							</View>
 							<View class="appCompositeView">
-								<Label class="listItemUndoIcon appListItemRightIcon1" bindId="mate_undo_icon"/>
+								<Button class="appIconButton appIconButtonRight1" bindId="mate_undo_button" onClick="onMateUndoClick"/>
 							</View>
 						</View>
 					</ItemTemplate>

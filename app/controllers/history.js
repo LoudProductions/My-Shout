@@ -93,15 +93,19 @@ function buildHistorySectionHeader(oHistory, iSectionIndex) {
     $.addClass(oHeaderTitle, "listHeaderTitle appTextStyleBody");
     oHeaderView.add(oHeaderTitle);
 
-    // add view and label for undo icon (to first shout only)
+    // add undo button (to first shout only)
     if (iSectionIndex === 0) {
         var oUndoIconView = Ti.UI.createView();
         $.addClass(oUndoIconView, "appCompositeView");
-        var oUndoIconLabel = Ti.UI.createLabel();
-        $.addClass(oUndoIconLabel, "listHeaderUndoIcon appListItemRightIcon1");
-        oUndoIconLabel._app_iSectionIndex = iSectionIndex;
-        oUndoIconLabel.addEventListener("click", onUndoShout);
-        oUndoIconView.add(oUndoIconLabel);
+        var oUndoIconButton = Ti.UI.createButton({
+            image: Alloy.Globals.FAIcons.createIconFile("undo", 24, Alloy.CFG.colors.invertedTextColor),
+            color: Alloy.CFG.colors.invertedTextColor,
+            tintColor: Alloy.CFG.colors.invertedTextColor,
+        });
+        $.addClass(oUndoIconButton, "appIconButton appIconButtonRight1");
+        oUndoIconButton._app_iSectionIndex = iSectionIndex;
+        oUndoIconButton.addEventListener("click", onUndoShout);
+        oUndoIconView.add(oUndoIconButton);
         oHeaderView.add(oUndoIconView);
     }
 
@@ -161,29 +165,13 @@ function mapMateListItem(oMate, iSectionIndex, template) {
             attributedString: getAttributedBalanceText(oMate.balance, oMate.hasShout),
             color: mateColor,
         },
-        mate_has_shout: {
-            color: mateColor,
-            text: (oMate.hasShout ? Alloy.Globals.FAIcons.bullhorn : null),
-        },
-        mate_is_inactive: {
-            value: (oMate.isInactive ? false : true),
-        },
-        mate_undo_icon: {
+        mate_undo_button: {
             // TODO: enable undo for individual shouters? probably just as easy to undo the shout
             // and deactivate a participant before shouting again...
             // visible: (oMate.isInactive || iSectionIndex !== 0 ? false : true),
             visible: false,
             color: mateColor,
-            backgroundColor: mateBackgroundColor
-        },
-        mate_edit_icon: {
-            color: mateColor,
-            backgroundColor: mateBackgroundColor
-        },
-        mate_your_shout_icon: {
-            visible: (oMate.hasShout ? false : true),
-            color: mateColor,
-            backgroundColor: mateBackgroundColor
+            image: Alloy.Globals.FAIcons.createIconFile("undo", 24, mateColor),
         },
         // if binding to a view then the associated class is overridden
         // and all styling properties must be supplied here
@@ -316,9 +304,10 @@ function onUndoShout(e){
         Toast.show(L("history_shout_has_been_reversed"));
         Alloy.Globals.Navigator.pop();
     }
+
 }
 
-function onMateClick(e){
+function onMateUndoClick(e){
     "use strict";
 
 }

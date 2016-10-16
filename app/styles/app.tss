@@ -48,6 +48,42 @@
 ".appTransparent" : {
 	opacity: 0
 }
+".appIconButton": {
+	/*borderColor: "gray",*/
+	height: 44,
+	width: 44,
+	backgroundColor: "transparent",
+	/*borderRadius: 22,*/
+}
+".appIconButton[platform=android]": {
+	touchFeedback: true,
+	touchFeedbackColor: Alloy.CFG.colors.bgColorTransparent,
+}
+".appIconFAButton": {
+	/*borderColor: "gray",*/
+	height: 44,
+	width: 44,
+	color: Alloy.CFG.colors.invertedTextColor,
+	backgroundColor: Alloy.CFG.colors.tintColor,
+	borderRadius: 22,
+}
+".appIconFAButton[platform=android]": {
+	elevation: 16,
+	touchFeedback: true,
+	touchFeedbackColor: Alloy.CFG.colors.bgColorTransparent,
+}
+".appIconFAButton[platform=ios]": {
+	tintColor: Alloy.CFG.colors.invertedTextColor,
+}
+".appIconButtonRight1": {
+	right: 0,
+}
+".appIconButtonRight2": {
+	right: 44,
+}
+".appIconButtonRight3": {
+	right: 88,
+}
 ".appIconWrapper": {
 	/*borderColor: "gray",*/
 	height: 44,

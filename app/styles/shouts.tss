@@ -64,14 +64,15 @@
 	color: Alloy.CFG.colors.invertedTextColor
 }
 ".shoutsList" : {
-	backgroundColor: "transparent"
+	backgroundColor: "transparent",
+	separatorColor: "transparent",
 }
 ".shoutsList[platform=ios]" : {
 	allowsSelection: true,
 	separatorStyle: Ti.UI.TABLE_VIEW_SEPARATOR_STYLE_NONE
 }
 ".favShoutsListItem" : {
-	height: 290,
+	height: 300,
 	layout: "vertical",
 	backgroundColor: "transparent",
 	selectedBackgroundColor: "transparent",
@@ -238,4 +239,10 @@
 ".noWrapView": {
 	/*borderColor: "lime",*/
 	horizontalWrap: false,
+}
+
+".fabHeaderView": {
+	layout: "composite",
+	width: Ti.UI.FILL,
+	height: 56
 }

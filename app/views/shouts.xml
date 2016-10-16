@@ -90,12 +90,9 @@
 								</View>
 							</View>
 							<View class="appCompositeView">
-								<Label class="listItemYourShoutIcon appRight3" bindId="mate_your_shout_icon" />
-								<View class="appIconWrapper appRight3" bindId="mate_your_shout_touch" onClick="onMateYourShoutClick"/>
-								<Label class="listItemIsInactiveIcon appRight2" bindId="mate_is_inactive_icon" />
-								<View class="appIconWrapper appRight2" bindId="mate_is_inactive_touch" onClick="onMateInactiveClick"/>
-								<Label class="listItemEditIcon appRight1" bindId="mate_edit_icon" />
-								<View class="appIconWrapper appRight1" bindId="mate_edit_touch" onClick="onMateEditClick"/>
+								<Button class="appIconButton appIconButtonRight3" bindId="mate_your_shout_button" onClick="onMateYourShoutClick"/>
+								<Button class="appIconButton appIconButtonRight2" bindId="mate_is_inactive_button" onClick="onMateInactiveClick"/>
+								<Button class="appIconButton appIconButtonRight1" bindId="mate_edit_button" onClick="onMateEditClick"/>
 							</View>
 						</View>
 					</ItemTemplate>
@@ -103,9 +100,8 @@
 				<ListSection id="fav_shout_listsection"/>
 				<ListSection id="shout_mates_listsection" headerTitle="L('shouts_mates')">
 					<HeaderView>
-						<View class="appCompositeView">
-							<!-- <Label class="listHeaderAddIcon appListItemRightIcon1" id="go_add_mate_icon" onClick="goAddMate"/> -->
-							<Label class="listHeaderAddIcon" id="go_add_mate_icon" onClick="goAddMate"/>
+						<View class="fabHeaderView">
+							<Button class="appIconFAButton" id="go_add_mate_button" onClick="goAddMate"/>
 						</View>
 					</HeaderView>
 				</ListSection>

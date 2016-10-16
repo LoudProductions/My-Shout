@@ -3,7 +3,7 @@
     <id>au.com.loudproductions.myshout.app</id>
     <guid>85e48234-4fdb-487e-9bbb-51fb47dd3e4d</guid>
     <name>My Shout</name>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <publisher>My Shout (ACS version) - by Loud Productions</publisher>
     <url>http://www.loudproductions.info/myshoutapp</url>
     <description>Is it my shout?</description>
@@ -61,7 +61,7 @@
         <target device="ipad">true</target>
         <target device="android">true</target>
     </deployment-targets>
-    <sdk-version>5.4.0.GA</sdk-version>
+    <sdk-version>5.5.1.GA</sdk-version>
     <plugins>
         <plugin version="1.0">ti.alloy</plugin>
         <plugin version="1.0">ti.version</plugin>
