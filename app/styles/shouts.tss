@@ -31,8 +31,10 @@
 	top: 20,
 }
 ".favShoutWhereTopView" : {
+	top: 0,
+	height: 50,
+	width: "95%",
 	horizontalWrap: false,
-	height: Ti.UI.SIZE,
 }
 ".favShoutWhereTop" : {
 	top: 10,
@@ -248,4 +250,10 @@
 	layout: "composite",
 	width: Ti.UI.FILL,
 	height: 56
+}
+
+".listItemPoisonView": {
+	height: "50%",
+	width: "95%",
+	horizontalWrap: false,
 }
