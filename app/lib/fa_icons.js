@@ -603,25 +603,17 @@
 });
 
 exports.createIconFile = function(iconName, imgSize, imgColor) {
+		var logContext = "fa_icons.js > createIconFile()";
 
     imgColor = imgColor || "white";
 
     // e.g. fileName : icon_edit_30_white.png
     var fileName = "icon_" + iconName + "_" + imgSize + "_" + imgColor.replace("#", "_");
-    // if (OS_IOS && Ti.Platform.displayCaps.density == "high") {
-        // fileName = "@2x" + fileName;
-    // }
     if (OS_IOS && Ti.Platform.displayCaps.logicalDensityFactor > 1) {
         fileName += "@" + Ti.Platform.displayCaps.logicalDensityFactor + "x";
     }
 
     fileName += ".png";
-
-    // do some magic for higher density displays
-    if (OS_IOS && Ti.Platform.displayCaps.density == "high") {
-        imgSize = imgSize * Ti.Platform.displayCaps.logicalDensityFactor;
-    }
-    // imgSize = imgSize * Ti.Platform.displayCaps.logicalDensityFactor;
 
     var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, fileName);
 
@@ -630,13 +622,11 @@ exports.createIconFile = function(iconName, imgSize, imgColor) {
         var iconLabel = Ti.UI.createLabel({
                         font: {
                             fontFamily: "FontAwesome",
-                            fontSize: (imgSize * 0.8) + "dp",
+                            fontSize: imgSize + "dp",
                             fontWeight: "normal"
                         },
                         color: imgColor,
                         backgroundColor: "transparent",
-                        height: imgSize + "dp",
-                        // width: imgSize + "dp",
                         text: exports[iconName],
                         textAlign: Ti.UI.TEXT_ALIGNMENT_CENTER,
                         verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER
@@ -648,6 +638,7 @@ exports.createIconFile = function(iconName, imgSize, imgColor) {
         file.write(blob);
     }
 
+		Log.debug("Returning icon file: " + file.nativePath, logContext);
     return file.nativePath;
 };
 
@@ -655,10 +646,5 @@ exports.setButtonIcon = function(button, iconName, iconSize, iconColor) {
     iconSize = iconSize || 24;
     // generate button icon
     var buttonIcon = exports.createIconFile(iconName, iconSize, iconColor);
-    // if (OS_IOS || OS_MOBILEWEB)
-        // button.image = buttonIcon;
-    // if (OS_ANDROID)
-        // button.icon = buttonIcon;
-    // setting a button image results in it being distorted based on the width of the button - used background image instead
-    button.backgroundImage = buttonIcon;
+    button.image = buttonIcon;
 };
