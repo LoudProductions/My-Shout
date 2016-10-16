@@ -30,9 +30,14 @@
 ".favShoutImage[platform=ios]" : {
 	top: 20,
 }
+".favShoutWhereTopView" : {
+	horizontalWrap: false,
+	height: Ti.UI.SIZE,
+}
 ".favShoutWhereTop" : {
 	top: 10,
 	color: Alloy.CFG.colors.invertedTextColor,
+	ellipsize: Ti.UI.TEXT_ELLIPSIZE_TRUNCATE_MARQUEE,
 }
 ".favShoutCirc1" : {
 	top: "15%",
@@ -125,13 +130,15 @@
 	height: Titanium.UI.FILL,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	ellipsize: Ti.UI.TEXT_ELLIPSIZE_TRUNCATE_MARQUEE,
 }
 ".listItemSubtitle" : {
 	left: 16,
 	width: Titanium.UI.FILL,
 	height: Titanium.UI.FILL,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_TOP,
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT
+	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
+	ellipsize: Ti.UI.TEXT_ELLIPSIZE_TRUNCATE_MARQUEE,
 }
 ".listItemPoison" : {
 	/*bottom: 15,*/
@@ -139,6 +146,7 @@
 	height: Titanium.UI.FILL,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_BOTTOM,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
+	ellipsize: Ti.UI.TEXT_ELLIPSIZE_TRUNCATE_MARQUEE,
 }
 ".listItemPrice" : {
 	/*top: 15,*/
@@ -234,11 +242,6 @@
 	height: Ti.UI.SIZE,
 	width: Ti.UI.SIZE,
 	layout: "horizontal"
-}
-
-".noWrapView": {
-	/*borderColor: "lime",*/
-	horizontalWrap: false,
 }
 
 ".fabHeaderView": {

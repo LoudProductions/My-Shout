@@ -217,3 +217,7 @@
 	borderRadius: 25,
 	height: 50,
 }
+
+".appNoHorizontalWrap": {
+	horizontalWrap: false,
+}
