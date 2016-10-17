@@ -171,7 +171,7 @@ function mapMateListItem(oMate, iSectionIndex, template) {
             // visible: (oMate.isInactive || iSectionIndex !== 0 ? false : true),
             visible: false,
             color: mateColor,
-            image: Alloy.Globals.FAIcons.createIconFile("undo", 24, mateColor),
+            backgroundImage: Alloy.Globals.FAIcons.createIconFile("undo", 44, mateColor),
         },
         // if binding to a view then the associated class is overridden
         // and all styling properties must be supplied here

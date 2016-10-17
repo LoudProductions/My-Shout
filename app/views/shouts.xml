@@ -77,7 +77,7 @@
 								</View>
 							</View>
 							<View class="appCompositeView">
-								<Label class="listItemEllipsisIcon appRight1" bindId="mate_ellipsis_icon"/>
+								<Button class="appIconButton appIconButtonRight1" bindId="mate_ellipsis_button" touchEnabled="false"/>
 							</View>
 						</View>
 					</ItemTemplate>

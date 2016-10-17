@@ -79,10 +79,10 @@
 	right: 0,
 }
 ".appIconButtonRight2": {
-	right: 44,
+	right: 50,
 }
 ".appIconButtonRight3": {
-	right: 88,
+	right: 100,
 }
 ".appIconWrapper": {
 	/*borderColor: "gray",*/

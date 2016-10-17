@@ -99,7 +99,7 @@ function init() {
 
 function setButtonImages() {
     "use strict";
-    Alloy.Globals.FAIcons.setButtonIcon($.go_add_mate_button, "plus", 32, Alloy.CFG.colors.invertedTextColor);
+    Alloy.Globals.FAIcons.setButtonIcon($.go_add_mate_button, "plus", 44, Alloy.CFG.colors.invertedTextColor);
 }
 
 function fetchFavShout() {
@@ -476,23 +476,24 @@ function mapMateListItem(oMate, template) {
             color: mateColor,
             text: (oMate.hasShout ? Alloy.Globals.FAIcons.bullhorn : null),
         },
-        mate_ellipsis_icon: {
-            color: mateColor,
-            tintColor: mateColor,
+        mate_ellipsis_button: {
+            backgroundImage: Alloy.Globals.FAIcons.createIconFile("ellipsis_h", 44, mateTintColor),
+            color: mateTintColor,
+            tintColor: mateTintColor,
         },
         mate_edit_button: {
-            image: Alloy.Globals.FAIcons.createIconFile("pencil", 24, mateTintColor),
+            backgroundImage: Alloy.Globals.FAIcons.createIconFile("pencil", 44, mateTintColor),
             color: mateTintColor,
             tintColor: mateTintColor,
         },
         mate_is_inactive_button: {
-            image: (oMate.isInactive ? Alloy.Globals.FAIcons.createIconFile("toggle_off", 24, mateTintColor) : Alloy.Globals.FAIcons.createIconFile("toggle_on", 24, mateTintColor)),
+            backgroundImage: (oMate.isInactive ? Alloy.Globals.FAIcons.createIconFile("toggle_off", 44, mateTintColor) : Alloy.Globals.FAIcons.createIconFile("toggle_on", 44, mateTintColor)),
             color: mateTintColor,
             tintColor: mateTintColor,
             visible: (oMate.hasShout ? false : true),
         },
         mate_your_shout_button: {
-            image: Alloy.Globals.FAIcons.createIconFile("hand_o_left", 24, mateTintColor),
+            backgroundImage: Alloy.Globals.FAIcons.createIconFile("hand_o_left", 44, mateTintColor),
             color: mateTintColor,
             tintColor: mateTintColor,
             visible: (oMate.hasShout ? false : true),
