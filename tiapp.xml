@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ti:app xmlns:ti="http://ti.appcelerator.org">
     <id>au.com.loudproductions.myshout.app</id>
+    <!-- <id>au.com.loudproductions.myshout.app.android</id> -->
     <guid>85e48234-4fdb-487e-9bbb-51fb47dd3e4d</guid>
     <name>My Shout</name>
-    <version>1.1.2</version>
+    <version>1.1.3</version>
     <publisher>My Shout (ACS version) - by Loud Productions</publisher>
     <url>http://www.loudproductions.info/myshoutapp</url>
     <description>Is it my shout?</description>
@@ -14,6 +15,14 @@
     <analytics>false</analytics>
     <property name="ti.ui.defaultunit" type="string">dp</property>
     <property name="ti.version.range" type="string">&gt;=5.2.2</property>
+    <android xmlns:android="http://schemas.android.com/apk/res/android">
+        <manifest android:versionCode="3" android:versionName="1.1.3">
+            <application android:theme="@style/appcelerator">
+                <meta-data
+                    android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyB1ATGRrby9stkKxvdl3SBYxSVB5Kkm7yM"/>
+            </application>
+        </manifest>
+    </android>
     <ios>
         <min-ios-ver>8.4</min-ios-ver>
         <enable-launch-screen-storyboard>true</enable-launch-screen-storyboard>
@@ -46,14 +55,6 @@
             </dict>
         </plist>
     </ios>
-    <android xmlns:android="http://schemas.android.com/apk/res/android">
-        <manifest>
-            <application android:theme="@style/appcelerator">
-                <meta-data
-                    android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyB1ATGRrby9stkKxvdl3SBYxSVB5Kkm7yM"/>
-            </application>
-        </manifest>
-    </android>
     <modules/>
     <deployment-targets>
         <target device="mobileweb">false</target>

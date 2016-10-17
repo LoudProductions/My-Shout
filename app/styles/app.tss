@@ -89,24 +89,6 @@
 	height: 44,
 	width: 44,
 }
-".appRight1": {
-	right: 16,
-}
-".appRight2": {
-	right: 60,
-}
-".appRight3": {
-	right: 104,
-}
-".appListItemRightIcon1" : {
-	right: 16
-}
-".appListItemRightIcon2" : {
-	right: 60
-}
-".appListItemRightIcon3" : {
-	right: 104
-}
 ".appCompositeView" : {
 	layout: "composite",
 	width: Ti.UI.FILL,
