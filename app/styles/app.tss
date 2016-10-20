@@ -49,7 +49,7 @@
 	opacity: 0
 }
 ".appIconButton": {
-	/*borderColor: "gray",*/
+/*	borderColor: "purple",*/
 	height: 44,
 	width: 44,
 	backgroundColor: "transparent",
@@ -60,7 +60,7 @@
 	touchFeedbackColor: Alloy.CFG.colors.bgColorTransparent,
 }
 ".appIconFAButton": {
-	/*borderColor: "gray",*/
+	/*borderColor: "purple",*/
 	height: 44,
 	width: 44,
 	color: Alloy.CFG.colors.invertedTextColor,
