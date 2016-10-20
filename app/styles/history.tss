@@ -60,12 +60,9 @@
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_TOP,
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_CENTER,
 }
-".listItemUndoIcon" : {
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
-	font: Alloy.CFG.fonts.faIcon,
-	/*color will be dynamically bound...*/
-	text: Alloy.Globals.FAIcons.undo,
-}
+
+ 
+
 ".listHeader" : {
 	/*borderColor: "green",*/
 	height: 40,
@@ -81,16 +78,4 @@
 	textAlign: Titanium.UI.TEXT_ALIGNMENT_LEFT,
 	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
 	color: Alloy.CFG.colors.invertedTextColor,
-}
-".listHeaderUndoIcon" : {
-	/*borderColor: "pink",*/
-	height: Ti.UI.FILL,
-	textAlign: Titanium.UI.TEXT_ALIGNMENT_RIGHT,
-	verticalAlign: Ti.UI.TEXT_VERTICAL_ALIGNMENT_CENTER,
-	font: {
-		fontSize: 20,
-		fontFamily: "FontAwesome",
-	},
-	color: Alloy.CFG.colors.invertedTextColor,
-	text: Alloy.Globals.FAIcons.undo,
 }

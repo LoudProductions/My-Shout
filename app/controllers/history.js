@@ -98,7 +98,7 @@ function buildHistorySectionHeader(oHistory, iSectionIndex) {
         var oUndoIconView = Ti.UI.createView();
         $.addClass(oUndoIconView, "appCompositeView");
         var oUndoIconButton = Ti.UI.createButton({
-            image: Alloy.Globals.FAIcons.createIconFile("undo", 24, Alloy.CFG.colors.invertedTextColor),
+            image: Alloy.Globals.FAIcons.createIconFile("trash", 24, Alloy.CFG.colors.invertedTextColor),
             color: Alloy.CFG.colors.invertedTextColor,
             tintColor: Alloy.CFG.colors.invertedTextColor,
         });
@@ -310,4 +310,7 @@ function onUndoShout(e){
 function onMateUndoClick(e){
     "use strict";
 
+}
+
+function mate_undo_button(e){
 }
