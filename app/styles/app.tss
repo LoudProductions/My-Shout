@@ -23,6 +23,12 @@
 	height: 50,
 	width: 200,
 }
+"#adview_container": {
+	/*borderColor: "lime",*/
+	/*backgroundColor:"pink",*/
+	bottom: 0,
+	height: 50,
+}
 ".appGradient" : {
 	backgroundGradient: {
 		type: "linear",
@@ -36,10 +42,15 @@
 	},
 }
 ".appCanvas" : {
-	layout: "vertical"
+	layout: "vertical",
 }
 ".appCanvas[platform=ios]" : {
 	/*backgroundColor: Alloy.CFG.colors.backgroundColor*/
+}
+".appCanvasWithAds" : {
+	layout: "vertical",
+	top: 0,
+	bottom: 50,
 }
 ".appVScrollView" : {}
 ".appVScrollView[platform=android]" : {

@@ -21,6 +21,9 @@
     global.Log = require("logger");
     Log.info("Loading Alloy globals...", "alloy.js");
 
+    // load and configure Firebase module
+    Alloy.Globals.TiFirebase = require("unstuck.ti.firebase");
+
     Alloy.Globals.Animation = require("alloy/animation");
     Alloy.Globals.Dialogs = require("alloy/dialogs");
     Alloy.Globals.FAIcons = require("fa_icons");

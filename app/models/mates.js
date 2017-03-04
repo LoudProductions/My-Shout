@@ -7,6 +7,8 @@ exports.definition = {
 		}
 	},
 	extendModel: function(Model) {
+		"use strict";
+
 		_.extend(Model.prototype, {
 			// extended functions and properties go here
 			validate : function(bNoFix) {
@@ -60,10 +62,9 @@ exports.definition = {
 				}
 			},
 			save : function(options) {
-					var logContext = "models/mate.js > save()";
+					var logContext = "models/mates.js > save()";
 
-					// validate model first
-					this.validate();
+					// model.validate() is called in standard save() handling...
 
 					options = options ? _.clone(options) : {};
 					Log.debug("saving..." + (options ? " with options: " + JSON.stringify(options) : ""), logContext);
@@ -75,6 +76,8 @@ exports.definition = {
 		return Model;
 	},
 	extendCollection: function(Collection) {
+		"use strict";
+
 		_.extend(Collection.prototype, {
 			// extended functions and properties go here
 

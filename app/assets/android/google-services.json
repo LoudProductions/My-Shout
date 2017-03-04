@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "1084055882000",
+    "firebase_url": "https://my-shout-fir.firebaseio.com",
+    "project_id": "my-shout-fir",
+    "storage_bucket": "my-shout-fir.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084055882000:android:4a867dfa73caaba3",
+        "android_client_info": {
+          "package_name": "au.com.loudproductions.myshout.app.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1084055882000-5vh8k207msmd1a8cf5gu6huoifrha4ck.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "au.com.loudproductions.myshout.app.android",
+            "certificate_hash": "3e05d775d46e37b162b9714444eb3812a0397b54"
+          }
+        },
+        {
+          "client_id": "1084055882000-a8cf6umh7hi15ckot0dmu11tejmrnlj1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDs7F0S4V8Im4e4nfQTEE5tVSiVUgoOSjc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1084055882000-fp1tbfh45kmo539elvq3dmp9oh2jcef5.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "au.com.loudproductions.myshout.app",
+                "app_store_id": "1163643333"
+              }
+            },
+            {
+              "client_id": "1084055882000-a8cf6umh7hi15ckot0dmu11tejmrnlj1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

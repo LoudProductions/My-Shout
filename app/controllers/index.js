@@ -54,8 +54,8 @@ function init() {
     _oShoutsController.once("open", function() {
         // _bDidShoutsOpen = true;
         // if (_bDidIntroEnd) {
-            Log.trace("animating in shouts controller...", logContext);
-            _oShoutsController.animateIn();
+        Log.trace("animating in shouts controller...", logContext);
+        _oShoutsController.animateIn();
         // }
     });
     Log.trace("shouts controller created", logContext);
@@ -63,7 +63,7 @@ function init() {
     Log.trace("initialising navigation...", logContext);
     if (OS_IOS) {
         var navWindow = Ti.UI.iOS.createNavigationWindow({
-            window : _oShoutsController.window
+            window: _oShoutsController.window
         });
         Alloy.Globals.navigationWindow = navWindow;
         Alloy.Globals.initNavigation();
@@ -85,6 +85,22 @@ function init() {
         cShouts.fetch();
         Log.debug("shouts collection fetched... model count: " + cShouts.length, logContext);
         Log.debug(cShouts.models, logContext);
+
+        // check if the paid version of the app was purchased before the introduction of ads
+        Log.trace("fetching purchases collection...", logContext);
+        var cPurchases = Alloy.Collections.instance("purchases");
+        cPurchases.fetch();
+        if (cPurchases.didNotYetSaveNoAds() && cShouts.length > 0) {
+            Log.trace("marking app as purchased before ads...", logContext);
+            cPurchases.purchaseNoAds(1, true);
+        } else if (!cPurchases.didPurchaseNoAds()) {
+            Log.trace("marking app as purchased after ads...", logContext);
+            cPurchases.purchaseNoAds(0);
+        } else {
+            Log.trace("app was purchased after ads...", logContext);
+        }
+
+
         Log.trace("calling shouts controller delayedInit()...", logContext);
         _oShoutsController.delayedInit();
         if (cShouts.length === 0) {
@@ -96,15 +112,15 @@ function init() {
             //     _bDidIntroEnd = true;
             //     Log.trace("closing modal intro controller...", logContext);
             //     Alloy.Globals.Navigator.closeModal(_oIntroController);
-                Log.trace("creating shout_wiz controller...", logContext);
-                _oShoutWizController = Alloy.Globals.Navigator.push("shout_wiz");
-                Log.trace("shout_wiz controller created", logContext);
+            Log.trace("creating shout_wiz controller...", logContext);
+            _oShoutWizController = Alloy.Globals.Navigator.push("shout_wiz");
+            Log.trace("shout_wiz controller created", logContext);
 
-                // subsribe shouts controller to handle wizard done event
-                _oShoutWizController.once("done", function(e) {
-                    _oShoutsController.onShoutWizDone(e);
-                    // _oShoutsController.animateIn();
-                });
+            // subsribe shouts controller to handle wizard done event
+            _oShoutWizController.once("done", function(e) {
+                _oShoutsController.onShoutWizDone(e);
+                // _oShoutsController.animateIn();
+            });
             // });
         } else {
             // // shouts found: close modal intro controller after ending intro

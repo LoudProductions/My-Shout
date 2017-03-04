@@ -12,25 +12,25 @@ var _iCountShowiOSEditActions = 0;
 
 if (OS_IOS) {
     var _oEditActions = {
-        oYourShout : {
-            identifier : CONST.ACTIONS.YOUR_SHOUT,
-            title : L("shouts_your_shout"),
-            style : Ti.UI.iOS.ROW_ACTION_STYLE_NORMAL,
+        oYourShout: {
+            identifier: CONST.ACTIONS.YOUR_SHOUT,
+            title: L("shouts_your_shout"),
+            style: Ti.UI.iOS.ROW_ACTION_STYLE_NORMAL,
         },
-        oActivate : {
-            identifier : CONST.ACTIONS.ACTIVATE,
-            title : L("shouts_activate"),
-            style : Ti.UI.iOS.ROW_ACTION_STYLE_DEFAULT,
+        oActivate: {
+            identifier: CONST.ACTIONS.ACTIVATE,
+            title: L("shouts_activate"),
+            style: Ti.UI.iOS.ROW_ACTION_STYLE_DEFAULT,
         },
-        oDeactivate : {
-            identifier : CONST.ACTIONS.DEACTIVATE,
-            title : L("shouts_deactivate"),
-            style : Ti.UI.iOS.ROW_ACTION_STYLE_DESTRUCTIVE,
+        oDeactivate: {
+            identifier: CONST.ACTIONS.DEACTIVATE,
+            title: L("shouts_deactivate"),
+            style: Ti.UI.iOS.ROW_ACTION_STYLE_DESTRUCTIVE,
         },
-        oEdit : {
-            identifier : CONST.ACTIONS.EDIT,
-            title : L("app_edit"),
-            style : Ti.UI.iOS.ROW_ACTION_STYLE_NORMAL,
+        oEdit: {
+            identifier: CONST.ACTIONS.EDIT,
+            title: L("app_edit"),
+            style: Ti.UI.iOS.ROW_ACTION_STYLE_NORMAL,
         },
     };
 }
@@ -92,9 +92,23 @@ function init() {
     fillPageIndicatorIcons();
     fillFavShoutSection();
     fillShoutMatesSection();
+    checkMustShowAds();
 
     Log.trace("raising $.loaded event...", logContext);
     $.trigger("loaded");
+}
+
+function checkMustShowAds() {
+    "use strict";
+    var logContext = "shouts.js > checkMustShowAds()";
+    var cPurchases = Alloy.Collections.instance("purchases");
+    if (!cPurchases.didPurchaseNoAds()) {
+        Log.warn("Showing ads (user did not purchase no ads...)", logContext);
+        $.addClass($.shouts_container, "appCanvasWithAds");
+        $.adview_container.setVisible(true);
+    } else {
+        Log.warn("User purchased app or no ads: ads will not be shown...", logContext);        
+    }
 }
 
 function setButtonImages() {
@@ -233,44 +247,44 @@ function swipeFavShout(direction, oFavShoutView) {
         // to create the impression of a spinning coin (slowing down to the end)
         var aAnimations = [];
         aAnimations.push(Ti.UI.createAnimation({
-            transform: Ti.UI.create2DMatrix().scale(0.1,1),
-            duration : 10,
-            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+            transform: Ti.UI.create2DMatrix().scale(0.1, 1),
+            duration: 10,
+            curve: Ti.UI.ANIMATION_CURVE_LINEAR,
         }));
         aAnimations.push(Ti.UI.createAnimation({
-            transform: Ti.UI.create2DMatrix().scale(1,1),
-            duration : 20,
-            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+            transform: Ti.UI.create2DMatrix().scale(1, 1),
+            duration: 20,
+            curve: Ti.UI.ANIMATION_CURVE_LINEAR,
         }));
         aAnimations.push(Ti.UI.createAnimation({
-            transform: Ti.UI.create2DMatrix().scale(0.1,1),
-            duration : 40,
-            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+            transform: Ti.UI.create2DMatrix().scale(0.1, 1),
+            duration: 40,
+            curve: Ti.UI.ANIMATION_CURVE_LINEAR,
         }));
         aAnimations.push(Ti.UI.createAnimation({
-            transform: Ti.UI.create2DMatrix().scale(1,1),
-            duration : 70,
-            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+            transform: Ti.UI.create2DMatrix().scale(1, 1),
+            duration: 70,
+            curve: Ti.UI.ANIMATION_CURVE_LINEAR,
         }));
         aAnimations.push(Ti.UI.createAnimation({
-            transform: Ti.UI.create2DMatrix().scale(0.1,1),
-            duration : 110,
-            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+            transform: Ti.UI.create2DMatrix().scale(0.1, 1),
+            duration: 110,
+            curve: Ti.UI.ANIMATION_CURVE_LINEAR,
         }));
         aAnimations.push(Ti.UI.createAnimation({
-            transform: Ti.UI.create2DMatrix().scale(1,1),
-            duration : 160,
-            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+            transform: Ti.UI.create2DMatrix().scale(1, 1),
+            duration: 160,
+            curve: Ti.UI.ANIMATION_CURVE_LINEAR,
         }));
         aAnimations.push(Ti.UI.createAnimation({
-            transform: Ti.UI.create2DMatrix().scale(0.1,1),
-            duration : 220,
-            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+            transform: Ti.UI.create2DMatrix().scale(0.1, 1),
+            duration: 220,
+            curve: Ti.UI.ANIMATION_CURVE_LINEAR,
         }));
         aAnimations.push(Ti.UI.createAnimation({
-            transform: Ti.UI.create2DMatrix().scale(1,1),
-            duration : 300,
-            curve : Ti.UI.ANIMATION_CURVE_LINEAR,
+            transform: Ti.UI.create2DMatrix().scale(1, 1),
+            duration: 300,
+            curve: Ti.UI.ANIMATION_CURVE_LINEAR,
         }));
         Alloy.Globals.Animation.chainAnimate(oFavShoutView, aAnimations, onAnimationComplete);
     } else {
@@ -386,10 +400,10 @@ function mapShoutListItem(mShout, template, bIsSwiping) {
             accessoryType: template == "fav_shout_template" ? Ti.UI.LIST_ACCESSORY_TYPE_NONE : Ti.UI.LIST_ACCESSORY_TYPE_DISCLOSURE,
             searchableText: oShout.name + oShout.type + oShout.place,
             itemId: mShout.id
-                // if using built-in item templates for iOS, uncomment these
-                // title : oShout.uiWho
-                // subtitle : oShout.uiWhere
-                // image : ...
+            // if using built-in item templates for iOS, uncomment these
+            // title : oShout.uiWho
+            // subtitle : oShout.uiWhere
+            // image : ...
         },
         shout_who: {
             text: oShout.uiWho,
@@ -422,7 +436,7 @@ function mapMateListItem(oMate, template) {
     var mateBackgroundColor = Alloy.CFG.colors.invertedTextColor;
     if (oMate.isInactive) {
         mateColor = Alloy.CFG.colors.inactiveColor;
-    //    mateBackgroundColor = Alloy.CFG.colors.inactiveBackgroundColor;
+        //    mateBackgroundColor = Alloy.CFG.colors.inactiveBackgroundColor;
     } else if (oMate.hasShout) {
         mateColor = Alloy.CFG.colors.invertedTextColor;
         // mateBackgroundColor = Alloy.CFG.colors.tintColor;
@@ -435,10 +449,10 @@ function mapMateListItem(oMate, template) {
             accessoryType: Ti.UI.LIST_ACCESSORY_TYPE_NONE,
             searchableText: oMate.name + oMate.poison + oMate.price,
             itemId: oMate.mateId,
-                // if using built-in item templates for iOS, uncomment these
-                // title : oMate.name
-                // subtitle : oMate.poison
-                // image : ...
+            // if using built-in item templates for iOS, uncomment these
+            // title : oMate.name
+            // subtitle : oMate.poison
+            // image : ...
         },
         mate_name: {
             text: oMate.name,
@@ -1166,7 +1180,7 @@ function onWindowClose() {
     $.destroy();
 }
 
-function onEditAction(e){
+function onEditAction(e) {
     "use strict";
 
     _bIsEditingMate = true;
@@ -1196,7 +1210,7 @@ function onEditAction(e){
     }
 }
 
-function onShoutsListClick(e){
+function onShoutsListClick(e) {
     "use strict";
 
     var logContext = "shouts.js > onShoutsListClick()";

@@ -114,5 +114,9 @@
 
 		<ActivityIndicator id="activity_indicator" touchEnabled="false" />
 
+		<View id="adview_container" visible="false">
+			  <Module platform="ios" id="adView" module="unstuck.ti.firebase" method="createAdView" bannerAdUnitId="ca-app-pub-1793162040065538/2839534800" interstitialAdUnitId="ca-app-pub-1793162040065538/2699934008" isTesting="Alloy.CFG.admob.isTesting"/>
+			  <Module platform="android" id="adView" module="unstuck.ti.firebase" method="createAdView" bannerAdUnitId="ca-app-pub-1793162040065538/5653400405" interstitialAdUnitId="ca-app-pub-1793162040065538/7130133600" isTesting="Alloy.CFG.admob.isTesting"/>
+		</View>
 	</Window>
 </Alloy>
